@@ -2,26 +2,42 @@
   "name": "yarn-app-7",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=18",
+    "npm": "Please use Yarn"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "graphql-codegen:generate": "graphql-codegen -r dotenv/config --config codegen.ts",
+    "graphql-codegen:watch": "graphql-codegen --watch -r dotenv/config --config codegen.ts"
   },
   "dependencies": {
+    "@contentful/live-preview": "^2.17.3",
+    "@contentful/rich-text-react-renderer": "^15.19.4",
+    "dotenv": "^16.4.5",
+    "graphql": "^16.8.1",
+    "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.1.0"
+    "swiper": "^11.0.6"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@contentful/rich-text-types": "^16.3.4",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.2.2",
+    "@graphql-codegen/introspection": "^4.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.0",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.1.0"
+    "typescript": "^5",
+    "typescript-graphql-request": "^4.4.6"
   }
 }

@@ -2449,7 +2449,127 @@ export type CfpageSectionPartsMultiTypeNestedFilter = {
   sys?: InputMaybe<SysFilter>;
 };
 
+export type GetHomePageDataQueryVariables = Exact<{
+  preview: Scalars['Boolean']['input'];
+}>;
 
+
+export type GetHomePageDataQuery = { __typename?: 'Query', generalPage?: { __typename: 'GeneralPage', sys: { __typename?: 'Sys', id: string }, pageMetadata?: { __typename: 'SeoMetadata', pageTitle?: string | null, metaDescription?: string | null, sys: { __typename?: 'Sys', id: string }, favicon?: { __typename: 'Asset', url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, pageSectionCollection?: { __typename?: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename?: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs' } | { __typename: 'CustomersSection', sys: { __typename?: 'Sys', id: string }, selectCustomerLogosCollection?: { __typename?: 'AssetCollection', items: Array<{ __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, selectTestimonialsCollection?: { __typename?: 'CustomersSectionSelectTestimonialsCollection', items: Array<{ __typename: 'CustomerTestimonialCard', testimonial?: string | null, customerName?: string | null, titleposition?: string | null, sys: { __typename?: 'Sys', id: string }, logo?: { __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null } | { __typename: 'GeneralContentCard', heading?: string | null, subheading?: string | null, ctas?: any | null, sys: { __typename?: 'Sys', id: string }, mediaCollection?: { __typename?: 'AssetCollection', items: Array<{ __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null };
+
+export type GetOpenSourcePageDataQueryVariables = Exact<{
+  preview: Scalars['Boolean']['input'];
+}>;
+
+
+export type GetOpenSourcePageDataQuery = { __typename?: 'Query', generalPage?: { __typename?: 'GeneralPage', pageName?: string | null, pageSlug?: string | null } | null };
+
+
+export const GetHomePageDataDocument = gql`
+    query getHomePageData($preview: Boolean!) {
+  generalPage(id: "4GpCxSdhnotHZfV2tQgKoh", preview: $preview) {
+    __typename
+    sys {
+      id
+    }
+    pageMetadata {
+      __typename
+      sys {
+        id
+      }
+      pageTitle
+      metaDescription
+      favicon {
+        __typename
+        sys {
+          id
+        }
+        url
+      }
+    }
+    pageSectionCollection(limit: 10) {
+      items {
+        __typename
+        sys {
+          id
+        }
+        pageSectionPartsCollection(limit: 6) {
+          items {
+            __typename
+            ... on GeneralContentCard {
+              __typename
+              sys {
+                id
+              }
+              heading
+              subheading
+              ctas
+              mediaCollection(limit: 8) {
+                items {
+                  __typename
+                  sys {
+                    id
+                  }
+                  url
+                  description
+                  width
+                  height
+                }
+              }
+            }
+            ... on CustomersSection {
+              __typename
+              sys {
+                id
+              }
+              selectCustomerLogosCollection(limit: 8) {
+                items {
+                  __typename
+                  sys {
+                    id
+                  }
+                  url
+                  description
+                  width
+                  height
+                }
+              }
+              selectTestimonialsCollection(limit: 2) {
+                items {
+                  __typename
+                  sys {
+                    id
+                  }
+                  logo {
+                    __typename
+                    sys {
+                      id
+                    }
+                    url
+                    description
+                    width
+                    height
+                  }
+                  testimonial
+                  customerName
+                  titleposition
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export const GetOpenSourcePageDataDocument = gql`
+    query getOpenSourcePageData($preview: Boolean!) {
+  generalPage(id: "6nhKPVtrhOpI6NQ9FGv8ia", preview: $preview) {
+    pageName
+    pageSlug
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -2458,7 +2578,12 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-
+    getHomePageData(variables: GetHomePageDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetHomePageDataQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageDataQuery>(GetHomePageDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getHomePageData', 'query');
+    },
+    getOpenSourcePageData(variables: GetOpenSourcePageDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetOpenSourcePageDataQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetOpenSourcePageDataQuery>(GetOpenSourcePageDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getOpenSourcePageData', 'query');
+    }
   };
 }
 export type Sdk = ReturnType<typeof getSdk>;

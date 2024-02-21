@@ -1,14 +1,49 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
+import HeroContainer from "@/components/common/HeroContainer";
+import HomeSection1, {
+  HomeSection1Props,
+} from "@/components/home/HomeSection1";
+import { GetHomePageDataQuery } from "@/lib/__generated/sdk";
+import { client, previewClient } from "@/lib/client";
+import { useContentfulLiveUpdates } from "@contentful/live-preview/react";
 
-const inter = Inter({ subsets: ["latin"] });
+export default function Home({ data }: { data: GetHomePageDataQuery }) {
+  const liveData = useContentfulLiveUpdates(data);
+  // console.log("LIVE DATA: ", liveData);
 
-export default function Home() {
+  const homeSection1Data = liveData.generalPage?.pageSectionCollection
+    ?.items[0] as HomeSection1Props;
+
+  console.log("HomeSection1Props: ", homeSection1Data);
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <h1>Hello world!</h1>
+    <main>
+      <HeroContainer>
+        <HomeSection1 homeSection1Data={homeSection1Data} />
+      </HeroContainer>
     </main>
   );
 }
+
+export const getStaticProps = async ({ preview = false }) => {
+  try {
+    const contentful = preview ? previewClient : client;
+
+    const data = await contentful.getHomePageData({ preview });
+
+    if (!data) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
+};

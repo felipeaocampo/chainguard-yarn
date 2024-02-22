@@ -23,6 +23,9 @@ const config: Config = {
         "cg-text-color-gray": "#545454",
         "cg-bg-violet": "#e1e3fd",
       },
+      boxShadow: {
+        card: "0 8px 16px rgba(52, 67, 244, .12)",
+      },
     },
   },
   plugins: [],

@@ -2,6 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContentfulInspectorMode } from "@contentful/live-preview/react";
 
+export type ContentfulImgType = {
+  __typename: string;
+  sys: {
+    id: string;
+  };
+  url: string;
+  description: string;
+  width: number;
+  height: number;
+};
+
 export type HomeSection1Props = {
   __typename: string;
   sys: {
@@ -25,17 +36,6 @@ type HomeGCCSec1Type = {
   mediaCollection: {
     items: ContentfulImgType[];
   };
-};
-
-type ContentfulImgType = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  url: string;
-  description: string;
-  width: number;
-  height: number;
 };
 
 export default function HomeSection1({
@@ -83,7 +83,7 @@ export default function HomeSection1({
       <Link
         {...inspectorPropsGCC({ fieldId: "ctas" })}
         href={ctaLink}
-        className="mb-[96px] py-[12px] px-[24px] bg-cg-text-blue text-white rounded-[4px] hover:bg-cg-hover-btn-bg-blue transition-all"
+        className="mb-[96px] py-[12px] px-[24px] bg-cg-text-blue text-white rounded-[4px] hover:bg-cg-hover-btn-bg-blue transition-all duration-[.4s]"
       >
         {ctaText}
       </Link>

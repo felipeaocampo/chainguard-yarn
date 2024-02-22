@@ -12,32 +12,86 @@ query getHomePageData($preview: Boolean!) {
       pageTitle
       metaDescription
       favicon {
+        __typename
+        sys {
+          id
+        }
         url
       }
     }
     pageSectionCollection(limit: 10) {
       __typename
+
       items {
         __typename
         sys {
           id
         }
         pageSectionPartsCollection(limit: 6) {
+          __typename
           items {
             __typename
             ... on GeneralContentCard {
+              __typename
               sys {
                 id
               }
               heading
               subheading
               ctas
+              descriptionText
               mediaCollection(limit: 8) {
+                __typename
                 items {
+                  __typename
+                  sys {
+                    id
+                  }
                   url
                   description
                   width
                   height
+                }
+              }
+            }
+            ... on CustomersSection {
+              __typename
+              sys {
+                id
+              }
+              selectCustomerLogosCollection(limit: 8) {
+                __typename
+                items {
+                  __typename
+                  sys {
+                    id
+                  }
+                  url
+                  description
+                  width
+                  height
+                }
+              }
+              selectTestimonialsCollection(limit: 2) {
+                __typename
+                items {
+                  __typename
+                  sys {
+                    id
+                  }
+                  logo {
+                    __typename
+                    sys {
+                      id
+                    }
+                    url
+                    description
+                    width
+                    height
+                  }
+                  testimonial
+                  customerName
+                  titleposition
                 }
               }
             }

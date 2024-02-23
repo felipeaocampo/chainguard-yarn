@@ -1,0 +1,7 @@
+query getGraphQLErrorResponse {
+  blogCollection(where: { blogName: "Tony" }) {
+    items {
+      blogName
+    }
+  }
+}

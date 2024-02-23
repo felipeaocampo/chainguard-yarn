@@ -7,9 +7,9 @@
     "npm": "Please use Yarn"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "yarn run graphql-codegen:generate && next dev",
+    "build": "yarn run graphql-codegen:generate && next build",
+    "start": "yarn run graphql-codegen:generate && next start",
     "lint": "next lint",
     "graphql-codegen:generate": "graphql-codegen -r dotenv/config --config codegen.ts",
     "graphql-codegen:watch": "graphql-codegen --watch -r dotenv/config --config codegen.ts"
@@ -29,6 +29,7 @@
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/client-preset": "^4.2.2",
     "@graphql-codegen/introspection": "^4.0.2",
+    "@parcel/watcher": "^2.4.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

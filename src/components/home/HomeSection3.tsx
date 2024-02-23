@@ -96,7 +96,7 @@ export default function HomeSection3({
   const [[ctaLink, ctaText]] = Object.entries(mainContentCard.ctas);
 
   return (
-    <section className="w-11/1 max-w-[1152px] mx-auto">
+    <section className="max-w-[1152px] mx-auto">
       <div className="flex">
         <div className="section-2-header-text mb-[48px] w-1/2">
           <h3

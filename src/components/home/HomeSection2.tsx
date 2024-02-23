@@ -74,7 +74,7 @@ export default function HomeSection2({
   // console.log("CUST: ", customersDataHub);
 
   return (
-    <section className="w-11/1 max-w-[1152px] mx-auto">
+    <section className="max-w-[1152px] mx-auto">
       <div className="section-2-header-text mb-[48px]">
         <h3
           {...inspectorPropsGCC({ fieldId: "heading" })}

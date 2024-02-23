@@ -1,8 +1,11 @@
-import Layout from "@/components/ui/Layout";
-import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ContentfulLivePreviewProvider } from "@contentful/live-preview/react";
+
+import Layout from "@/components/ui/Layout";
+
+import "@/styles/globals.css";
 import "@contentful/live-preview/style.css";
+import "@/styles/slider-styles.css";
 
 import { Inter } from "next/font/google";
 

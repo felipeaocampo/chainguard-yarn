@@ -8,6 +8,9 @@ import HomeSection2, {
 import HomeSection3, {
   HomeSection3Props,
 } from "@/components/home/HomeSection3";
+import HomeSection4, {
+  HomeSection4Props,
+} from "@/components/home/HomeSection4";
 import { GetHomePageDataQuery } from "@/lib/__generated/sdk";
 import { client, previewClient } from "@/lib/client";
 import { useContentfulLiveUpdates } from "@contentful/live-preview/react";
@@ -22,10 +25,13 @@ export default function Home({ data }: { data: GetHomePageDataQuery }) {
     ?.items[1] as HomeSection2Props;
   const homeSection3Data = liveData.generalPage?.pageSectionCollection
     ?.items[2] as HomeSection3Props;
-  const homeSection4Data =
-    liveData.generalPage?.pageSectionCollection?.items[3];
+  const homeSection4Data = liveData.generalPage?.pageSectionCollection
+    ?.items[3] as HomeSection4Props;
 
-  console.log("HomeSection4: ", homeSection4Data);
+  // console.log("HomeSection4: ", homeSection4Data);
+
+  // ! TODO: SET UP GUARD VALUES FOR EACH OUTPUT FIELD SO THAT IF SOMEONE MESSES UP IN CONTENTFUL AND THERE'S AN EMPTY VALUE AND PUBLISHES, THE SITE DOESNT BREAK AT LEAST
+  // TODO: make it so that the slider slides extend beyond the 1152px screen max width
 
   return (
     <main>
@@ -34,6 +40,7 @@ export default function Home({ data }: { data: GetHomePageDataQuery }) {
       </HeroContainer>
       <HomeSection2 homeSection2Data={homeSection2Data} />
       <HomeSection3 homeSection3Data={homeSection3Data} />
+      <HomeSection4 homeSection4Data={homeSection4Data} />
     </main>
   );
 }

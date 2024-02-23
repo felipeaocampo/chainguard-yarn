@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useContentfulInspectorMode } from "@contentful/live-preview/react";
+import HomeSlider from "./slider/HomeSlider";
 
 export type ContentfulImgType = {
   __typename: string;
@@ -38,7 +39,7 @@ type HomeGCCSec4TypeA = {
   mediaCollection: ContentfulImgType[];
 };
 
-type HomeGCCSec4TypeB = {
+export type HomeGCCSec4TypeB = {
   __typename: string;
   sys: {
     id: string;
@@ -83,7 +84,7 @@ export default function HomeSection4({
     entryId: slideCard4.sys.id,
   });
 
-  const benefitCardsWithInspectorProps: [
+  const slideCardsWithInspectorProps: [
     HomeGCCSec4TypeB,
     ReturnType<typeof useContentfulInspectorMode<{ entryId: string }>>
   ][] = [
@@ -96,7 +97,35 @@ export default function HomeSection4({
   const [[ctaLink, ctaText]] = Object.entries(mainContentCard.ctas);
 
   return (
-    <section className="w-11/1 max-w-[1152px] mx-auto">
+    <section className="max-w-[1152px] mx-auto">
+      <div className="section-2-header-text mb-[48px] w-1/2">
+        <h3
+          {...inspectorPropsGCC({ fieldId: "heading" })}
+          className="text-[14px] uppercase tracking-[.64px] mb-[24px]"
+        >
+          {mainContentCard.heading}
+        </h3>
+        <p
+          {...inspectorPropsGCC({ fieldId: "subheading" })}
+          className="text-[36px] font-semibold leading-[43.2px] mb-[12px]"
+        >
+          {mainContentCard.subheading}
+        </p>
+        <p
+          {...inspectorPropsGCC({ fieldId: "descriptionText" })}
+          className="mb-[24px]"
+        >
+          {mainContentCard.descriptionText}
+        </p>
+        <Link
+          {...inspectorPropsGCC({ fieldId: "ctas" })}
+          href={ctaLink}
+          className="inline-block py-[12px] px-[24px] bg-cg-text-blue text-white rounded-[4px] hover:bg-cg-hover-btn-bg-blue transition-all mb-[48px]"
+        >
+          {ctaText}
+        </Link>
+      </div>
+      <HomeSlider slideCardsWithInspectorProps={slideCardsWithInspectorProps} />
       <div className="divider-line pt-[96px] mb-[96px] w-[85px] border-b border-solid"></div>
     </section>
   );

@@ -1,0 +1,20 @@
+/* CustomStyles.css or CustomStyles.scss */
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: #000; /* Change background color */
+  color: #fff !important; /* Change icon color */
+  width: 40px !important; /* Change width */
+  height: 40px !important; /* Change height */
+  transform: translateY(-28px);
+  border-radius: 100px;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 16px !important; /* Change icon size */
+}
+
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+  display: none;
+}

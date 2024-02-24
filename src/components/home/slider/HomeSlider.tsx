@@ -3,16 +3,15 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { useContentfulInspectorMode } from "@contentful/live-preview/react";
-import { HomeGCCSec4TypeB } from "@/components/home/HomeSection4";
 import "swiper/css";
 import "swiper/css/navigation";
-// import "./HomeSlider.css";
+import { HomeGeneralContentCardFragment } from "@/lib/__generated/sdk";
 
 export default function HomeSlider({
   slideCardsWithInspectorProps,
 }: {
   slideCardsWithInspectorProps: [
-    HomeGCCSec4TypeB,
+    HomeGeneralContentCardFragment,
     ReturnType<typeof useContentfulInspectorMode<{ entryId: string }>>
   ][];
 }) {
@@ -24,14 +23,22 @@ export default function HomeSlider({
       slidesPerView={2.15}
       spaceBetween={24}
     >
-      {slideCardsWithInspectorProps.map(([slide, iProps]) => {
+      {slideCardsWithInspectorProps.map(([slide, iProps], i) => {
         return (
-          <SwiperSlide key={slide.sys.id}>
+          <SwiperSlide key={slide.sys.id || i}>
             <div className="slide-img-container bg-hero-cg-gradient rounded-[8px] mb-[24px]">
               <Image
                 {...iProps({ fieldId: "media" })}
-                src={slide.mediaCollection.items[0].url || ""}
-                alt={slide.mediaCollection.items[0].description || ""}
+                src={
+                  (slide.mediaCollection?.items[0] &&
+                    slide.mediaCollection?.items[0].url) ||
+                  ""
+                }
+                alt={
+                  (slide.mediaCollection?.items[0] &&
+                    slide.mediaCollection?.items[0].description) ||
+                  ""
+                }
                 width={0}
                 height={0}
                 sizes="100vw"

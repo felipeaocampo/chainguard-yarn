@@ -1,51 +1,61 @@
 import HeroContainer from "@/components/common/HeroContainer";
-import HomeSection1, {
-  HomeSection1Props,
-} from "@/components/home/HomeSection1";
-import HomeSection2, {
-  HomeSection2Props,
-} from "@/components/home/HomeSection2";
-import HomeSection3, {
-  HomeSection3Props,
-} from "@/components/home/HomeSection3";
-import HomeSection4, {
-  HomeSection4Props,
-} from "@/components/home/HomeSection4";
-import { GetHomePageDataQuery } from "@/lib/__generated/sdk";
+import HomeSection1 from "@/components/home/HomeSection1";
+import HomeSection2 from "@/components/home/HomeSection2";
+import HomeSection3 from "@/components/home/HomeSection3";
+import HomeSection4 from "@/components/home/HomeSection4";
+import HomeSection5 from "@/components/home/HomeSection5";
+import HomeSection6 from "@/components/home/HomeSection6";
+import { GetHomePageDataQuery, PageSection } from "@/lib/__generated/sdk";
 import { client, previewClient } from "@/lib/client";
 import { useContentfulLiveUpdates } from "@contentful/live-preview/react";
+import { GetStaticProps } from "next";
 
 export default function Home({ data }: { data: GetHomePageDataQuery }) {
   const liveData = useContentfulLiveUpdates(data);
-  // console.log("LIVE DATA: ", liveData);
 
-  const homeSection1Data = liveData.generalPage?.pageSectionCollection
-    ?.items[0] as HomeSection1Props;
-  const homeSection2Data = liveData.generalPage?.pageSectionCollection
-    ?.items[1] as HomeSection2Props;
-  const homeSection3Data = liveData.generalPage?.pageSectionCollection
-    ?.items[2] as HomeSection3Props;
-  const homeSection4Data = liveData.generalPage?.pageSectionCollection
-    ?.items[3] as HomeSection4Props;
+  const [
+    homeSection1Data,
+    homeSection2Data,
+    homeSection3Data,
+    homeSection4Data,
+    homeSection5Data,
+    homeSection6Data,
+  ] = (liveData?.generalPage?.pageSectionCollection?.items || []) as (
+    | PageSection
+    | undefined
+  )[];
 
-  // console.log("HomeSection4: ", homeSection4Data);
-
-  // ! TODO: SET UP GUARD VALUES FOR EACH OUTPUT FIELD SO THAT IF SOMEONE MESSES UP IN CONTENTFUL AND THERE'S AN EMPTY VALUE AND PUBLISHES, THE SITE DOESNT BREAK AT LEAST
   // TODO: make it so that the slider slides extend beyond the 1152px screen max width
 
+  // console.log("homeSection6Data: ", homeSection6Data);
+
   return (
-    <main>
+    <main className="border-b border-solid border-[#dcdcdc]">
       <HeroContainer>
-        <HomeSection1 homeSection1Data={homeSection1Data} />
+        <HomeSection1
+          homeSection1Data={homeSection1Data ? homeSection1Data : null}
+        />
       </HeroContainer>
-      <HomeSection2 homeSection2Data={homeSection2Data} />
-      <HomeSection3 homeSection3Data={homeSection3Data} />
-      <HomeSection4 homeSection4Data={homeSection4Data} />
+      <HomeSection2
+        homeSection2Data={homeSection2Data ? homeSection2Data : null}
+      />
+      <HomeSection3
+        homeSection3Data={homeSection3Data ? homeSection3Data : null}
+      />
+      <HomeSection4
+        homeSection4Data={homeSection4Data ? homeSection4Data : null}
+      />
+      <HomeSection5
+        homeSection5Data={homeSection5Data ? homeSection5Data : null}
+      />
+      <HomeSection6
+        homeSection6Data={homeSection6Data ? homeSection6Data : null}
+      />
     </main>
   );
 }
 
-export const getStaticProps = async ({ preview = false }) => {
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   try {
     const contentful = preview ? previewClient : client;
 

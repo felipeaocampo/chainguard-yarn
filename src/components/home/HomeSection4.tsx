@@ -2,90 +2,51 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContentfulInspectorMode } from "@contentful/live-preview/react";
 import HomeSlider from "./slider/HomeSlider";
-
-export type ContentfulImgType = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  url: string;
-  description: string;
-  width: number;
-  height: number;
-};
-
-export type HomeSection4Props = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  pageSectionPartsCollection: {
-    __typename: string;
-    items: (HomeGCCSec4TypeA | HomeGCCSec4TypeB)[];
-  };
-};
-
-type HomeGCCSec4TypeA = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  heading: string;
-  subheading: string;
-  descriptionText: string;
-  ctas: {
-    [key: string]: string;
-  };
-  mediaCollection: ContentfulImgType[];
-};
-
-export type HomeGCCSec4TypeB = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  heading: string;
-  subheading: string;
-  mediaCollection: {
-    items: ContentfulImgType[];
-  };
-};
+import {
+  HomeGeneralContentCardFragment,
+  PageSection,
+} from "@/lib/__generated/sdk";
 
 export default function HomeSection4({
   homeSection4Data,
 }: {
-  homeSection4Data: HomeSection4Props;
+  homeSection4Data: PageSection | null;
 }) {
-  const mainContentCard = homeSection4Data.pageSectionPartsCollection
-    ?.items[0] as HomeGCCSec4TypeA;
-
-  const slideCard1 = homeSection4Data.pageSectionPartsCollection
-    ?.items[1] as HomeGCCSec4TypeB;
-  const slideCard2 = homeSection4Data.pageSectionPartsCollection
-    ?.items[2] as HomeGCCSec4TypeB;
-  const slideCard3 = homeSection4Data.pageSectionPartsCollection
-    ?.items[3] as HomeGCCSec4TypeB;
-  const slideCard4 = homeSection4Data.pageSectionPartsCollection
-    ?.items[4] as HomeGCCSec4TypeB;
+  const [mainContentCard, slideCard1, slideCard2, slideCard3, slideCard4] =
+    (homeSection4Data?.pageSectionPartsCollection?.items || []) as (
+      | HomeGeneralContentCardFragment
+      | undefined
+    )[];
 
   const inspectorPropsGCC = useContentfulInspectorMode({
-    entryId: mainContentCard.sys.id,
+    entryId: mainContentCard?.sys.id || "",
   });
   const inspectorPropsSli1 = useContentfulInspectorMode({
-    entryId: slideCard1.sys.id,
+    entryId: slideCard1?.sys.id || "",
   });
   const inspectorPropsSli2 = useContentfulInspectorMode({
-    entryId: slideCard2.sys.id,
+    entryId: slideCard2?.sys.id || "",
   });
   const inspectorPropsSli3 = useContentfulInspectorMode({
-    entryId: slideCard3.sys.id,
+    entryId: slideCard3?.sys.id || "",
   });
   const inspectorPropsSli4 = useContentfulInspectorMode({
-    entryId: slideCard4.sys.id,
+    entryId: slideCard4?.sys.id || "",
   });
 
+  if (
+    !homeSection4Data ||
+    !mainContentCard ||
+    !slideCard1 ||
+    !slideCard2 ||
+    !slideCard3 ||
+    !slideCard4
+  ) {
+    return null;
+  }
+
   const slideCardsWithInspectorProps: [
-    HomeGCCSec4TypeB,
+    HomeGeneralContentCardFragment,
     ReturnType<typeof useContentfulInspectorMode<{ entryId: string }>>
   ][] = [
     [slideCard1, inspectorPropsSli1],
@@ -94,7 +55,7 @@ export default function HomeSection4({
     [slideCard4, inspectorPropsSli4],
   ];
 
-  const [[ctaLink, ctaText]] = Object.entries(mainContentCard.ctas);
+  const [[ctaLink, ctaText]] = Object.entries(mainContentCard.ctas) as any[];
 
   return (
     <section className="max-w-[1152px] mx-auto">

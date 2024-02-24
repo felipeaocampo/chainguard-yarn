@@ -1,0 +1,23 @@
+fragment HomeGeneralContentCard on GeneralContentCard {
+  __typename
+  sys {
+    id
+  }
+  heading
+  subheading
+  ctas
+  descriptionText
+  mediaCollection(limit: 8) {
+    __typename
+    items {
+      __typename
+      sys {
+        id
+      }
+      url
+      description
+      width
+      height
+    }
+  }
+}

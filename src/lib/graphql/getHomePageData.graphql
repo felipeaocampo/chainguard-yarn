@@ -31,29 +31,7 @@ query getHomePageData($preview: Boolean!) {
           __typename
           items {
             __typename
-            ... on GeneralContentCard {
-              __typename
-              sys {
-                id
-              }
-              heading
-              subheading
-              ctas
-              descriptionText
-              mediaCollection(limit: 8) {
-                __typename
-                items {
-                  __typename
-                  sys {
-                    id
-                  }
-                  url
-                  description
-                  width
-                  height
-                }
-              }
-            }
+            ...HomeGeneralContentCard
             ... on CustomersSection {
               __typename
               sys {

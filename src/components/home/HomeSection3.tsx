@@ -2,89 +2,57 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContentfulInspectorMode } from "@contentful/live-preview/react";
 import ChainguardImagesPerformanceTabs from "./tabs/ChainguardImagesPerformanceTabs";
-
-export type ContentfulImgType = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  url: string;
-  description: string;
-  width: number;
-  height: number;
-};
-
-export type HomeSection3Props = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  pageSectionPartsCollection: {
-    __typename: string;
-    items: (HomeGCCSec3TypeA | HomeGCCSec3TypeB)[];
-  };
-};
-
-type HomeGCCSec3TypeA = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  heading: string;
-  subheading: string;
-  description: string;
-  ctas: {
-    [key: string]: string;
-  };
-};
-
-type HomeGCCSec3TypeB = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  heading: string;
-  subheading: string;
-  mediaCollection: {
-    items: ContentfulImgType[];
-  };
-};
+import {
+  HomeGeneralContentCardFragment,
+  PageSection,
+} from "@/lib/__generated/sdk";
+import { outputCtfImgValueOrFallback } from "@/lib/outputCtfImgValueOrFallback";
 
 export default function HomeSection3({
   homeSection3Data,
 }: {
-  homeSection3Data: HomeSection3Props;
+  homeSection3Data: PageSection | null;
 }) {
-  const mainContentCard = homeSection3Data.pageSectionPartsCollection
-    ?.items[0] as HomeGCCSec3TypeA;
-
-  const benefitCard1 = homeSection3Data.pageSectionPartsCollection
-    ?.items[1] as HomeGCCSec3TypeB;
-  const benefitCard2 = homeSection3Data.pageSectionPartsCollection
-    ?.items[2] as HomeGCCSec3TypeB;
-  const benefitCard3 = homeSection3Data.pageSectionPartsCollection
-    ?.items[3] as HomeGCCSec3TypeB;
-  const benefitCard4 = homeSection3Data.pageSectionPartsCollection
-    ?.items[4] as HomeGCCSec3TypeB;
+  const [
+    mainContentCard,
+    benefitCard1,
+    benefitCard2,
+    benefitCard3,
+    benefitCard4,
+  ] = (homeSection3Data?.pageSectionPartsCollection?.items || []) as (
+    | HomeGeneralContentCardFragment
+    | undefined
+  )[];
 
   const inspectorPropsGCC = useContentfulInspectorMode({
-    entryId: mainContentCard.sys.id,
+    entryId: mainContentCard?.sys.id || "",
   });
   const inspectorPropsBen1 = useContentfulInspectorMode({
-    entryId: benefitCard1.sys.id,
+    entryId: benefitCard1?.sys.id || "",
   });
   const inspectorPropsBen2 = useContentfulInspectorMode({
-    entryId: benefitCard2.sys.id,
+    entryId: benefitCard2?.sys.id || "",
   });
   const inspectorPropsBen3 = useContentfulInspectorMode({
-    entryId: benefitCard3.sys.id,
+    entryId: benefitCard3?.sys.id || "",
   });
   const inspectorPropsBen4 = useContentfulInspectorMode({
-    entryId: benefitCard4.sys.id,
+    entryId: benefitCard4?.sys.id || "",
   });
 
+  if (
+    !homeSection3Data ||
+    !mainContentCard ||
+    !benefitCard1 ||
+    !benefitCard2 ||
+    !benefitCard3 ||
+    !benefitCard4
+  ) {
+    return null;
+  }
+
   const benefitCardsWithInspectorProps: [
-    HomeGCCSec3TypeB,
+    HomeGeneralContentCardFragment,
     ReturnType<typeof useContentfulInspectorMode<{ entryId: string }>>
   ][] = [
     [benefitCard1, inspectorPropsBen1],
@@ -93,7 +61,7 @@ export default function HomeSection3({
     [benefitCard4, inspectorPropsBen4],
   ];
 
-  const [[ctaLink, ctaText]] = Object.entries(mainContentCard.ctas);
+  const [[ctaLink, ctaText]] = Object.entries(mainContentCard.ctas) as any[];
 
   return (
     <section className="max-w-[1152px] mx-auto">
@@ -115,7 +83,7 @@ export default function HomeSection3({
             {...inspectorPropsGCC({ fieldId: "description" })}
             className="mb-[24px]"
           >
-            {mainContentCard.description}
+            {mainContentCard.descriptionText}
           </p>
           <Link
             {...inspectorPropsGCC({ fieldId: "ctas" })}
@@ -127,16 +95,30 @@ export default function HomeSection3({
           <div className="benefits-list-container">
             <ul>
               {benefitCardsWithInspectorProps.map(([card, iProps]) => {
+                const x = card.mediaCollection?.items[0];
                 return (
                   <li key={card.sys.id} className="mb-[24px]">
                     <div className="benefit-item-container flex gap-[10px]">
                       <div className="benefit-item-icon-wrapper">
                         <Image
                           {...iProps({ fieldId: "media" })}
-                          src={card.mediaCollection.items[0].url}
-                          alt={card.mediaCollection.items[0].description}
-                          width={card.mediaCollection.items[0].width}
-                          height={card.mediaCollection.items[0].height}
+                          //
+                          src=""
+                          alt={
+                            (card.mediaCollection?.items[0] &&
+                              card?.mediaCollection?.items[0].description) ||
+                            ""
+                          }
+                          width={
+                            (card.mediaCollection?.items[0] &&
+                              card.mediaCollection?.items[0].width) ||
+                            0
+                          }
+                          height={
+                            (card.mediaCollection?.items[0] &&
+                              card.mediaCollection?.items[0].height) ||
+                            0
+                          }
                         />
                       </div>
                       <div className="benefit-item-text-container leading-none">

@@ -1,77 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useContentfulInspectorMode } from "@contentful/live-preview/react";
-import { ContentfulImgType } from "./HomeSection1";
-
-export type CustomerTestimonialCardType = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  testimonial: string;
-  customerName: string;
-  titleposition: string;
-  logo: ContentfulImgType;
-};
-
-export type HomeSection2Props = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  pageSectionPartsCollection: {
-    __typename: string;
-    items: (HomeSec2GCCType | HomeSec2CustsType)[];
-  };
-};
-
-type HomeSec2GCCType = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  heading: string;
-  subheading: string;
-  ctas: {
-    [key: string]: string;
-  };
-};
-
-type HomeSec2CustsType = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  selectCustomerLogosCollection: {
-    __typename: string;
-    items: ContentfulImgType[];
-  };
-  selectTestimonialsCollection: {
-    __typename: string;
-    items: CustomerTestimonialCardType[];
-  };
-};
+import {
+  CustomersSection,
+  HomeGeneralContentCardFragment,
+  PageSection,
+} from "@/lib/__generated/sdk";
 
 export default function HomeSection2({
   homeSection2Data,
 }: {
-  homeSection2Data: HomeSection2Props;
+  homeSection2Data: PageSection | null;
 }) {
-  const generalContentCard = homeSection2Data.pageSectionPartsCollection
-    ?.items[0] as HomeSec2GCCType;
-  const customersDataHub = homeSection2Data.pageSectionPartsCollection
-    ?.items[1] as HomeSec2CustsType;
+  const generalContentCard = homeSection2Data?.pageSectionPartsCollection
+    ?.items[0] as HomeGeneralContentCardFragment | undefined;
+
+  const customersDataHub = homeSection2Data?.pageSectionPartsCollection
+    ?.items[1] as CustomersSection | undefined;
 
   const inspectorPropsGCC = useContentfulInspectorMode({
-    entryId: generalContentCard.sys.id,
+    entryId: generalContentCard?.sys.id || "",
   });
   const inspectorPropsCust = useContentfulInspectorMode({
-    entryId: customersDataHub.sys.id,
+    entryId: customersDataHub?.sys.id || "",
   });
 
-  const [[ctaLink, ctaText]] = Object.entries(generalContentCard.ctas);
+  if (!homeSection2Data || !generalContentCard || !customersDataHub) {
+    return null;
+  }
 
-  // console.log("CUST: ", customersDataHub);
+  const [[ctaLink, ctaText]] = Object.entries(generalContentCard.ctas) as any[];
 
   return (
     <section className="max-w-[1152px] mx-auto">
@@ -93,19 +51,10 @@ export default function HomeSection2({
         {...inspectorPropsCust({ fieldId: "selectTestimonials" })}
         className="testimonial-cards-container flex gap-[22px] w-full mb-[48px]"
       >
-        {customersDataHub.selectTestimonialsCollection.items.map(
+        {customersDataHub?.selectTestimonialsCollection?.items.map(
           (testimonialCardData, i) => {
-            if (
-              !testimonialCardData?.logo.url ||
-              !testimonialCardData?.logo.description
-            ) {
-              return (
-                <div className="testimonial-card w-[50%] p-[48px]" key={i}>
-                  <div className="testimonial-img-container">
-                    Image failed to load...
-                  </div>
-                </div>
-              );
+            if (!testimonialCardData) {
+              return null;
             }
 
             return (
@@ -115,10 +64,10 @@ export default function HomeSection2({
               >
                 <div className="testimonial-img-container mb-[24px]">
                   <Image
-                    src={testimonialCardData?.logo.url}
-                    alt={testimonialCardData?.logo.description}
-                    width={testimonialCardData.logo.width}
-                    height={testimonialCardData.logo.height}
+                    src={testimonialCardData?.logo?.url || ""}
+                    alt={testimonialCardData?.logo?.description || ""}
+                    width={testimonialCardData.logo?.width || 0}
+                    height={testimonialCardData.logo?.height || 0}
                   />
                 </div>
                 <p className="mb-[24px] line-clamp-3">
@@ -148,14 +97,14 @@ export default function HomeSection2({
         {...inspectorPropsCust({ fieldId: "selectCustomerLogos" })}
         className="customer-logos-container flex gap-[32px] mb-[24px]"
       >
-        {customersDataHub.selectCustomerLogosCollection.items.map(
-          (customerLogo) => (
+        {customersDataHub?.selectCustomerLogosCollection?.items.map(
+          (customerLogo, i) => (
             <Image
-              key={customerLogo.sys.id}
-              src={customerLogo.url}
-              alt={customerLogo.description}
-              width={customerLogo.width}
-              height={customerLogo.height}
+              key={customerLogo?.sys?.id || i}
+              src={customerLogo?.url || ""}
+              alt={customerLogo?.description || ""}
+              width={customerLogo?.width || 0}
+              height={customerLogo?.height || 0}
             />
           )
         )}
@@ -171,7 +120,3 @@ export default function HomeSection2({
     </section>
   );
 }
-
-/*
-
-*/

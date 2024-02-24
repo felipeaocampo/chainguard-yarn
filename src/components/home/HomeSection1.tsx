@@ -1,56 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useContentfulInspectorMode } from "@contentful/live-preview/react";
-
-export type ContentfulImgType = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  url: string;
-  description: string;
-  width: number;
-  height: number;
-};
-
-export type HomeSection1Props = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  pageSectionPartsCollection: {
-    items: HomeGCCSec1Type[];
-  };
-};
-
-type HomeGCCSec1Type = {
-  __typename: string;
-  sys: {
-    id: string;
-  };
-  heading: string;
-  subheading: string;
-  ctas: {
-    [key: string]: string;
-  };
-  mediaCollection: {
-    items: ContentfulImgType[];
-  };
-};
+import {
+  HomeGeneralContentCardFragment,
+  PageSection,
+} from "@/lib/__generated/sdk";
 
 export default function HomeSection1({
   homeSection1Data,
 }: {
-  homeSection1Data: HomeSection1Props;
+  homeSection1Data: PageSection | null;
 }) {
-  const generalContentCard =
-    homeSection1Data.pageSectionPartsCollection?.items[0];
+  const generalContentCard = homeSection1Data?.pageSectionPartsCollection
+    ?.items[0] as HomeGeneralContentCardFragment | undefined;
 
   const inspectorPropsGCC = useContentfulInspectorMode({
-    entryId: generalContentCard.sys.id,
+    entryId: generalContentCard?.sys.id || "",
   });
 
-  const [[ctaLink, ctaText]] = Object.entries(generalContentCard.ctas);
+  if (!homeSection1Data || !generalContentCard) {
+    return null;
+  }
+
+  const [[ctaLink, ctaText]] = Object.entries(generalContentCard.ctas) as any[];
 
   return (
     <section
@@ -89,10 +61,30 @@ export default function HomeSection1({
       </Link>
       <Image
         {...inspectorPropsGCC({ fieldId: "media" })}
-        src={generalContentCard.mediaCollection.items[0].url || ""}
-        alt={generalContentCard.mediaCollection.items[0].description || ""}
-        width={+generalContentCard.mediaCollection.items[0].width || 0}
-        height={+generalContentCard.mediaCollection.items[0].height || 0}
+        src={
+          generalContentCard.mediaCollection?.items[0] &&
+          generalContentCard.mediaCollection?.items[0].url
+            ? generalContentCard.mediaCollection.items[0].url
+            : ""
+        }
+        alt={
+          generalContentCard.mediaCollection?.items[0] &&
+          generalContentCard.mediaCollection?.items[0].description
+            ? generalContentCard.mediaCollection.items[0].description
+            : ""
+        }
+        width={
+          generalContentCard.mediaCollection?.items[0] &&
+          generalContentCard.mediaCollection?.items[0].width
+            ? +generalContentCard.mediaCollection.items[0].width
+            : 0
+        }
+        height={
+          generalContentCard.mediaCollection?.items[0] &&
+          generalContentCard.mediaCollection?.items[0].height
+            ? +generalContentCard.mediaCollection.items[0].height
+            : 0
+        }
       />
     </section>
   );

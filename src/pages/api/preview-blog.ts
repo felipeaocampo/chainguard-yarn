@@ -4,7 +4,7 @@ import { COOKIE_NAME_PRERENDER_BYPASS } from "next/dist/server/api-utils";
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { slug } = req.query;
 
-  console.log("preview-page triggered");
+  console.log("preview-blog triggered");
 
   res.setDraftMode({ enable: true });
   const headers = res.getHeader("Set-Cookie");
@@ -20,7 +20,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     );
   }
 
-  const url = slug === "/" ? slug : `/${slug}`;
+  res.setPreviewData({});
+  const url = `/unchained/${slug}`;
 
   res.setHeader("Location", url);
   res.status(307).end();

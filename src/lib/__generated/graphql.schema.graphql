@@ -95,7 +95,7 @@ type AssetLinkingCollections {
   customersSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): CustomersSectionCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
   generalContentCardCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): GeneralContentCardCollection
-  seoMetadataCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): SeoMetadataCollection
+  testContentCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): TestContentCollection
 }
 
 enum AssetOrder {
@@ -424,6 +424,72 @@ enum BlogsOrder {
   allBlogs_DESC
   blogsPageName_ASC
   blogsPageName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+"""
+Code block for blogs [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/codeBlock)
+"""
+type CodeBlock implements Entry {
+  code(locale: String): String
+  codeBlockName(locale: String): String
+  contentfulMetadata: ContentfulMetadata!
+  language(locale: String): String
+  linkedFrom(allowedLocales: [String]): CodeBlockLinkingCollections
+  sys: Sys!
+}
+
+type CodeBlockCollection {
+  items: [CodeBlock]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input CodeBlockFilter {
+  AND: [CodeBlockFilter]
+  OR: [CodeBlockFilter]
+  code: String
+  codeBlockName: String
+  codeBlockName_contains: String
+  codeBlockName_exists: Boolean
+  codeBlockName_in: [String]
+  codeBlockName_not: String
+  codeBlockName_not_contains: String
+  codeBlockName_not_in: [String]
+  code_contains: String
+  code_exists: Boolean
+  code_in: [String]
+  code_not: String
+  code_not_contains: String
+  code_not_in: [String]
+  contentfulMetadata: ContentfulMetadataFilter
+  language: String
+  language_contains: String
+  language_exists: Boolean
+  language_in: [String]
+  language_not: String
+  language_not_contains: String
+  language_not_in: [String]
+  sys: SysFilter
+}
+
+type CodeBlockLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
+enum CodeBlockOrder {
+  codeBlockName_ASC
+  codeBlockName_DESC
+  language_ASC
+  language_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1135,6 +1201,8 @@ type Query {
   blogPageCollection(limit: Int = 100, locale: String, order: [BlogPageOrder], preview: Boolean, skip: Int = 0, where: BlogPageFilter): BlogPageCollection
   blogs(id: String!, locale: String, preview: Boolean): Blogs
   blogsCollection(limit: Int = 100, locale: String, order: [BlogsOrder], preview: Boolean, skip: Int = 0, where: BlogsFilter): BlogsCollection
+  codeBlock(id: String!, locale: String, preview: Boolean): CodeBlock
+  codeBlockCollection(limit: Int = 100, locale: String, order: [CodeBlockOrder], preview: Boolean, skip: Int = 0, where: CodeBlockFilter): CodeBlockCollection
   customerTestimonialCard(id: String!, locale: String, preview: Boolean): CustomerTestimonialCard
   customerTestimonialCardCollection(limit: Int = 100, locale: String, order: [CustomerTestimonialCardOrder], preview: Boolean, skip: Int = 0, where: CustomerTestimonialCardFilter): CustomerTestimonialCardCollection
   customersSection(id: String!, locale: String, preview: Boolean): CustomersSection
@@ -1256,7 +1324,6 @@ enum SearchBarOrder {
 """
 type SeoMetadata implements Entry {
   contentfulMetadata: ContentfulMetadata!
-  favicon(locale: String, preview: Boolean): Asset
   linkedFrom(allowedLocales: [String]): SeoMetadataLinkingCollections
   metaDescription(locale: String): String
   pageTitle(locale: String): String
@@ -1274,7 +1341,6 @@ input SeoMetadataFilter {
   AND: [SeoMetadataFilter]
   OR: [SeoMetadataFilter]
   contentfulMetadata: ContentfulMetadataFilter
-  favicon_exists: Boolean
   metaDescription: String
   metaDescription_contains: String
   metaDescription_exists: Boolean
@@ -1377,12 +1443,20 @@ input SysFilter {
 [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent)
 """
 type TestContent implements Entry {
+  authors(locale: String): [String]
   blog(locale: String): TestContentBlog
+  body(locale: String): TestContentBody
   contentfulMetadata: ContentfulMetadata!
+  datePublished(locale: String): DateTime
   description(locale: String): String
+  isFeatured(locale: String): Boolean
   linkedFrom(allowedLocales: [String]): TestContentLinkingCollections
+  mainImage(locale: String, preview: Boolean): Asset
+  metaAbout(locale: String): String
   name(locale: String): String
+  slug(locale: String): String
   sys: Sys!
+  tags(locale: String): [String]
 }
 
 type TestContentBlog {
@@ -1413,6 +1487,34 @@ type TestContentBlogResources {
   inline: [ResourceLink!]!
 }
 
+type TestContentBody {
+  json: JSON!
+  links: TestContentBodyLinks!
+}
+
+type TestContentBodyAssets {
+  block: [Asset]!
+  hyperlink: [Asset]!
+}
+
+type TestContentBodyEntries {
+  block: [Entry]!
+  hyperlink: [Entry]!
+  inline: [Entry]!
+}
+
+type TestContentBodyLinks {
+  assets: TestContentBodyAssets!
+  entries: TestContentBodyEntries!
+  resources: TestContentBodyResources!
+}
+
+type TestContentBodyResources {
+  block: [ResourceLink!]!
+  hyperlink: [ResourceLink!]!
+  inline: [ResourceLink!]!
+}
+
 type TestContentCollection {
   items: [TestContent]!
   limit: Int!
@@ -1423,10 +1525,26 @@ type TestContentCollection {
 input TestContentFilter {
   AND: [TestContentFilter]
   OR: [TestContentFilter]
+  authors_contains_all: [String]
+  authors_contains_none: [String]
+  authors_contains_some: [String]
+  authors_exists: Boolean
   blog_contains: String
   blog_exists: Boolean
   blog_not_contains: String
+  body_contains: String
+  body_exists: Boolean
+  body_not_contains: String
   contentfulMetadata: ContentfulMetadataFilter
+  datePublished: DateTime
+  datePublished_exists: Boolean
+  datePublished_gt: DateTime
+  datePublished_gte: DateTime
+  datePublished_in: [DateTime]
+  datePublished_lt: DateTime
+  datePublished_lte: DateTime
+  datePublished_not: DateTime
+  datePublished_not_in: [DateTime]
   description: String
   description_contains: String
   description_exists: Boolean
@@ -1434,6 +1552,17 @@ input TestContentFilter {
   description_not: String
   description_not_contains: String
   description_not_in: [String]
+  isFeatured: Boolean
+  isFeatured_exists: Boolean
+  isFeatured_not: Boolean
+  mainImage_exists: Boolean
+  metaAbout: String
+  metaAbout_contains: String
+  metaAbout_exists: Boolean
+  metaAbout_in: [String]
+  metaAbout_not: String
+  metaAbout_not_contains: String
+  metaAbout_not_in: [String]
   name: String
   name_contains: String
   name_exists: Boolean
@@ -1441,7 +1570,18 @@ input TestContentFilter {
   name_not: String
   name_not_contains: String
   name_not_in: [String]
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
   sys: SysFilter
+  tags_contains_all: [String]
+  tags_contains_none: [String]
+  tags_contains_some: [String]
+  tags_exists: Boolean
 }
 
 type TestContentLinkingCollections {
@@ -1449,8 +1589,14 @@ type TestContentLinkingCollections {
 }
 
 enum TestContentOrder {
+  datePublished_ASC
+  datePublished_DESC
+  isFeatured_ASC
+  isFeatured_DESC
   name_ASC
   name_DESC
+  slug_ASC
+  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1537,7 +1683,6 @@ input cfSeoMetadataNestedFilter {
   AND: [cfSeoMetadataNestedFilter]
   OR: [cfSeoMetadataNestedFilter]
   contentfulMetadata: ContentfulMetadataFilter
-  favicon_exists: Boolean
   metaDescription: String
   metaDescription_contains: String
   metaDescription_exists: Boolean

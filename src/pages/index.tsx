@@ -1,3 +1,8 @@
+import { GetHomePageDataQuery, PageSection } from "@/lib/__generated/sdk";
+import { client, previewClient } from "@/lib/client";
+import { useContentfulLiveUpdates } from "@contentful/live-preview/react";
+import { GetStaticProps } from "next";
+import { NextSeo } from "next-seo";
 import HeroContainer from "@/components/common/HeroContainer";
 import HomeSection1 from "@/components/home/HomeSection1";
 import HomeSection2 from "@/components/home/HomeSection2";
@@ -5,12 +10,8 @@ import HomeSection3 from "@/components/home/HomeSection3";
 import HomeSection4 from "@/components/home/HomeSection4";
 import HomeSection5 from "@/components/home/HomeSection5";
 import HomeSection6 from "@/components/home/HomeSection6";
-import { GetHomePageDataQuery, PageSection } from "@/lib/__generated/sdk";
-import { client, previewClient } from "@/lib/client";
-import { useContentfulLiveUpdates } from "@contentful/live-preview/react";
-import { GetStaticProps } from "next";
 
-export default function Home({ data }: { data: GetHomePageDataQuery }) {
+export default function HomePage({ data }: { data: GetHomePageDataQuery }) {
   const liveData = useContentfulLiveUpdates(data);
 
   const [
@@ -30,28 +31,35 @@ export default function Home({ data }: { data: GetHomePageDataQuery }) {
   // console.log("homeSection6Data: ", homeSection6Data);
 
   return (
-    <main className="border-b border-solid border-[#dcdcdc]">
-      <HeroContainer>
-        <HomeSection1
-          homeSection1Data={homeSection1Data ? homeSection1Data : null}
+    <>
+      <NextSeo
+        title={liveData.generalPage?.pageMetadata?.pageTitle || ""}
+        description={liveData.generalPage?.pageMetadata?.metaDescription || ""}
+        canonical="http://localhost:3000/"
+      />
+      <main className="border-b border-solid border-[#dcdcdc]">
+        <HeroContainer>
+          <HomeSection1
+            homeSection1Data={homeSection1Data ? homeSection1Data : null}
+          />
+        </HeroContainer>
+        <HomeSection2
+          homeSection2Data={homeSection2Data ? homeSection2Data : null}
         />
-      </HeroContainer>
-      <HomeSection2
-        homeSection2Data={homeSection2Data ? homeSection2Data : null}
-      />
-      <HomeSection3
-        homeSection3Data={homeSection3Data ? homeSection3Data : null}
-      />
-      <HomeSection4
-        homeSection4Data={homeSection4Data ? homeSection4Data : null}
-      />
-      <HomeSection5
-        homeSection5Data={homeSection5Data ? homeSection5Data : null}
-      />
-      <HomeSection6
-        homeSection6Data={homeSection6Data ? homeSection6Data : null}
-      />
-    </main>
+        <HomeSection3
+          homeSection3Data={homeSection3Data ? homeSection3Data : null}
+        />
+        <HomeSection4
+          homeSection4Data={homeSection4Data ? homeSection4Data : null}
+        />
+        <HomeSection5
+          homeSection5Data={homeSection5Data ? homeSection5Data : null}
+        />
+        <HomeSection6
+          homeSection6Data={homeSection6Data ? homeSection6Data : null}
+        />
+      </main>
+    </>
   );
 }
 

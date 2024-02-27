@@ -11,13 +11,6 @@ query getHomePageData($preview: Boolean!) {
       }
       pageTitle
       metaDescription
-      favicon {
-        __typename
-        sys {
-          id
-        }
-        url
-      }
     }
     pageSectionCollection(limit: 10) {
       __typename

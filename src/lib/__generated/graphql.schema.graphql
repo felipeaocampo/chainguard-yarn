@@ -95,7 +95,6 @@ type AssetLinkingCollections {
   customersSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): CustomersSectionCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
   generalContentCardCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): GeneralContentCardCollection
-  seoMetadataCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): SeoMetadataCollection
 }
 
 enum AssetOrder {
@@ -424,6 +423,72 @@ enum BlogsOrder {
   allBlogs_DESC
   blogsPageName_ASC
   blogsPageName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+"""
+Code block for blogs [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/codeBlock)
+"""
+type CodeBlock implements Entry {
+  code(locale: String): String
+  codeBlockName(locale: String): String
+  contentfulMetadata: ContentfulMetadata!
+  language(locale: String): String
+  linkedFrom(allowedLocales: [String]): CodeBlockLinkingCollections
+  sys: Sys!
+}
+
+type CodeBlockCollection {
+  items: [CodeBlock]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input CodeBlockFilter {
+  AND: [CodeBlockFilter]
+  OR: [CodeBlockFilter]
+  code: String
+  codeBlockName: String
+  codeBlockName_contains: String
+  codeBlockName_exists: Boolean
+  codeBlockName_in: [String]
+  codeBlockName_not: String
+  codeBlockName_not_contains: String
+  codeBlockName_not_in: [String]
+  code_contains: String
+  code_exists: Boolean
+  code_in: [String]
+  code_not: String
+  code_not_contains: String
+  code_not_in: [String]
+  contentfulMetadata: ContentfulMetadataFilter
+  language: String
+  language_contains: String
+  language_exists: Boolean
+  language_in: [String]
+  language_not: String
+  language_not_contains: String
+  language_not_in: [String]
+  sys: SysFilter
+}
+
+type CodeBlockLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
+enum CodeBlockOrder {
+  codeBlockName_ASC
+  codeBlockName_DESC
+  language_ASC
+  language_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1135,6 +1200,8 @@ type Query {
   blogPageCollection(limit: Int = 100, locale: String, order: [BlogPageOrder], preview: Boolean, skip: Int = 0, where: BlogPageFilter): BlogPageCollection
   blogs(id: String!, locale: String, preview: Boolean): Blogs
   blogsCollection(limit: Int = 100, locale: String, order: [BlogsOrder], preview: Boolean, skip: Int = 0, where: BlogsFilter): BlogsCollection
+  codeBlock(id: String!, locale: String, preview: Boolean): CodeBlock
+  codeBlockCollection(limit: Int = 100, locale: String, order: [CodeBlockOrder], preview: Boolean, skip: Int = 0, where: CodeBlockFilter): CodeBlockCollection
   customerTestimonialCard(id: String!, locale: String, preview: Boolean): CustomerTestimonialCard
   customerTestimonialCardCollection(limit: Int = 100, locale: String, order: [CustomerTestimonialCardOrder], preview: Boolean, skip: Int = 0, where: CustomerTestimonialCardFilter): CustomerTestimonialCardCollection
   customersSection(id: String!, locale: String, preview: Boolean): CustomersSection
@@ -1256,7 +1323,6 @@ enum SearchBarOrder {
 """
 type SeoMetadata implements Entry {
   contentfulMetadata: ContentfulMetadata!
-  favicon(locale: String, preview: Boolean): Asset
   linkedFrom(allowedLocales: [String]): SeoMetadataLinkingCollections
   metaDescription(locale: String): String
   pageTitle(locale: String): String
@@ -1274,7 +1340,6 @@ input SeoMetadataFilter {
   AND: [SeoMetadataFilter]
   OR: [SeoMetadataFilter]
   contentfulMetadata: ContentfulMetadataFilter
-  favicon_exists: Boolean
   metaDescription: String
   metaDescription_contains: String
   metaDescription_exists: Boolean
@@ -1537,7 +1602,6 @@ input cfSeoMetadataNestedFilter {
   AND: [cfSeoMetadataNestedFilter]
   OR: [cfSeoMetadataNestedFilter]
   contentfulMetadata: ContentfulMetadataFilter
-  favicon_exists: Boolean
   metaDescription: String
   metaDescription_contains: String
   metaDescription_exists: Boolean

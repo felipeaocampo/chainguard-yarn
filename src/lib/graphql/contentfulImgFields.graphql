@@ -1,0 +1,10 @@
+fragment ContentfulImgFields on Asset {
+  __typename
+  sys {
+    id
+  }
+  url
+  description
+  width
+  height
+}

@@ -6,7 +6,6 @@ import {
   HomeGeneralContentCardFragment,
   PageSection,
 } from "@/lib/__generated/sdk";
-import { outputCtfImgValueOrFallback } from "@/lib/outputCtfImgValueOrFallback";
 
 export default function HomeSection3({
   homeSection3Data,
@@ -95,15 +94,17 @@ export default function HomeSection3({
           <div className="benefits-list-container">
             <ul>
               {benefitCardsWithInspectorProps.map(([card, iProps]) => {
-                const x = card.mediaCollection?.items[0];
                 return (
                   <li key={card.sys.id} className="mb-[24px]">
                     <div className="benefit-item-container flex gap-[10px]">
                       <div className="benefit-item-icon-wrapper">
                         <Image
                           {...iProps({ fieldId: "media" })}
-                          //
-                          src=""
+                          src={
+                            (card.mediaCollection?.items[0] &&
+                              card.mediaCollection?.items[0].url) ||
+                            ""
+                          }
                           alt={
                             (card.mediaCollection?.items[0] &&
                               card?.mediaCollection?.items[0].description) ||

@@ -1,0 +1,15 @@
+fragment UnchainedFeaturedBlogs on Blog {
+  __typename
+  sys {
+    id
+  }
+  blogName
+  blogSlug
+  metaAbout
+  authors
+  tags
+  mainImage {
+    ...ContentfulImgFields
+  }
+  datePublished
+}

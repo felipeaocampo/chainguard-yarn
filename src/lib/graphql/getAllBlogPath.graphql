@@ -1,0 +1,7 @@
+query getAllBlogPaths{
+  blogCollection {
+    items {
+      blogSlug
+    }
+  }
+}

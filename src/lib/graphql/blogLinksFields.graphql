@@ -1,0 +1,103 @@
+fragment BlogLinksFields on BlogBlogContentLinks {
+  __typename
+  entries {
+    __typename
+    inline {
+      sys {
+        id
+        __typename
+      }
+      __typename
+    }
+    hyperlink {
+      sys {
+        __typename
+        id
+      }
+      __typename
+      ... on Blog {
+        __typename
+        sys {
+          id
+        }
+        blogName
+        blogSlug
+      }
+      ... on GeneralPage {
+        __typename
+        sys {
+          id
+        }
+        pageName
+        pageSlug
+      }
+    }
+    block {
+      sys {
+        __typename
+        id
+      }
+      __typename
+      ... on CodeBlock {
+        __typename
+        sys {
+          id
+        }
+        language
+        code
+      }
+    }
+  }
+  assets {
+    __typename
+    hyperlink {
+      sys {
+        id
+      }
+      title
+      url
+      __typename
+    }
+    block {
+      sys {
+        id
+      }
+      title
+      url
+      description
+      width
+      height
+      __typename
+    }
+  }
+  resources {
+    block {
+      sys {
+        linkType
+        type
+        urn
+        __typename
+      }
+      __typename
+    }
+    inline {
+      sys {
+        linkType
+        type
+        urn
+        __typename
+      }
+      __typename
+    }
+    hyperlink {
+      sys {
+        linkType
+        type
+        urn
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}

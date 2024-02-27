@@ -1,0 +1,54 @@
+query getBlogPageData($preview: Boolean!, $id: String!) {
+  blog(preview: $preview, id: $id) {
+    __typename
+    sys {
+      id
+    }
+    blogName
+    blogSlug
+    metaAbout
+    authors
+    tags
+    mainImage {
+      ...ContentfulImgFields
+    }
+    datePublished
+    blogContent {
+      __typename
+      json
+      links {
+        ...BlogLinksFields
+      }
+    }
+  }
+}
+
+
+# query getBlogPageData($preview: Boolean!, $slug: String!) {
+#   blogCollection(preview: $preview, where: { blogSlug: $slug }, limit: 1) {
+#     __typename
+#     items {
+#       __typename
+#       sys {
+#         id
+#       }
+#       blogName
+#       blogSlug
+#       metaAbout
+#       authors
+#       tags
+#       mainImage {
+#         ...ContentfulImgFields
+#       }
+#       datePublished
+#       blogContent {
+#         __typename
+#         json
+#         links {
+#           ...BlogLinksFields
+#         }
+#       }
+#     }
+#   }
+# }
+

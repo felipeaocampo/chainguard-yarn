@@ -177,6 +177,7 @@ export type AssetLinkingCollections = {
   customersSectionCollection?: Maybe<CustomersSectionCollection>;
   entryCollection?: Maybe<EntryCollection>;
   generalContentCardCollection?: Maybe<GeneralContentCardCollection>;
+  testContentCollection?: Maybe<TestContentCollection>;
 };
 
 
@@ -213,6 +214,14 @@ export type AssetLinkingCollectionsEntryCollectionArgs = {
 
 
 export type AssetLinkingCollectionsGeneralContentCardCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type AssetLinkingCollectionsTestContentCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2325,17 +2334,43 @@ export type SysFilter = {
 /** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
 export type TestContent = Entry & {
   __typename?: 'TestContent';
+  authors?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   blog?: Maybe<TestContentBlog>;
+  body?: Maybe<TestContentBody>;
   contentfulMetadata: ContentfulMetadata;
+  datePublished?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  isFeatured?: Maybe<Scalars['Boolean']['output']>;
   linkedFrom?: Maybe<TestContentLinkingCollections>;
+  mainImage?: Maybe<Asset>;
+  metaAbout?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
   sys: Sys;
+  tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
+export type TestContentAuthorsArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 /** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
 export type TestContentBlogArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
+export type TestContentBodyArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
+export type TestContentDatePublishedArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2347,13 +2382,44 @@ export type TestContentDescriptionArgs = {
 
 
 /** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
+export type TestContentIsFeaturedArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
 export type TestContentLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
 /** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
+export type TestContentMainImageArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
+export type TestContentMetaAboutArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
 export type TestContentNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
+export type TestContentSlugArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent) */
+export type TestContentTagsArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2390,6 +2456,39 @@ export type TestContentBlogResources = {
   inline: Array<ResourceLink>;
 };
 
+export type TestContentBody = {
+  __typename?: 'TestContentBody';
+  json: Scalars['JSON']['output'];
+  links: TestContentBodyLinks;
+};
+
+export type TestContentBodyAssets = {
+  __typename?: 'TestContentBodyAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type TestContentBodyEntries = {
+  __typename?: 'TestContentBodyEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type TestContentBodyLinks = {
+  __typename?: 'TestContentBodyLinks';
+  assets: TestContentBodyAssets;
+  entries: TestContentBodyEntries;
+  resources: TestContentBodyResources;
+};
+
+export type TestContentBodyResources = {
+  __typename?: 'TestContentBodyResources';
+  block: Array<ResourceLink>;
+  hyperlink: Array<ResourceLink>;
+  inline: Array<ResourceLink>;
+};
+
 export type TestContentCollection = {
   __typename?: 'TestContentCollection';
   items: Array<Maybe<TestContent>>;
@@ -2401,10 +2500,26 @@ export type TestContentCollection = {
 export type TestContentFilter = {
   AND?: InputMaybe<Array<InputMaybe<TestContentFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<TestContentFilter>>>;
+  authors_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  authors_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  authors_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  authors_exists?: InputMaybe<Scalars['Boolean']['input']>;
   blog_contains?: InputMaybe<Scalars['String']['input']>;
   blog_exists?: InputMaybe<Scalars['Boolean']['input']>;
   blog_not_contains?: InputMaybe<Scalars['String']['input']>;
+  body_contains?: InputMaybe<Scalars['String']['input']>;
+  body_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  body_not_contains?: InputMaybe<Scalars['String']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  datePublished?: InputMaybe<Scalars['DateTime']['input']>;
+  datePublished_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  datePublished_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  datePublished_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  datePublished_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  datePublished_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  datePublished_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  datePublished_not?: InputMaybe<Scalars['DateTime']['input']>;
+  datePublished_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   description?: InputMaybe<Scalars['String']['input']>;
   description_contains?: InputMaybe<Scalars['String']['input']>;
   description_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2412,6 +2527,17 @@ export type TestContentFilter = {
   description_not?: InputMaybe<Scalars['String']['input']>;
   description_not_contains?: InputMaybe<Scalars['String']['input']>;
   description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  isFeatured_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  isFeatured_not?: InputMaybe<Scalars['Boolean']['input']>;
+  mainImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  metaAbout?: InputMaybe<Scalars['String']['input']>;
+  metaAbout_contains?: InputMaybe<Scalars['String']['input']>;
+  metaAbout_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  metaAbout_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  metaAbout_not?: InputMaybe<Scalars['String']['input']>;
+  metaAbout_not_contains?: InputMaybe<Scalars['String']['input']>;
+  metaAbout_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   name?: InputMaybe<Scalars['String']['input']>;
   name_contains?: InputMaybe<Scalars['String']['input']>;
   name_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2419,7 +2545,18 @@ export type TestContentFilter = {
   name_not?: InputMaybe<Scalars['String']['input']>;
   name_not_contains?: InputMaybe<Scalars['String']['input']>;
   name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  slug_contains?: InputMaybe<Scalars['String']['input']>;
+  slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  slug_not?: InputMaybe<Scalars['String']['input']>;
+  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
+  tags_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  tags_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  tags_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  tags_exists?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type TestContentLinkingCollections = {
@@ -2436,8 +2573,14 @@ export type TestContentLinkingCollectionsEntryCollectionArgs = {
 };
 
 export enum TestContentOrder {
+  DatePublishedAsc = 'datePublished_ASC',
+  DatePublishedDesc = 'datePublished_DESC',
+  IsFeaturedAsc = 'isFeatured_ASC',
+  IsFeaturedDesc = 'isFeatured_DESC',
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -2548,7 +2691,7 @@ export type CfpageSectionPartsMultiTypeNestedFilter = {
   sys?: InputMaybe<SysFilter>;
 };
 
-export type BlogLinksFieldsFragment = { __typename?: 'BlogBlogContentLinks', entries: { __typename?: 'BlogBlogContentEntries', inline: Array<{ __typename?: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename?: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename?: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename?: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename?: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename?: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename?: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename?: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename?: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename?: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename?: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename?: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, hyperlink: Array<{ __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', pageName?: string | null, pageSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', language?: string | null, code?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null> }, assets: { __typename: 'BlogBlogContentAssets', hyperlink: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> }, resources: { __typename: 'BlogBlogContentResources', block: Array<{ __typename: 'ResourceLink', sys: { __typename: 'ResourceSys', linkType: string, type: string, urn: string } }>, inline: Array<{ __typename: 'ResourceLink', sys: { __typename: 'ResourceSys', linkType: string, type: string, urn: string } }>, hyperlink: Array<{ __typename: 'ResourceLink', sys: { __typename: 'ResourceSys', linkType: string, type: string, urn: string } }> } };
+export type BlogLinksFieldsFragment = { __typename: 'BlogBlogContentLinks', entries: { __typename: 'BlogBlogContentEntries', inline: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, hyperlink: Array<{ __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', pageName?: string | null, pageSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', language?: string | null, code?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null> }, assets: { __typename: 'BlogBlogContentAssets', hyperlink: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> }, resources: { __typename: 'BlogBlogContentResources', block: Array<{ __typename: 'ResourceLink', sys: { __typename: 'ResourceSys', linkType: string, type: string, urn: string } }>, inline: Array<{ __typename: 'ResourceLink', sys: { __typename: 'ResourceSys', linkType: string, type: string, urn: string } }>, hyperlink: Array<{ __typename: 'ResourceLink', sys: { __typename: 'ResourceSys', linkType: string, type: string, urn: string } }> } };
 
 export type ContentfulImgFieldsFragment = { __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } };
 
@@ -2557,19 +2700,26 @@ export type GetAllBlogPathsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllBlogPathsQuery = { __typename?: 'Query', blogCollection?: { __typename?: 'BlogCollection', items: Array<{ __typename?: 'Blog', blogSlug?: string | null } | null> } | null };
 
-export type GetBlogPageDataQueryVariables = Exact<{
-  preview: Scalars['Boolean']['input'];
+export type GetBlogIdQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type GetBlogPageDataQuery = { __typename?: 'Query', blogCollection?: { __typename?: 'BlogCollection', items: Array<{ __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, metaAbout?: string | null, authors?: Array<string | null> | null, tags?: Array<string | null> | null, datePublished?: any | null, sys: { __typename?: 'Sys', id: string }, mainImage?: (
-        { __typename?: 'Asset' }
-        & ContentfulImgFieldsFragment
-      ) | null, blogContent?: { __typename: 'BlogBlogContent', json: any, links: (
-          { __typename?: 'BlogBlogContentLinks' }
-          & BlogLinksFieldsFragment
-        ) } | null } | null> } | null };
+export type GetBlogIdQuery = { __typename?: 'Query', blogCollection?: { __typename?: 'BlogCollection', items: Array<{ __typename?: 'Blog', sys: { __typename?: 'Sys', id: string } } | null> } | null };
+
+export type GetBlogPageDataQueryVariables = Exact<{
+  preview: Scalars['Boolean']['input'];
+  id: Scalars['String']['input'];
+}>;
+
+
+export type GetBlogPageDataQuery = { __typename?: 'Query', blog?: { __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, metaAbout?: string | null, authors?: Array<string | null> | null, tags?: Array<string | null> | null, datePublished?: any | null, sys: { __typename?: 'Sys', id: string }, mainImage?: (
+      { __typename?: 'Asset' }
+      & ContentfulImgFieldsFragment
+    ) | null, blogContent?: { __typename: 'BlogBlogContent', json: any, links: (
+        { __typename?: 'BlogBlogContentLinks' }
+        & BlogLinksFieldsFragment
+      ) } | null } | null };
 
 export type GetGraphQlErrorResponseQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2593,6 +2743,25 @@ export type GetOpenSourcePageDataQueryVariables = Exact<{
 
 export type GetOpenSourcePageDataQuery = { __typename?: 'Query', generalPage?: { __typename?: 'GeneralPage', pageName?: string | null, pageSlug?: string | null } | null };
 
+export type GetTestContentByIdQueryVariables = Exact<{
+  preview: Scalars['Boolean']['input'];
+  id: Scalars['String']['input'];
+}>;
+
+
+export type GetTestContentByIdQuery = { __typename?: 'Query', testContent?: { __typename: 'TestContent', name?: string | null, metaAbout?: string | null, authors?: Array<string | null> | null, tags?: Array<string | null> | null, datePublished?: any | null, sys: { __typename?: 'Sys', id: string }, mainImage?: (
+      { __typename?: 'Asset' }
+      & ContentfulImgFieldsFragment
+    ) | null, body?: { __typename: 'TestContentBody', json: any, links: { __typename: 'TestContentBodyLinks', entries: { __typename: 'TestContentBodyEntries', inline: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, hyperlink: Array<{ __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', pageName?: string | null, pageSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', language?: string | null, code?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null> }, assets: { __typename: 'TestContentBodyAssets', hyperlink: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> }, resources: { __typename: 'TestContentBodyResources', block: Array<{ __typename: 'ResourceLink', sys: { __typename: 'ResourceSys', linkType: string, type: string, urn: string } }>, inline: Array<{ __typename: 'ResourceLink', sys: { __typename: 'ResourceSys', linkType: string, type: string, urn: string } }>, hyperlink: Array<{ __typename: 'ResourceLink', sys: { __typename: 'ResourceSys', linkType: string, type: string, urn: string } }> } } } | null } | null };
+
+export type GetTestContentIdQueryVariables = Exact<{
+  preview: Scalars['Boolean']['input'];
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetTestContentIdQuery = { __typename?: 'Query', testContentCollection?: { __typename?: 'TestContentCollection', items: Array<{ __typename?: 'TestContent', sys: { __typename?: 'Sys', id: string } } | null> } | null };
+
 export type GetUnchainedPageDataQueryVariables = Exact<{
   preview: Scalars['Boolean']['input'];
 }>;
@@ -2615,12 +2784,15 @@ export type UnchainedFeaturedBlogsFragment = { __typename: 'Blog', blogName?: st
 
 export const BlogLinksFieldsFragmentDoc = gql`
     fragment BlogLinksFields on BlogBlogContentLinks {
+  __typename
   entries {
+    __typename
     inline {
       sys {
         id
         __typename
       }
+      __typename
     }
     hyperlink {
       sys {
@@ -2629,10 +2801,18 @@ export const BlogLinksFieldsFragmentDoc = gql`
       }
       __typename
       ... on Blog {
+        __typename
+        sys {
+          id
+        }
         blogName
         blogSlug
       }
       ... on GeneralPage {
+        __typename
+        sys {
+          id
+        }
         pageName
         pageSlug
       }
@@ -2644,12 +2824,17 @@ export const BlogLinksFieldsFragmentDoc = gql`
       }
       __typename
       ... on CodeBlock {
+        __typename
+        sys {
+          id
+        }
         language
         code
       }
     }
   }
   assets {
+    __typename
     hyperlink {
       sys {
         id
@@ -2658,7 +2843,6 @@ export const BlogLinksFieldsFragmentDoc = gql`
       url
       __typename
     }
-    __typename
     block {
       sys {
         id
@@ -2766,29 +2950,38 @@ export const GetAllBlogPathsDocument = gql`
   }
 }
     `;
-export const GetBlogPageDataDocument = gql`
-    query getBlogPageData($preview: Boolean!, $slug: String!) {
-  blogCollection(preview: $preview, where: {blogSlug: $slug}, limit: 1) {
+export const GetBlogIdDocument = gql`
+    query getBlogId($slug: String!) {
+  blogCollection(where: {blogSlug: $slug}) {
     items {
-      __typename
       sys {
         id
       }
-      blogName
-      blogSlug
-      metaAbout
-      authors
-      tags
-      mainImage {
-        ...ContentfulImgFields
-      }
-      datePublished
-      blogContent {
-        __typename
-        json
-        links {
-          ...BlogLinksFields
-        }
+    }
+  }
+}
+    `;
+export const GetBlogPageDataDocument = gql`
+    query getBlogPageData($preview: Boolean!, $id: String!) {
+  blog(preview: $preview, id: $id) {
+    __typename
+    sys {
+      id
+    }
+    blogName
+    blogSlug
+    metaAbout
+    authors
+    tags
+    mainImage {
+      ...ContentfulImgFields
+    }
+    datePublished
+    blogContent {
+      __typename
+      json
+      links {
+        ...BlogLinksFields
       }
     }
   }
@@ -2887,6 +3080,142 @@ export const GetOpenSourcePageDataDocument = gql`
   }
 }
     `;
+export const GetTestContentByIdDocument = gql`
+    query getTestContentById($preview: Boolean!, $id: String!) {
+  testContent(id: $id, preview: $preview) {
+    __typename
+    sys {
+      id
+    }
+    name
+    metaAbout
+    authors
+    tags
+    mainImage {
+      ...ContentfulImgFields
+    }
+    datePublished
+    body {
+      __typename
+      json
+      links {
+        __typename
+        entries {
+          __typename
+          inline {
+            sys {
+              id
+              __typename
+            }
+            __typename
+          }
+          hyperlink {
+            sys {
+              __typename
+              id
+            }
+            __typename
+            ... on Blog {
+              __typename
+              sys {
+                id
+              }
+              blogName
+              blogSlug
+            }
+            ... on GeneralPage {
+              __typename
+              sys {
+                id
+              }
+              pageName
+              pageSlug
+            }
+          }
+          block {
+            sys {
+              __typename
+              id
+            }
+            __typename
+            ... on CodeBlock {
+              __typename
+              sys {
+                id
+              }
+              language
+              code
+            }
+          }
+        }
+        assets {
+          __typename
+          hyperlink {
+            sys {
+              id
+            }
+            title
+            url
+            __typename
+          }
+          block {
+            sys {
+              id
+            }
+            title
+            url
+            description
+            width
+            height
+            __typename
+          }
+        }
+        resources {
+          block {
+            sys {
+              linkType
+              type
+              urn
+              __typename
+            }
+            __typename
+          }
+          inline {
+            sys {
+              linkType
+              type
+              urn
+              __typename
+            }
+            __typename
+          }
+          hyperlink {
+            sys {
+              linkType
+              type
+              urn
+              __typename
+            }
+            __typename
+          }
+          __typename
+        }
+      }
+    }
+  }
+}
+    ${ContentfulImgFieldsFragmentDoc}`;
+export const GetTestContentIdDocument = gql`
+    query getTestContentId($preview: Boolean!, $slug: String!) {
+  testContentCollection(preview: $preview, where: {slug: $slug}, limit: 1) {
+    items {
+      sys {
+        id
+      }
+    }
+  }
+}
+    `;
 export const GetUnchainedPageDataDocument = gql`
     query getUnchainedPageData($preview: Boolean!) {
   generalPage(id: "3LsilfHAYjrs43IFfpCAdN", preview: $preview) {
@@ -2945,6 +3274,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getAllBlogPaths(variables?: GetAllBlogPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetAllBlogPathsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetAllBlogPathsQuery>(GetAllBlogPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAllBlogPaths', 'query');
     },
+    getBlogId(variables: GetBlogIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetBlogIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetBlogIdQuery>(GetBlogIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getBlogId', 'query');
+    },
     getBlogPageData(variables: GetBlogPageDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetBlogPageDataQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetBlogPageDataQuery>(GetBlogPageDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getBlogPageData', 'query');
     },
@@ -2956,6 +3288,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getOpenSourcePageData(variables: GetOpenSourcePageDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetOpenSourcePageDataQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetOpenSourcePageDataQuery>(GetOpenSourcePageDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getOpenSourcePageData', 'query');
+    },
+    getTestContentById(variables: GetTestContentByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetTestContentByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetTestContentByIdQuery>(GetTestContentByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTestContentById', 'query');
+    },
+    getTestContentId(variables: GetTestContentIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetTestContentIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetTestContentIdQuery>(GetTestContentIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTestContentId', 'query');
     },
     getUnchainedPageData(variables: GetUnchainedPageDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUnchainedPageDataQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUnchainedPageDataQuery>(GetUnchainedPageDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUnchainedPageData', 'query');

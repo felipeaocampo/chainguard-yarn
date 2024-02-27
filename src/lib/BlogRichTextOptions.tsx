@@ -5,7 +5,7 @@ import { BlogLinksFieldsFragment } from "./__generated/sdk";
 import Link from "next/link";
 import Image from "next/image";
 
-export const blogRenderOptions = (links: BlogLinksFieldsFragment): Options => {
+export const blogRenderOptions = (links: any): Options => {
   //create data stores for entries, assets, and resources
   const entryMap = new Map();
   const assetMap = new Map();
@@ -103,6 +103,7 @@ export const blogRenderOptions = (links: BlogLinksFieldsFragment): Options => {
               <Link
                 key={Math.random()}
                 className="text-cg-text-blue hover:text-cg-hover-btn-bg-blue transition-all duration-[.2s]"
+                target="_blank"
                 href={`/unchained/${entry.blogSlug}`}
               >
                 {children}
@@ -145,7 +146,7 @@ export const blogRenderOptions = (links: BlogLinksFieldsFragment): Options => {
         // console.log("BLOCKS.EMBEDDED_ENTRY NODE: ", node);
         // console.log("BLOCKS.EMBEDDED_ENTRY CHILDREN: ", children);
         const entry = entryMap.get(node.data.target.sys.id);
-        console.log("output: ", entry.code.replace('```\n', '').replace('```', ''));
+        // console.log("output: ", entry.code.replace('```\n', '').replace('```', ''));
 
         switch (entry.__typename) {
           case "CodeBlock":
@@ -153,9 +154,13 @@ export const blogRenderOptions = (links: BlogLinksFieldsFragment): Options => {
               <pre>
                 <code
                   className="text-[14px]"
-                  style={{ borderRadius: "5px", marginBottom: "32px", padding: '18px' }}
+                  style={{
+                    borderRadius: "5px",
+                    marginBottom: "32px",
+                    padding: "18px",
+                  }}
                 >
-                  {entry.code.replace('```\n', '').replace('```', '')}
+                  {entry.code.replace("```\n", "").replace("```", "")}
                 </code>
               </pre>
             );

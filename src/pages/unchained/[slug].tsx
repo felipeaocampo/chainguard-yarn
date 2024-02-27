@@ -1,8 +1,10 @@
 import hljs from "highlight.js";
-import javascript from "highlight.js/lib/languages/javascript";
 import "highlight.js/styles/atom-one-dark.css";
 
-import { GetBlogPageDataQuery } from "@/lib/__generated/sdk";
+import {
+  GetBlogPageDataDocument,
+  GetBlogPageDataQuery,
+} from "@/lib/__generated/sdk";
 import { NextSeo } from "next-seo";
 
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
@@ -17,13 +19,6 @@ import BlogSection1 from "@/components/blog/BlogSection1";
 import { blogRenderOptions } from "@/lib/BlogRichTextOptions";
 import { useRouter } from "next/router";
 
-//HIGHLIGHT JS INSTURCTIONS
-// Then register the languages you need
-// hljs.registerLanguage("javascript", javascript);
-// hljs.registerLanguage("javascript", javascript);
-
-// SUPER HELPFUL CODE TO FOLLOW: https://maxschmitt.me/posts/nextjs-contentful-typescript
-
 export default function BlogPost({
   blogData,
 }: {
@@ -32,13 +27,11 @@ export default function BlogPost({
   const { slug } = useRouter().query;
   const liveBlogData = useContentfulLiveUpdates(blogData);
   const blogInspectorProps = useContentfulInspectorMode({
-    entryId: liveBlogData?.blogCollection?.items[0]?.sys.id || "",
+    entryId: liveBlogData?.blog?.sys.id || "",
   });
-
-  const blog = liveBlogData?.blogCollection?.items[0];
+  const blog = liveBlogData.blog;
 
   useEffect(() => {
-    // hljs.initHighlighting();
     hljs.highlightAll();
   });
 
@@ -60,7 +53,10 @@ export default function BlogPost({
       />
       <div className="mx-auto max-w-[1152px] flex justify-between items-start">
         {blog.blogContent && blog.blogContent.json && blog.blogContent.links ? (
-          <section className="max-w-[760px]">
+          <section
+            {...blogInspectorProps({ fieldId: "blogContent" })}
+            className="max-w-[760px]"
+          >
             {documentToReactComponents(
               blog.blogContent.json,
               blogRenderOptions(blog.blogContent.links)
@@ -85,8 +81,16 @@ export const getStaticProps: GetStaticProps = async ({
   try {
     const slug = params?.slug as string;
     const contentful = preview ? previewClient : client;
+    console.log("preview is: ", preview);
 
-    const blogData = await contentful.getBlogPageData({ preview, slug });
+    const res = await contentful.getBlogId({ slug });
+    const blogId = res?.blogCollection?.items[0]?.sys.id;
+
+    if (!blogId) {
+      return { notFound: true };
+    }
+    const blogData = await contentful.getBlogPageData({ preview, id: blogId });
+    console.log(blogData);
 
     //WILL HAVE TO MAKE 2ND REQUEST FOR THE 3 RELATED ARTICLES USING THE CATEGORY OF THE ABOVE FETCHED ONE!
     // const relatedArticles = await contentful.getRelatedBlogArticles({preview, category}) // make sure the current article is NOT INCLUDED

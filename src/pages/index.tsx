@@ -66,6 +66,7 @@ export default function HomePage({ data }: { data: GetHomePageDataQuery }) {
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   try {
     const contentful = preview ? previewClient : client;
+    console.log("preview is: ", preview);
 
     const data = await contentful.getHomePageData({ preview });
 

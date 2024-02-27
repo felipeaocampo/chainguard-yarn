@@ -1,7 +1,4 @@
-import {
-  GetUnchainedPageDataQuery,
-  PageSection,
-} from "@/lib/__generated/sdk";
+import { GetUnchainedPageDataQuery, PageSection } from "@/lib/__generated/sdk";
 import { client, previewClient } from "@/lib/client";
 import { useContentfulLiveUpdates } from "@contentful/live-preview/react";
 import { GetStaticProps } from "next";
@@ -46,7 +43,6 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
     const contentful = preview ? previewClient : client;
 
     const data = await contentful.getUnchainedPageData({ preview });
-    console.log(data);
 
     if (!data || !data.generalPage) {
       return {

@@ -1,10 +1,13 @@
 fragment BlogLinksFields on BlogBlogContentLinks {
+  __typename
   entries {
+    __typename
     inline {
       sys {
         id
         __typename
       }
+      __typename
     }
     hyperlink {
       sys {
@@ -13,10 +16,18 @@ fragment BlogLinksFields on BlogBlogContentLinks {
       }
       __typename
       ... on Blog {
+        __typename
+        sys {
+          id
+        }
         blogName
         blogSlug
       }
       ... on GeneralPage {
+        __typename
+        sys {
+          id
+        }
         pageName
         pageSlug
       }
@@ -28,12 +39,17 @@ fragment BlogLinksFields on BlogBlogContentLinks {
       }
       __typename
       ... on CodeBlock {
+        __typename
+        sys {
+          id
+        }
         language
         code
       }
     }
   }
   assets {
+    __typename
     hyperlink {
       sys {
         id
@@ -42,7 +58,6 @@ fragment BlogLinksFields on BlogBlogContentLinks {
       url
       __typename
     }
-    __typename
     block {
       sys {
         id

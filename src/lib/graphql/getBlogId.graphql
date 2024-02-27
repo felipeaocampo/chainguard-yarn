@@ -1,0 +1,9 @@
+query getBlogId($slug: String!){
+  blogCollection(where: {blogSlug: $slug}) {
+    items {
+      sys {
+        id
+      }
+    }
+  }
+}

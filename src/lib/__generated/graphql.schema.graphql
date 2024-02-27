@@ -95,6 +95,7 @@ type AssetLinkingCollections {
   customersSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): CustomersSectionCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
   generalContentCardCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): GeneralContentCardCollection
+  testContentCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): TestContentCollection
 }
 
 enum AssetOrder {
@@ -1442,12 +1443,20 @@ input SysFilter {
 [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/testContent)
 """
 type TestContent implements Entry {
+  authors(locale: String): [String]
   blog(locale: String): TestContentBlog
+  body(locale: String): TestContentBody
   contentfulMetadata: ContentfulMetadata!
+  datePublished(locale: String): DateTime
   description(locale: String): String
+  isFeatured(locale: String): Boolean
   linkedFrom(allowedLocales: [String]): TestContentLinkingCollections
+  mainImage(locale: String, preview: Boolean): Asset
+  metaAbout(locale: String): String
   name(locale: String): String
+  slug(locale: String): String
   sys: Sys!
+  tags(locale: String): [String]
 }
 
 type TestContentBlog {
@@ -1478,6 +1487,34 @@ type TestContentBlogResources {
   inline: [ResourceLink!]!
 }
 
+type TestContentBody {
+  json: JSON!
+  links: TestContentBodyLinks!
+}
+
+type TestContentBodyAssets {
+  block: [Asset]!
+  hyperlink: [Asset]!
+}
+
+type TestContentBodyEntries {
+  block: [Entry]!
+  hyperlink: [Entry]!
+  inline: [Entry]!
+}
+
+type TestContentBodyLinks {
+  assets: TestContentBodyAssets!
+  entries: TestContentBodyEntries!
+  resources: TestContentBodyResources!
+}
+
+type TestContentBodyResources {
+  block: [ResourceLink!]!
+  hyperlink: [ResourceLink!]!
+  inline: [ResourceLink!]!
+}
+
 type TestContentCollection {
   items: [TestContent]!
   limit: Int!
@@ -1488,10 +1525,26 @@ type TestContentCollection {
 input TestContentFilter {
   AND: [TestContentFilter]
   OR: [TestContentFilter]
+  authors_contains_all: [String]
+  authors_contains_none: [String]
+  authors_contains_some: [String]
+  authors_exists: Boolean
   blog_contains: String
   blog_exists: Boolean
   blog_not_contains: String
+  body_contains: String
+  body_exists: Boolean
+  body_not_contains: String
   contentfulMetadata: ContentfulMetadataFilter
+  datePublished: DateTime
+  datePublished_exists: Boolean
+  datePublished_gt: DateTime
+  datePublished_gte: DateTime
+  datePublished_in: [DateTime]
+  datePublished_lt: DateTime
+  datePublished_lte: DateTime
+  datePublished_not: DateTime
+  datePublished_not_in: [DateTime]
   description: String
   description_contains: String
   description_exists: Boolean
@@ -1499,6 +1552,17 @@ input TestContentFilter {
   description_not: String
   description_not_contains: String
   description_not_in: [String]
+  isFeatured: Boolean
+  isFeatured_exists: Boolean
+  isFeatured_not: Boolean
+  mainImage_exists: Boolean
+  metaAbout: String
+  metaAbout_contains: String
+  metaAbout_exists: Boolean
+  metaAbout_in: [String]
+  metaAbout_not: String
+  metaAbout_not_contains: String
+  metaAbout_not_in: [String]
   name: String
   name_contains: String
   name_exists: Boolean
@@ -1506,7 +1570,18 @@ input TestContentFilter {
   name_not: String
   name_not_contains: String
   name_not_in: [String]
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
   sys: SysFilter
+  tags_contains_all: [String]
+  tags_contains_none: [String]
+  tags_contains_some: [String]
+  tags_exists: Boolean
 }
 
 type TestContentLinkingCollections {
@@ -1514,8 +1589,14 @@ type TestContentLinkingCollections {
 }
 
 enum TestContentOrder {
+  datePublished_ASC
+  datePublished_DESC
+  isFeatured_ASC
+  isFeatured_DESC
   name_ASC
   name_DESC
+  slug_ASC
+  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC

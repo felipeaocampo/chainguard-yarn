@@ -1,6 +1,64 @@
 query getOpenSourcePageData($preview: Boolean!) {
-  generalPage(id: "6nhKPVtrhOpI6NQ9FGv8ia", preview: $preview) {
-    pageName
-    pageSlug
+  generalPage(preview: $preview, id: "6nhKPVtrhOpI6NQ9FGv8ia") {
+    __typename
+    sys {
+      id
+    }
+    pageMetadata {
+      __typename
+      sys {
+        id
+      }
+      pageTitle
+      metaDescription
+      openGraphImage {
+        ...ContentfulImgFields
+      }
+    }
+    pageSectionCollection(limit: 10) {
+      items {
+        __typename
+        sys {
+          id
+        }
+        pageSectionName
+        pageSectionPartsCollection(limit: 10) {
+          items {
+            __typename
+            ... on GeneralContentCard {
+              ...OpenSourcePageGC
+            }
+          }
+        }
+      }
+    }
   }
+}
+
+fragment ContentfulImgFields on Asset {
+  __typename
+  sys {
+    id
+  }
+  url
+  description
+  width
+  height
+}
+
+fragment OpenSourcePageGC on GeneralContentCard {
+  __typename
+  sys {
+    id
+  }
+  pageSectionName
+  heading
+  subheading
+  descriptionText
+  mediaCollection(limit: 2) {
+    items {
+      ...ContentfulImgFields
+    }
+  }
+  ctas
 }

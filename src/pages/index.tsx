@@ -10,8 +10,15 @@ import HomeSection3 from "@/components/home/HomeSection3";
 import HomeSection4 from "@/components/home/HomeSection4";
 import HomeSection5 from "@/components/home/HomeSection5";
 import HomeSection6 from "@/components/home/HomeSection6";
+import ExitPreviewCard from "@/components/ui/ExitPreviewCard";
 
-export default function HomePage({ data }: { data: GetHomePageDataQuery }) {
+export default function HomePage({
+  data,
+  preview,
+}: {
+  data: GetHomePageDataQuery;
+  preview: boolean;
+}) {
   const liveData = useContentfulLiveUpdates(data);
 
   const [
@@ -38,6 +45,9 @@ export default function HomePage({ data }: { data: GetHomePageDataQuery }) {
         canonical="http://localhost:3000/"
       />
       <main className="border-b border-solid border-[#dcdcdc]">
+        {preview && (
+          <ExitPreviewCard slug={liveData.generalPage?.pageSlug || "/"} />
+        )}
         <HeroContainer>
           <HomeSection1
             homeSection1Data={homeSection1Data ? homeSection1Data : null}
@@ -79,6 +89,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
     return {
       props: {
         data,
+        preview,
       },
     };
   } catch (error) {

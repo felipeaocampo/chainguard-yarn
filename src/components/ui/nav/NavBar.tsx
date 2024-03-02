@@ -3,13 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const logoUrl =
+const regularLogoUrl =
   "https://assets-global.website-files.com/6228fdbc6c97145dad2a9c2b/63d332f5a1dabc1b04f0679d_Brand%20Logo.svg";
+
+const OpenSourcePageLogoUrl =
+  "https://assets-global.website-files.com/6228fdbc6c97145dad2a9c2b/6418e1a7694ef47dbe4b0737_chainguard%20white%20logo.svg";
 
 export default function NavBar() {
   //GET URL TO FIND OUT IF NAV NEEDS TO BE OPEN SOURCE NAV OR CAN JUST BE REGULAR NAV!
-  const router = useRouter();
+  const { route } = useRouter();
   // console.log("ROUTER: ", router);
+
+  const isOpenSourcePage = route.includes("/open-source");
 
   const {
     hovered: productsColHover,
@@ -57,7 +62,7 @@ export default function NavBar() {
         <div className="logo-wrapper flex items-center ">
           <Link href="/">
             <Image
-              src={logoUrl}
+              src={isOpenSourcePage ? OpenSourcePageLogoUrl : regularLogoUrl}
               alt="Chainguard Logo"
               width={146}
               height={28}
@@ -121,7 +126,7 @@ export default function NavBar() {
                 >
                   <li className="" onClick={() => {}}>
                     <Link
-                      href="/container-image-security"
+                      href="/solutions/container-image-security"
                       className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
                     >
                       Container Image Security
@@ -129,7 +134,7 @@ export default function NavBar() {
                   </li>
                   <li className="" onClick={() => {}}>
                     <Link
-                      href="/vulnerability-remediation"
+                      href="/solutions/vulnerability-remediation"
                       className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
                     >
                       Vulnerability Remediation
@@ -137,7 +142,7 @@ export default function NavBar() {
                   </li>
                   <li className="" onClick={() => {}}>
                     <Link
-                      href="/open-source-software-security"
+                      href="/solutions/open-source-software-security"
                       className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
                     >
                       Open Source Software Security
@@ -145,7 +150,7 @@ export default function NavBar() {
                   </li>
                   <li className="" onClick={() => {}}>
                     <Link
-                      href="/compliance-risk-mitigation"
+                      href="/solutions/compliance-risk-mitigation"
                       className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
                     >
                       Compliance & Risk Mitigation
@@ -153,7 +158,7 @@ export default function NavBar() {
                   </li>
                   <li className="" onClick={() => {}}>
                     <Link
-                      href="/software-supplychain-security"
+                      href="/solutions/software-supplychain-security"
                       className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
                     >
                       Software Supplychain Security

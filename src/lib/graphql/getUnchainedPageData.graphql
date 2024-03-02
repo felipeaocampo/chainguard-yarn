@@ -4,6 +4,7 @@ query getUnchainedPageData($preview: Boolean!) {
     sys {
       id
     }
+    pageSlug
     pageMetadata {
       __typename
       sys {

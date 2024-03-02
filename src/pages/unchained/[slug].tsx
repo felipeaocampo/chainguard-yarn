@@ -18,11 +18,14 @@ import {
 import BlogSection1 from "@/components/blog/BlogSection1";
 import { blogRenderOptions } from "@/lib/BlogRichTextOptions";
 import { useRouter } from "next/router";
+import ExitPreviewCard from "@/components/ui/ExitPreviewCard";
 
 export default function BlogPost({
   blogData,
+  preview,
 }: {
   blogData: GetBlogPageDataQuery;
+  preview: boolean;
 }) {
   const { slug } = useRouter().query;
   const liveBlogData = useContentfulLiveUpdates(blogData);
@@ -44,6 +47,7 @@ export default function BlogPost({
 
   return (
     <main className="border-b border-solid border-[#dcdcdc] pt-[180px]">
+      {preview && <ExitPreviewCard slug={`/unchained/${slug as string}`} />}
       <BlogSection1
         title={blog?.blogName || ""}
         authors={blog?.authors || []}
@@ -83,14 +87,15 @@ export const getStaticProps: GetStaticProps = async ({
     const contentful = preview ? previewClient : client;
     console.log("preview is: ", preview);
 
-    const res = await contentful.getBlogId({ slug });
+    const res = await contentful.getBlogId({ preview, slug });
+
     const blogId = res?.blogCollection?.items[0]?.sys.id;
 
     if (!blogId) {
       return { notFound: true };
     }
     const blogData = await contentful.getBlogPageData({ preview, id: blogId });
-    console.log(blogData);
+    // console.log(blogData);
 
     //WILL HAVE TO MAKE 2ND REQUEST FOR THE 3 RELATED ARTICLES USING THE CATEGORY OF THE ABOVE FETCHED ONE!
     // const relatedArticles = await contentful.getRelatedBlogArticles({preview, category}) // make sure the current article is NOT INCLUDED
@@ -99,6 +104,7 @@ export const getStaticProps: GetStaticProps = async ({
     return {
       props: {
         blogData,
+        preview,
       },
     };
   } catch (error) {
@@ -123,12 +129,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
       paths,
-      fallback: false,
+      fallback: true,
     };
   } catch (error) {
     return {
       paths: [],
-      fallback: false,
+      fallback: true,
     };
   }
 };

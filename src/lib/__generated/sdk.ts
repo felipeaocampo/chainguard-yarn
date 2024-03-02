@@ -177,6 +177,7 @@ export type AssetLinkingCollections = {
   customersSectionCollection?: Maybe<CustomersSectionCollection>;
   entryCollection?: Maybe<EntryCollection>;
   generalContentCardCollection?: Maybe<GeneralContentCardCollection>;
+  seoMetadataCollection?: Maybe<SeoMetadataCollection>;
   testContentCollection?: Maybe<TestContentCollection>;
 };
 
@@ -214,6 +215,14 @@ export type AssetLinkingCollectionsEntryCollectionArgs = {
 
 
 export type AssetLinkingCollectionsGeneralContentCardCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type AssetLinkingCollectionsSeoMetadataCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2180,6 +2189,7 @@ export type SeoMetadata = Entry & {
   contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<SeoMetadataLinkingCollections>;
   metaDescription?: Maybe<Scalars['String']['output']>;
+  openGraphImage?: Maybe<Asset>;
   pageTitle?: Maybe<Scalars['String']['output']>;
   sys: Sys;
 };
@@ -2194,6 +2204,13 @@ export type SeoMetadataLinkedFromArgs = {
 /** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/seoMetadata) */
 export type SeoMetadataMetaDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/seoMetadata) */
+export type SeoMetadataOpenGraphImageArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -2221,6 +2238,7 @@ export type SeoMetadataFilter = {
   metaDescription_not?: InputMaybe<Scalars['String']['input']>;
   metaDescription_not_contains?: InputMaybe<Scalars['String']['input']>;
   metaDescription_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  openGraphImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
   pageTitle?: InputMaybe<Scalars['String']['input']>;
   pageTitle_contains?: InputMaybe<Scalars['String']['input']>;
   pageTitle_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2674,6 +2692,7 @@ export type CfSeoMetadataNestedFilter = {
   metaDescription_not?: InputMaybe<Scalars['String']['input']>;
   metaDescription_not_contains?: InputMaybe<Scalars['String']['input']>;
   metaDescription_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  openGraphImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
   pageTitle?: InputMaybe<Scalars['String']['input']>;
   pageTitle_contains?: InputMaybe<Scalars['String']['input']>;
   pageTitle_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2702,6 +2721,7 @@ export type GetAllBlogPathsQuery = { __typename?: 'Query', blogCollection?: { __
 
 export type GetBlogIdQueryVariables = Exact<{
   slug: Scalars['String']['input'];
+  preview: Scalars['Boolean']['input'];
 }>;
 
 
@@ -2731,7 +2751,7 @@ export type GetHomePageDataQueryVariables = Exact<{
 }>;
 
 
-export type GetHomePageDataQuery = { __typename?: 'Query', generalPage?: { __typename: 'GeneralPage', sys: { __typename?: 'Sys', id: string }, pageMetadata?: { __typename: 'SeoMetadata', pageTitle?: string | null, metaDescription?: string | null, sys: { __typename?: 'Sys', id: string } } | null, pageSectionCollection?: { __typename: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs' } | { __typename: 'CustomersSection', sys: { __typename?: 'Sys', id: string }, selectCustomerLogosCollection?: { __typename: 'AssetCollection', items: Array<{ __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, selectTestimonialsCollection?: { __typename: 'CustomersSectionSelectTestimonialsCollection', items: Array<{ __typename: 'CustomerTestimonialCard', testimonial?: string | null, customerName?: string | null, titleposition?: string | null, sys: { __typename?: 'Sys', id: string }, logo?: { __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null } | (
+export type GetHomePageDataQuery = { __typename?: 'Query', generalPage?: { __typename: 'GeneralPage', pageSlug?: string | null, sys: { __typename?: 'Sys', id: string }, pageMetadata?: { __typename: 'SeoMetadata', pageTitle?: string | null, metaDescription?: string | null, sys: { __typename?: 'Sys', id: string } } | null, pageSectionCollection?: { __typename: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs' } | { __typename: 'CustomersSection', sys: { __typename?: 'Sys', id: string }, selectCustomerLogosCollection?: { __typename: 'AssetCollection', items: Array<{ __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, selectTestimonialsCollection?: { __typename: 'CustomersSectionSelectTestimonialsCollection', items: Array<{ __typename: 'CustomerTestimonialCard', testimonial?: string | null, customerName?: string | null, titleposition?: string | null, sys: { __typename?: 'Sys', id: string }, logo?: { __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null } | (
             { __typename: 'GeneralContentCard' }
             & HomeGeneralContentCardFragment
           ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null };
@@ -2741,7 +2761,18 @@ export type GetOpenSourcePageDataQueryVariables = Exact<{
 }>;
 
 
-export type GetOpenSourcePageDataQuery = { __typename?: 'Query', generalPage?: { __typename?: 'GeneralPage', pageName?: string | null, pageSlug?: string | null } | null };
+export type GetOpenSourcePageDataQuery = { __typename?: 'Query', generalPage?: { __typename: 'GeneralPage', sys: { __typename?: 'Sys', id: string }, pageMetadata?: { __typename: 'SeoMetadata', pageTitle?: string | null, metaDescription?: string | null, sys: { __typename?: 'Sys', id: string }, openGraphImage?: (
+        { __typename?: 'Asset' }
+        & ContentfulImgFieldsFragment
+      ) | null } | null, pageSectionCollection?: { __typename?: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', pageSectionName?: string | null, sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename?: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs' } | { __typename: 'CustomersSection' } | (
+            { __typename: 'GeneralContentCard' }
+            & OpenSourcePageGcFragment
+          ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null };
+
+export type OpenSourcePageGcFragment = { __typename: 'GeneralContentCard', pageSectionName?: string | null, heading?: string | null, subheading?: string | null, descriptionText?: string | null, ctas?: any | null, sys: { __typename?: 'Sys', id: string }, mediaCollection?: { __typename?: 'AssetCollection', items: Array<(
+      { __typename?: 'Asset' }
+      & ContentfulImgFieldsFragment
+    ) | null> } | null };
 
 export type GetTestContentByIdQueryVariables = Exact<{
   preview: Scalars['Boolean']['input'];
@@ -2767,7 +2798,7 @@ export type GetUnchainedPageDataQueryVariables = Exact<{
 }>;
 
 
-export type GetUnchainedPageDataQuery = { __typename?: 'Query', generalPage?: { __typename: 'GeneralPage', sys: { __typename?: 'Sys', id: string }, pageMetadata?: { __typename: 'SeoMetadata', pageTitle?: string | null, metaDescription?: string | null, sys: { __typename?: 'Sys', id: string } } | null, pageSectionCollection?: { __typename: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs', sys: { __typename?: 'Sys', id: string }, featuredBlogsCollection?: { __typename?: 'BlogsFeaturedBlogsCollection', items: Array<(
+export type GetUnchainedPageDataQuery = { __typename?: 'Query', generalPage?: { __typename: 'GeneralPage', pageSlug?: string | null, sys: { __typename?: 'Sys', id: string }, pageMetadata?: { __typename: 'SeoMetadata', pageTitle?: string | null, metaDescription?: string | null, sys: { __typename?: 'Sys', id: string } } | null, pageSectionCollection?: { __typename: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs', sys: { __typename?: 'Sys', id: string }, featuredBlogsCollection?: { __typename?: 'BlogsFeaturedBlogsCollection', items: Array<(
                 { __typename?: 'Blog' }
                 & UnchainedFeaturedBlogsFragment
               ) | { __typename?: 'BlogPage' } | { __typename?: 'Blogs' } | { __typename?: 'CodeBlock' } | { __typename?: 'CustomerTestimonialCard' } | { __typename?: 'CustomersSection' } | { __typename?: 'GeneralContentCard' } | { __typename?: 'GeneralPage' } | { __typename?: 'PageSection' } | { __typename?: 'SearchBar' } | { __typename?: 'SeoMetadata' } | { __typename?: 'TestContent' } | null> } | null } | { __typename: 'CustomersSection' } | (
@@ -2887,6 +2918,36 @@ export const BlogLinksFieldsFragmentDoc = gql`
   }
 }
     `;
+export const ContentfulImgFieldsFragmentDoc = gql`
+    fragment ContentfulImgFields on Asset {
+  __typename
+  sys {
+    id
+  }
+  url
+  description
+  width
+  height
+}
+    `;
+export const OpenSourcePageGcFragmentDoc = gql`
+    fragment OpenSourcePageGC on GeneralContentCard {
+  __typename
+  sys {
+    id
+  }
+  pageSectionName
+  heading
+  subheading
+  descriptionText
+  mediaCollection(limit: 2) {
+    items {
+      ...ContentfulImgFields
+    }
+  }
+  ctas
+}
+    `;
 export const HomeGeneralContentCardFragmentDoc = gql`
     fragment HomeGeneralContentCard on GeneralContentCard {
   __typename
@@ -2910,18 +2971,6 @@ export const HomeGeneralContentCardFragmentDoc = gql`
       height
     }
   }
-}
-    `;
-export const ContentfulImgFieldsFragmentDoc = gql`
-    fragment ContentfulImgFields on Asset {
-  __typename
-  sys {
-    id
-  }
-  url
-  description
-  width
-  height
 }
     `;
 export const UnchainedFeaturedBlogsFragmentDoc = gql`
@@ -2951,8 +3000,8 @@ export const GetAllBlogPathsDocument = gql`
 }
     `;
 export const GetBlogIdDocument = gql`
-    query getBlogId($slug: String!) {
-  blogCollection(where: {blogSlug: $slug}) {
+    query getBlogId($slug: String!, $preview: Boolean!) {
+  blogCollection(preview: $preview, where: {blogSlug: $slug}) {
     items {
       sys {
         id
@@ -3004,6 +3053,7 @@ export const GetHomePageDataDocument = gql`
     sys {
       id
     }
+    pageSlug
     pageMetadata {
       __typename
       sys {
@@ -3074,12 +3124,43 @@ export const GetHomePageDataDocument = gql`
     ${HomeGeneralContentCardFragmentDoc}`;
 export const GetOpenSourcePageDataDocument = gql`
     query getOpenSourcePageData($preview: Boolean!) {
-  generalPage(id: "6nhKPVtrhOpI6NQ9FGv8ia", preview: $preview) {
-    pageName
-    pageSlug
+  generalPage(preview: $preview, id: "6nhKPVtrhOpI6NQ9FGv8ia") {
+    __typename
+    sys {
+      id
+    }
+    pageMetadata {
+      __typename
+      sys {
+        id
+      }
+      pageTitle
+      metaDescription
+      openGraphImage {
+        ...ContentfulImgFields
+      }
+    }
+    pageSectionCollection(limit: 10) {
+      items {
+        __typename
+        sys {
+          id
+        }
+        pageSectionName
+        pageSectionPartsCollection(limit: 10) {
+          items {
+            __typename
+            ... on GeneralContentCard {
+              ...OpenSourcePageGC
+            }
+          }
+        }
+      }
+    }
   }
 }
-    `;
+    ${ContentfulImgFieldsFragmentDoc}
+${OpenSourcePageGcFragmentDoc}`;
 export const GetTestContentByIdDocument = gql`
     query getTestContentById($preview: Boolean!, $id: String!) {
   testContent(id: $id, preview: $preview) {
@@ -3223,6 +3304,7 @@ export const GetUnchainedPageDataDocument = gql`
     sys {
       id
     }
+    pageSlug
     pageMetadata {
       __typename
       sys {

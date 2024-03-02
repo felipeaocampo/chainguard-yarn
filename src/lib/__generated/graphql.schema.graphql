@@ -95,6 +95,7 @@ type AssetLinkingCollections {
   customersSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): CustomersSectionCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
   generalContentCardCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): GeneralContentCardCollection
+  seoMetadataCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): SeoMetadataCollection
   testContentCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): TestContentCollection
 }
 
@@ -1326,6 +1327,7 @@ type SeoMetadata implements Entry {
   contentfulMetadata: ContentfulMetadata!
   linkedFrom(allowedLocales: [String]): SeoMetadataLinkingCollections
   metaDescription(locale: String): String
+  openGraphImage(locale: String, preview: Boolean): Asset
   pageTitle(locale: String): String
   sys: Sys!
 }
@@ -1348,6 +1350,7 @@ input SeoMetadataFilter {
   metaDescription_not: String
   metaDescription_not_contains: String
   metaDescription_not_in: [String]
+  openGraphImage_exists: Boolean
   pageTitle: String
   pageTitle_contains: String
   pageTitle_exists: Boolean
@@ -1690,6 +1693,7 @@ input cfSeoMetadataNestedFilter {
   metaDescription_not: String
   metaDescription_not_contains: String
   metaDescription_not_in: [String]
+  openGraphImage_exists: Boolean
   pageTitle: String
   pageTitle_contains: String
   pageTitle_exists: Boolean

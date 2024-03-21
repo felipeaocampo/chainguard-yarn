@@ -95,7 +95,7 @@ export default function HomeSection2({
       </div>
       <div
         {...inspectorPropsCust({ fieldId: "selectCustomerLogos" })}
-        className="customer-logos-container flex gap-[32px] mb-[24px]"
+        className="customer-logos-container hidden md:flex md:gap-[32px] md:mb-[24px]"
       >
         {customersDataHub?.selectCustomerLogosCollection?.items.map(
           (customerLogo, i) => (

@@ -162,9 +162,21 @@ type BlogBlogContentLinks {
 }
 
 type BlogBlogContentResources {
-  block: [ResourceLink!]!
-  hyperlink: [ResourceLink!]!
-  inline: [ResourceLink!]!
+  block: [BlogBlogContentResourcesBlock!]!
+  hyperlink: [BlogBlogContentResourcesHyperlink!]!
+  inline: [BlogBlogContentResourcesInline!]!
+}
+
+type BlogBlogContentResourcesBlock implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type BlogBlogContentResourcesHyperlink implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type BlogBlogContentResourcesInline implements ResourceLink {
+  sys: ResourceSys!
 }
 
 type BlogCollection {
@@ -282,9 +294,21 @@ type BlogPageBlogContentLinks {
 }
 
 type BlogPageBlogContentResources {
-  block: [ResourceLink!]!
-  hyperlink: [ResourceLink!]!
-  inline: [ResourceLink!]!
+  block: [BlogPageBlogContentResourcesBlock!]!
+  hyperlink: [BlogPageBlogContentResourcesHyperlink!]!
+  inline: [BlogPageBlogContentResourcesInline!]!
+}
+
+type BlogPageBlogContentResourcesBlock implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type BlogPageBlogContentResourcesHyperlink implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type BlogPageBlogContentResourcesInline implements ResourceLink {
+  sys: ResourceSys!
 }
 
 type BlogPageCollection {
@@ -1223,13 +1247,12 @@ type Query {
   testContentCollection(limit: Int = 100, locale: String, order: [TestContentOrder], preview: Boolean, skip: Int = 0, where: TestContentFilter): TestContentCollection
 }
 
-type ResourceLink {
+interface ResourceLink {
   sys: ResourceSys!
 }
 
 type ResourceSys {
   linkType: String!
-  type: String!
   urn: String!
 }
 
@@ -1485,9 +1508,21 @@ type TestContentBlogLinks {
 }
 
 type TestContentBlogResources {
-  block: [ResourceLink!]!
-  hyperlink: [ResourceLink!]!
-  inline: [ResourceLink!]!
+  block: [TestContentBlogResourcesBlock!]!
+  hyperlink: [TestContentBlogResourcesHyperlink!]!
+  inline: [TestContentBlogResourcesInline!]!
+}
+
+type TestContentBlogResourcesBlock implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type TestContentBlogResourcesHyperlink implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type TestContentBlogResourcesInline implements ResourceLink {
+  sys: ResourceSys!
 }
 
 type TestContentBody {
@@ -1513,9 +1548,21 @@ type TestContentBodyLinks {
 }
 
 type TestContentBodyResources {
-  block: [ResourceLink!]!
-  hyperlink: [ResourceLink!]!
-  inline: [ResourceLink!]!
+  block: [TestContentBodyResourcesBlock!]!
+  hyperlink: [TestContentBodyResourcesHyperlink!]!
+  inline: [TestContentBodyResourcesInline!]!
+}
+
+type TestContentBodyResourcesBlock implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type TestContentBodyResourcesHyperlink implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type TestContentBodyResourcesInline implements ResourceLink {
+  sys: ResourceSys!
 }
 
 type TestContentCollection {

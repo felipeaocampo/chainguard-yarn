@@ -1,0 +1,13 @@
+fragment RelatedBlogArticle on Blog {
+  __typename
+  sys {
+    id
+  }
+  blogName
+  blogSlug
+  tags
+  datePublished
+  mainImage {
+    ... ContentfulImgFields
+  }
+}

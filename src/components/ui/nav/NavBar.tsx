@@ -323,7 +323,7 @@ export default function NavBar() {
               Sign in
             </Link>
             <Link
-              href="/contact-us"
+              href="/contact-chainguard"
               className="py-[8px] text-white bg-cg-text-blue px-[12px] border border-solid border-cg-text-blue rounded-[4px] font-[500] leading-[20px] transition-all duration-[.4s] hover:bg-cg-hover-btn-bg-blue"
             >
               Contact us

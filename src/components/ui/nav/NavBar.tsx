@@ -57,7 +57,7 @@ export default function NavBar() {
   };
 
   return (
-    <header className="bg-hero-cg-gradient relative ">
+    <header className="hidden relative md:block">
       <div className="flex justify-between max-w-[90%] mx-auto py-[22px] w-[90%] absolute left-[50%] translate-x-[-50%]">
         <div className="logo-wrapper flex items-center ">
           <Link href="/">

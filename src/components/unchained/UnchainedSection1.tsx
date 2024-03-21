@@ -95,7 +95,7 @@ export default function UnchainedSection1({
                 </div>
                 <div className="card-text">
                   <div
-                    {...iProps({ fieldId: "categories" })}
+                    {...iProps({ fieldId: "tags" })}
                     className="category-container"
                   >
                     {blog.tags &&

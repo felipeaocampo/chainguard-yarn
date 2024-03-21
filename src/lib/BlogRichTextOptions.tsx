@@ -57,11 +57,16 @@ export const blogRenderOptions = (links: any): Options => {
       ),
     },
     renderNode: {
-      [BLOCKS.PARAGRAPH]: (node, children) => (
-        <p key={Math.random()} className="mb-[24px]">
-          {children}
-        </p>
-      ),
+      [BLOCKS.PARAGRAPH]: (node, children) => {
+        // console.log("NODE: ", node);
+        // console.log("children: ", children);
+
+        return (
+          <p key={Math.random()} className="mb-[24px]">
+            {children}
+          </p>
+        );
+      },
       [BLOCKS.HEADING_2]: (node, children) => (
         <h2
           key={Math.random()}
@@ -76,6 +81,35 @@ export const blogRenderOptions = (links: any): Options => {
           {children}
         </h2>
       ),
+      [BLOCKS.UL_LIST]: (node, children) => {
+        return (
+          <ul
+            className="blog-ul"
+            style={{
+              listStyle: "disc",
+              paddingLeft: "40px",
+            }}
+          >
+            {children}
+          </ul>
+        );
+      },
+      [BLOCKS.OL_LIST]: (node, children) => {
+        return (
+          <ol
+            className="blog-ol"
+            style={{
+              listStyle: "roman",
+              paddingLeft: "40px",
+            }}
+          >
+            {children}
+          </ol>
+        );
+      },
+      [BLOCKS.LIST_ITEM]: (node, children) => {
+        return <li>{children}</li>;
+      },
       [BLOCKS.QUOTE]: (node, children) => (
         <blockquote className="text-[24px] font-[600] leading-[31.2px] tracking-[-.02em] my-[24px]">
           {children}
@@ -153,14 +187,14 @@ export const blogRenderOptions = (links: any): Options => {
             return (
               <pre>
                 <code
-                  className="text-[14px]"
+                  className={`${entry.language} text-[14px]`}
                   style={{
                     borderRadius: "5px",
                     marginBottom: "32px",
                     padding: "18px",
                   }}
                 >
-                  {entry.code.replace("```\n", "").replace("```", "")}
+                  {entry?.code?.replace("```\n", "").replace("```", "")}
                 </code>
               </pre>
             );

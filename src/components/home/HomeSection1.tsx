@@ -25,21 +25,7 @@ export default function HomeSection1({
   const [[ctaLink, ctaText]] = Object.entries(generalContentCard.ctas) as any[];
 
   return (
-    <section
-      className="flex flex-col items-center mb-[96px] pt-[180px] max-w-[1152px] mx-auto"
-      style={{ width: "min(90%, 1152px)" }}
-    >
-      {/* <aside className="mb-[24px] text-[14px] py-[8px] px-[15px] border border-solid rounded-[100px]">
-        <p className="flex gap-[6px]">
-          {nonLinkFloatingText}
-          <Link
-            href={`/unchained${section1Props.floatingHeaderLink}`}
-            className="text-cg-text-blue hover:text-cg-hover-btn-bg-blue"
-          >
-            {linkedFloatingText}
-          </Link>
-        </p>
-      </aside> */}
+    <section className="flex flex-col items-center mb-[96px] pt-[180px] max-w-[1152px] mx-auto">
       <h1
         {...inspectorPropsGCC({ fieldId: "heading" })}
         className="text-[48px] font-semibold mb-[12px] w-[500px] leading-[53px] text-center tracking-[-.02em]"
@@ -85,6 +71,7 @@ export default function HomeSection1({
             ? +generalContentCard.mediaCollection.items[0].height
             : 0
         }
+        priority={true}
       />
     </section>
   );

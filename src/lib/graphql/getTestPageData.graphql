@@ -1,0 +1,63 @@
+query getTestPageData($preview: Boolean!) {
+  generalPage(preview: $preview, id: "hEZAYzEIbQxWAfzlh0ihH") {
+    __typename
+    sys {
+      id
+    }
+    pageSlug
+    pageMetadata {
+      __typename
+      sys {
+        id
+      }
+      pageTitle
+      metaDescription
+      openGraphImage {
+        ...ContentfulImgFields
+      }
+    }
+    pageSectionCollection(limit: 10) {
+      items {
+        __typename
+        sys {
+          id
+        }
+        pageSectionName
+        pageSectionPartsCollection(limit: 10) {
+          items {
+            __typename
+            ... on GeneralContentCard {
+              ...TestPageHeroSection
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment ContentfulImgFields on Asset {
+  __typename
+  sys {
+    id
+  }
+  url
+  description
+  width
+  height
+}
+
+fragment TestPageHeroSection on GeneralContentCard {
+  __typename
+  sys {
+    id
+  }
+  pageSectionName
+  heading
+  subheading
+  mediaCollection(limit: 2) {
+    items {
+      ...ContentfulImgFields
+    }
+  }
+}

@@ -1,0 +1,12 @@
+query getRelatedBlogs($preview: Boolean!, $slug: String!) {
+  blogCollection(preview: $preview, limit: 3, where: {blogSlug_not: $slug}) {
+    __typename
+    items {
+      ...RelatedBlogArticle
+    }
+  }
+}
+
+
+
+

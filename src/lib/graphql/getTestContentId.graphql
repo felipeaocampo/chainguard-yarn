@@ -1,9 +1,0 @@
-query getTestContentId($preview: Boolean!, $slug: String!) {
-  testContentCollection(preview: $preview, where: {slug: $slug}, limit: 1) {
-    items {
-      sys {
-        id
-      }
-    }
-  }
-}

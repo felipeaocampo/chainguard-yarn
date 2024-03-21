@@ -70,34 +70,34 @@ fragment BlogLinksFields on BlogBlogContentLinks {
       __typename
     }
   }
-  resources {
-    block {
-      sys {
-        linkType
-        type
-        urn
-        __typename
-      }
-      __typename
-    }
-    inline {
-      sys {
-        linkType
-        type
-        urn
-        __typename
-      }
-      __typename
-    }
-    hyperlink {
-      sys {
-        linkType
-        type
-        urn
-        __typename
-      }
-      __typename
-    }
-    __typename
-  }
+  # resources {
+  #   block {
+  #     sys {
+  #       linkType
+  #       type
+  #       urn
+  #       __typename
+  #     }
+  #     __typename
+  #   }
+  #   inline {
+  #     sys {
+  #       linkType
+  #       type
+  #       urn
+  #       __typename
+  #     }
+  #     __typename
+  #   }
+  #   hyperlink {
+  #     sys {
+  #       linkType
+  #       type
+  #       urn
+  #       __typename
+  #     }
+  #     __typename
+  #   }
+  #   __typename
+  # }
 }

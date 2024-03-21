@@ -2,8 +2,8 @@ import hljs from "highlight.js";
 import "highlight.js/styles/atom-one-dark.css";
 
 import {
-  GetBlogPageDataDocument,
-  GetBlogPageDataQuery,
+  BlogFieldsFragment,
+  GetRelatedBlogsQuery,
 } from "@/lib/__generated/sdk";
 import { NextSeo } from "next-seo";
 
@@ -19,20 +19,26 @@ import BlogSection1 from "@/components/blog/BlogSection1";
 import { blogRenderOptions } from "@/lib/BlogRichTextOptions";
 import { useRouter } from "next/router";
 import ExitPreviewCard from "@/components/ui/ExitPreviewCard";
+import Image from "next/image";
+import { Span } from "next/dist/trace";
+import { formatDate } from "@/components/unchained/UnchainedSection1";
 
 export default function BlogPost({
   blogData,
   preview,
+  relatedArticles,
 }: {
-  blogData: GetBlogPageDataQuery;
+  blogData: BlogFieldsFragment;
   preview: boolean;
+  relatedArticles: GetRelatedBlogsQuery;
 }) {
   const { slug } = useRouter().query;
-  const liveBlogData = useContentfulLiveUpdates(blogData);
+
+  const liveBlog = useContentfulLiveUpdates(blogData);
   const blogInspectorProps = useContentfulInspectorMode({
-    entryId: liveBlogData?.blog?.sys.id || "",
+    entryId: liveBlog?.sys?.id || "",
   });
-  const blog = liveBlogData.blog;
+  //   const blog = liveBlogData.blogCollection?.items[0];
 
   useEffect(() => {
     hljs.highlightAll();
@@ -41,7 +47,7 @@ export default function BlogPost({
   //   TODO: WHEN ON A BLOG PAGE WE NEED TO TOGGLE THE NAV TO DISPLAY BACK TO NAV! WILL NEED TO ACCESS URL THRU ROUTER
   //   TODO: FIX THE Element previously highlighted. To highlight again, first unset `dataset.highlighted`. ERROR; highlightjs
 
-  if (!blog) {
+  if (!liveBlog) {
     return null;
   }
 
@@ -49,26 +55,56 @@ export default function BlogPost({
     <main className="border-b border-solid border-[#dcdcdc] pt-[180px]">
       {preview && <ExitPreviewCard slug={`/unchained/${slug as string}`} />}
       <BlogSection1
-        title={blog?.blogName || ""}
-        authors={blog?.authors || []}
-        tags={blog?.tags || []}
-        datePublished={blog?.datePublished || ""}
+        title={liveBlog?.blogName || ""}
+        authors={liveBlog?.authors || []}
+        tags={liveBlog?.tags || []}
+        datePublished={liveBlog?.datePublished || ""}
         iProps={blogInspectorProps}
       />
-      <div className="mx-auto max-w-[1152px] flex justify-between items-start">
-        {blog.blogContent && blog.blogContent.json && blog.blogContent.links ? (
+      <div className="mx-auto max-w-[1152px] flex justify-between items-start shrink-0">
+        {liveBlog.blogContent &&
+        liveBlog.blogContent.json &&
+        liveBlog.blogContent.links ? (
           <section
             {...blogInspectorProps({ fieldId: "blogContent" })}
-            className="max-w-[760px]"
+            className="w-[693px]"
           >
             {documentToReactComponents(
-              blog.blogContent.json,
-              blogRenderOptions(blog.blogContent.links)
+              liveBlog.blogContent.json,
+              blogRenderOptions(liveBlog.blogContent.links)
             )}
           </section>
         ) : null}
-        <aside className="bg-red-300 sticky top-[40px]">
-          Related blogs side panel
+        <aside className=" sticky top-[40px] max-w-[353px]">
+          <h4 className="mb-[24px] font-[600] text-[20px] leading-[120%] tracking-[-.02em]">
+            Related Articles
+          </h4>
+          {relatedArticles?.blogCollection?.items &&
+            relatedArticles.blogCollection?.items.map((relatedBlog, i) => {
+              return (
+                <div key={relatedBlog?.sys?.id || i} className="space-y-[12px]">
+                  <div className="related-img-container h-[114px] w-[172px] rounded-[8px] overflow-hidden">
+                    <Image
+                      src={relatedBlog?.mainImage?.url || ""}
+                      alt={relatedBlog?.mainImage?.description || ""}
+                      width={relatedBlog?.mainImage?.width || 0}
+                      height={relatedBlog?.mainImage?.height || 0}
+                      className="object-cover h-full"
+                    />
+                  </div>
+
+                  <div className="tag-container">
+                    {relatedBlog?.tags?.map((tag, i) => (
+                      <span key={`${tag}/${i}`}>{tag}</span>
+                    ))}
+                  </div>
+                  <h5>{relatedBlog?.blogName}</h5>
+                  <div className="date-container !mb-[48px]">
+                    <time>{formatDate(relatedBlog?.datePublished || "")}</time>
+                  </div>
+                </div>
+              );
+            })}
         </aside>
       </div>
       <section className="mx-auto max-w-[1152px] mb-[96px]">
@@ -87,23 +123,22 @@ export const getStaticProps: GetStaticProps = async ({
     const contentful = preview ? previewClient : client;
     console.log("preview is: ", preview);
 
-    const res = await contentful.getBlogId({ preview, slug });
+    const blogData = await contentful.getBlogPageData({ preview, slug });
 
-    const blogId = res?.blogCollection?.items[0]?.sys.id;
-
-    if (!blogId) {
+    if (!blogData || !blogData?.blogCollection?.items[0]) {
       return { notFound: true };
     }
-    const blogData = await contentful.getBlogPageData({ preview, id: blogId });
-    // console.log(blogData);
 
     //WILL HAVE TO MAKE 2ND REQUEST FOR THE 3 RELATED ARTICLES USING THE CATEGORY OF THE ABOVE FETCHED ONE!
     // const relatedArticles = await contentful.getRelatedBlogArticles({preview, category}) // make sure the current article is NOT INCLUDED
     //start if off by testing off w/ just ANY 3 articles, so long as it's not the current. Get that working, then filter by category
+    const relatedArticles = await contentful.getRelatedBlogs({ preview, slug });
+    // console.log("related: ", relatedArticles);
 
     return {
       props: {
-        blogData,
+        blogData: blogData.blogCollection?.items[0],
+        relatedArticles,
         preview,
       },
     };
@@ -129,12 +164,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
       paths,
-      fallback: true,
+      fallback: false,
     };
   } catch (error) {
     return {
       paths: [],
-      fallback: true,
+      fallback: false,
     };
   }
 };

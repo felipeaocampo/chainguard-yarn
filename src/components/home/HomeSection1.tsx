@@ -6,7 +6,7 @@ import {
   PageSection,
 } from "@/lib/__generated/sdk";
 
-// 
+//
 
 export default function HomeSection1({
   homeSection1Data,
@@ -74,6 +74,7 @@ export default function HomeSection1({
             : 0
         }
         priority={true}
+        loading="eager"
       />
     </section>
   );

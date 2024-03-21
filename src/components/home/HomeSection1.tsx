@@ -6,6 +6,8 @@ import {
   PageSection,
 } from "@/lib/__generated/sdk";
 
+// 
+
 export default function HomeSection1({
   homeSection1Data,
 }: {

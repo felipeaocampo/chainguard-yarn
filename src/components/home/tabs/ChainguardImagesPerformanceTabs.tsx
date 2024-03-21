@@ -42,6 +42,7 @@ export default function ChainguardImagesPerformanceTabs() {
           className="w-full h-full min-h-[370px]  p-[24px] border border-[#ebecfe] rounded-[8px] shadow-card"
           src={iframeUrls[activeUrl]}
           scrolling="no"
+          title="Chainguard Images in action"
         ></iframe>
       </div>
     </>

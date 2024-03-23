@@ -22,6 +22,7 @@ import ExitPreviewCard from "@/components/ui/ExitPreviewCard";
 import Image from "next/image";
 import { Span } from "next/dist/trace";
 import { formatDate } from "@/components/unchained/UnchainedSection1";
+import { useExternalScript } from "@/hooks/useScriptLoad";
 
 export default function BlogPost({
   blogData,
@@ -39,6 +40,11 @@ export default function BlogPost({
     entryId: liveBlog?.sys?.id || "",
   });
   //   const blog = liveBlogData.blogCollection?.items[0];
+
+  const { isLoaded } = useExternalScript(
+    "https://platform.twitter.com/widgets.js"
+  );
+  console.log("ISLOADED: ", isLoaded);
 
   useEffect(() => {
     hljs.highlightAll();

@@ -184,6 +184,18 @@ export const blogRenderOptions = (links: any): Options => {
 
         switch (entry.__typename) {
           case "CodeBlock":
+            if (entry.language === "html") {
+              return (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: entry?.code
+                      ?.replace("```\n", "")
+                      .replace("```", ""),
+                  }}
+                />
+              );
+            }
+
             return (
               <pre>
                 <code

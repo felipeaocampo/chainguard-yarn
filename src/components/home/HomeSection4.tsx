@@ -58,26 +58,29 @@ export default function HomeSection4({
   const [[ctaLink, ctaText]] = Object.entries(mainContentCard.ctas) as any[];
 
   return (
-    <section className="max-w-[1152px] mx-auto">
-      <div className="section-2-header-text mb-[48px] w-1/2">
+    <section className="overflow-hidden">
+      <div className="section-2-header-text w-[90%] mx-auto max-w-[1152px]">
         <h3
           {...inspectorPropsGCC({ fieldId: "heading" })}
           className="text-[14px] uppercase tracking-[.64px] mb-[24px]"
         >
           {mainContentCard.heading}
         </h3>
-        <p
-          {...inspectorPropsGCC({ fieldId: "subheading" })}
-          className="text-[36px] font-semibold leading-[43.2px] mb-[12px]"
-        >
-          {mainContentCard.subheading}
-        </p>
-        <p
-          {...inspectorPropsGCC({ fieldId: "descriptionText" })}
-          className="mb-[24px]"
-        >
-          {mainContentCard.descriptionText}
-        </p>
+        <div className="headers w-full md:max-w-[564px]">
+          <p
+            {...inspectorPropsGCC({ fieldId: "subheading" })}
+            className="text-[36px] font-semibold leading-[43.2px] mb-[12px]"
+          >
+            {mainContentCard.subheading}
+          </p>
+          <p
+            {...inspectorPropsGCC({ fieldId: "descriptionText" })}
+            className="mb-[24px]"
+          >
+            {mainContentCard.descriptionText}
+          </p>
+        </div>
+
         <Link
           {...inspectorPropsGCC({ fieldId: "ctas" })}
           href={ctaLink}
@@ -87,7 +90,9 @@ export default function HomeSection4({
         </Link>
       </div>
       <HomeSlider slideCardsWithInspectorProps={slideCardsWithInspectorProps} />
-      <div className="divider-line pt-[96px] mb-[96px] w-[85px] border-b border-solid"></div>
+      <div className="divider-line-container w-[90%] mx-auto max-w-[1152px]">
+        <div className="divider-line pt-[96px] mb-[96px] w-[85px] border-b border-solid"></div>
+      </div>
     </section>
   );
 }

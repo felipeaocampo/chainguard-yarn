@@ -63,9 +63,9 @@ export default function HomeSection3({
   const [[ctaLink, ctaText]] = Object.entries(mainContentCard.ctas) as any[];
 
   return (
-    <section className="max-w-[1152px] mx-auto">
-      <div className="flex">
-        <div className="section-2-header-text mb-[48px] w-1/2">
+    <section className="w-[90%] mx-auto max-w-[1152px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="section-2-header-text mb-[48px]">
           <h3
             {...inspectorPropsGCC({ fieldId: "heading" })}
             className="text-[14px] uppercase tracking-[.64px] mb-[24px]"
@@ -97,7 +97,7 @@ export default function HomeSection3({
                 return (
                   <li key={card.sys.id} className="mb-[24px]">
                     <div className="benefit-item-container flex gap-[10px]">
-                      <div className="benefit-item-icon-wrapper">
+                      <div className="benefit-item-icon-wrapper shrink-0">
                         <Image
                           {...iProps({ fieldId: "media" })}
                           src={
@@ -131,7 +131,7 @@ export default function HomeSection3({
                         </p>
                         <p
                           {...iProps({ fieldId: "subheading" })}
-                          className="text-[14px] text-cg-text-color-gray"
+                          className="text-[14px] text-cg-text-color-gray leading-[150%] font-[400]"
                         >
                           {card.subheading}
                         </p>
@@ -143,7 +143,7 @@ export default function HomeSection3({
             </ul>
           </div>
         </div>
-        <div className="section-2-header-text mb-[48px] w-1/2 ">
+        <div className="section-2-header-text ">
           <ChainguardImagesPerformanceTabs />
         </div>
       </div>

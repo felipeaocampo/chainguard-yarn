@@ -37,9 +37,9 @@ export default function ChainguardImagesPerformanceTabs() {
           PHP
         </button>
       </div>
-      <div className="Images-performance-iframes p-[34px] h-full ">
+      <div className="Images-performance-iframes py-[34px] px-[0] lg:px-[34px]">
         <iframe
-          className="w-full h-full min-h-[370px]  p-[24px] border border-[#ebecfe] rounded-[8px] shadow-card"
+          className="w-full h-full min-h-[428px]  p-[24px] border border-[#ebecfe] rounded-[8px] shadow-card"
           src={iframeUrls[activeUrl]}
           scrolling="no"
           title="Chainguard Images in action"

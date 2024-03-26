@@ -61,8 +61,8 @@ export default function HomeSection5({
   //const [[ctaLink, ctaText]] = Object.entries(mainContentCard.ctas) as any[];
 
   return (
-    <section className="max-w-[1152px] mx-auto">
-      <div className="section-2-header-text mb-[48px] w-1/2">
+    <section className="w-[90%] max-w-[1152px] mx-auto">
+      <div className="section-2-header-text mb-[48px] w-full max-w-[564px]">
         <h3
           {...inspectorPropsMainGCC({ fieldId: "heading" })}
           className="text-[14px] uppercase tracking-[.64px] mb-[24px]"
@@ -71,7 +71,7 @@ export default function HomeSection5({
         </h3>
         <p
           {...inspectorPropsMainGCC({ fieldId: "subheading" })}
-          className="text-[36px] font-semibold leading-[43.2px] mb-[12px]"
+          className="text-[36px] font-semibold leading-[43.2px] mb-[12px] tracking-[-.02em]"
         >
           {mainContentCard.subheading}
         </p>
@@ -83,7 +83,7 @@ export default function HomeSection5({
         </p>
       </div>
       <div className="benefits-list-container">
-        <ul className="flex gap-[24px]">
+        <ul className="grid grid-cols-2 gap-[24px] md:grid-cols-4">
           {benefitsListItemsWithInspectorProps.map(
             ([benefitItem, iProps], i) => (
               <li key={benefitItem.sys.id || i} className="mb-[24px]">

@@ -16,7 +16,7 @@ export default function BlogSection1({
 }) {
   return (
     <section className="max-w-[1152px] mx-auto mb-[24px]">
-      <div {...iProps({ fieldId: "tags" })} className="mb-[12px]">
+      <div {...iProps({ fieldId: "tags" })} className="mb-[12px] space-x-2">
         {tags.map((tag, i) => (
           <span
             className="text-[14px] text-cg-text-blue font-[500] leading-[1.5] px-[8px] py-[2px] bg-[#f5f6fe] rounded-[4px]"

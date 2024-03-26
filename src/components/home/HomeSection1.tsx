@@ -43,7 +43,7 @@ export default function HomeSection1({
       <Link
         {...inspectorPropsGCC({ fieldId: "ctas" })}
         href={ctaLink}
-        className="mb-[40px] py-[12px] px-[24px] bg-cg-text-blue text-white rounded-[4px] hover:bg-cg-hover-btn-bg-blue transition-all duration-[.4s]"
+        className="mb-[40px] py-[12px] px-[24px] bg-cg-text-blue text-white rounded-[4px] hover:bg-cg-hover-btn-bg-blue transition-all duration-[.4s] md:mb-[96px]"
       >
         {ctaText}
       </Link>

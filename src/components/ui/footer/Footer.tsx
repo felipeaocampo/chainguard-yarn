@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer className={isOpenSourcePage ? "bg-[#101010]" : ""}>
-      <div className="footer-container max-w-[1152px] mx-auto grid grid-cols-4 py-[96px] ">
+      <div className="footer-container w-[90%] max-w-[1152px] mx-auto grid grid-cols-1 py-[96px] md:grid-cols-3 lg:grid-cols-4">
         <div className="footer-section-1 flex flex-col gap-[48px]">
           <div className="footer-links-group">
             <h4 className="mb-[12px]">Products</h4>

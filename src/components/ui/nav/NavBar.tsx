@@ -56,9 +56,13 @@ export default function NavBar() {
     console.log("click");
   };
 
+  const handleMobileOpenIconClick = () => {
+    console.log("mobile open clicked!");
+  };
+
   return (
-    <header className="hidden relative md:block">
-      <div className="flex justify-between max-w-[90%] mx-auto py-[22px] w-[90%] absolute left-[50%] translate-x-[-50%]">
+    <header className="relative md:block">
+      <div className="flex items-center justify-between max-w-[90%] mx-auto py-[22px] w-[90%] absolute left-[50%] translate-x-[-50%]">
         <div className="logo-wrapper flex items-center ">
           <Link href="/">
             <Image
@@ -69,7 +73,7 @@ export default function NavBar() {
             />
           </Link>
         </div>
-        <nav>
+        <nav className="desktop-nav hidden lg:block">
           <ul className="flex gap-[24px] items-center text-[14px]">
             <li>
               <div
@@ -343,6 +347,17 @@ export default function NavBar() {
               </Link>
             </li>
           </ul>
+        </nav>
+        <nav className="mobile-nav lg:hidden">
+          <div className="hamburger-icon">
+            <Image
+              onClick={handleMobileOpenIconClick}
+              src="/images/mobile-hamburger-icon.svg"
+              alt="Chainguard website mobile open menu hamburger icon"
+              width={30}
+              height={30}
+            />
+          </div>
         </nav>
       </div>
     </header>

@@ -47,10 +47,10 @@ export default function TestPage({
           <ExitPreviewCard slug={liveData.generalPage?.pageSlug || "/"} />
         )}
         <HeroContainer>
-          <section className="flex flex-col items-center mb-[96px] pt-[180px] max-w-[1152px] mx-auto">
+          <section className="flex flex-col items-center mb-[96px] pt-[180px] w-[90%] max-w-[1152px] mx-auto">
             <h1
               {...inspectorModeProps({ fieldId: "heading" })}
-              className="text-[48px] font-semibold mb-[12px] w-[500px] leading-[53px] text-center tracking-[-.02em]"
+              className="text-[48px] font-semibold mb-[12px] w-full leading-[53px] text-center tracking-[-.02em]"
             >
               {section.heading}
             </h1>

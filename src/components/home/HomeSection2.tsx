@@ -59,7 +59,7 @@ export default function HomeSection2({
 
             return (
               <div
-                className="group testimonial-card w-full p-[24px] border border-solid rounded-[8px] md:w-[50%]"
+                className="group testimonial-card w-full p-[24px] border border-solid rounded-[8px] md:w-[50%] md:p-[48px]"
                 key={testimonialCardData.sys.id}
               >
                 <div className="testimonial-img-container mb-[24px]">
@@ -70,24 +70,24 @@ export default function HomeSection2({
                     height={testimonialCardData.logo?.height || 0}
                   />
                 </div>
-                <p className="mb-[24px] line-clamp-3">
+                <p className="mb-[24px] line-clamp-3 md:mb-[36px]">
                   {testimonialCardData.testimonial}
                 </p>
                 {/* <p className="mb-[24px] h-[72px] overflow-y-clip relative after:content-['...'] after:bottom-0 after:right-0 after:translate-x-[-10px] after:absolute">
             {testimonialCardData.testimonial}
           </p> */}
-                <div className="testimonial-card-bottom flex justify-between flex-wrap">
+                <div className="testimonial-card-bottom flex justify-between flex-wrap md:flex-nowrap">
                   <div className="testimonial-user flex flex-col text-[14px]">
                     <p className="font-[500]">
                       {testimonialCardData.customerName}
                     </p>
-                    <p className="font-[500] text-[#545454] mb-[24px]">
+                    <p className="font-[500] text-[#545454] mb-[24px] md:mb-0">
                       {testimonialCardData.titleposition}
                     </p>
                   </div>
                   <Link
                     href="#"
-                    className="py-[12px] px-[24px] bg-white text-cg-text-blue border border-solid border-cg-btn-border-light-blue rounded-[4px] group-hover:text-white group-hover:bg-cg-hover-btn-bg-blue transition-all duration-[.4s] w-full text-center"
+                    className="py-[12px] px-[24px] bg-white text-cg-text-blue border border-solid border-cg-btn-border-light-blue rounded-[4px] group-hover:text-white group-hover:bg-cg-hover-btn-bg-blue transition-all duration-[.4s] w-full text-center md:w-fit"
                   >
                     Read more
                   </Link>

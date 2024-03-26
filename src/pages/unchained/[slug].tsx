@@ -23,6 +23,7 @@ import Image from "next/image";
 import { Span } from "next/dist/trace";
 import { formatDate } from "@/components/unchained/UnchainedSection1";
 import { useExternalScript } from "@/hooks/useScriptLoad";
+import Link from "next/link";
 
 export default function BlogPost({
   blogData,
@@ -88,27 +89,34 @@ export default function BlogPost({
           {relatedArticles?.blogCollection?.items &&
             relatedArticles.blogCollection?.items.map((relatedBlog, i) => {
               return (
-                <div key={relatedBlog?.sys?.id || i} className="space-y-[12px]">
-                  <div className="related-img-container h-[114px] w-[172px] rounded-[8px] overflow-hidden">
-                    <Image
-                      src={relatedBlog?.mainImage?.url || ""}
-                      alt={relatedBlog?.mainImage?.description || ""}
-                      width={relatedBlog?.mainImage?.width || 0}
-                      height={relatedBlog?.mainImage?.height || 0}
-                      className="object-cover h-full"
-                    />
-                  </div>
+                <Link
+                  key={relatedBlog?.sys?.id || i}
+                  href={relatedBlog?.blogSlug || "/"}
+                >
+                  <div className="space-y-[12px]">
+                    <div className="related-img-container h-[114px] w-[172px] rounded-[8px] overflow-hidden">
+                      <Image
+                        src={relatedBlog?.mainImage?.url || ""}
+                        alt={relatedBlog?.mainImage?.description || ""}
+                        width={relatedBlog?.mainImage?.width || 0}
+                        height={relatedBlog?.mainImage?.height || 0}
+                        className="object-cover h-full"
+                      />
+                    </div>
 
-                  <div className="tag-container">
-                    {relatedBlog?.tags?.map((tag, i) => (
-                      <span key={`${tag}/${i}`}>{tag}</span>
-                    ))}
+                    <div className="tag-container">
+                      {relatedBlog?.tags?.map((tag, i) => (
+                        <span key={`${tag}/${i}`}>{tag}</span>
+                      ))}
+                    </div>
+                    <h5>{relatedBlog?.blogName}</h5>
+                    <div className="date-container !mb-[48px]">
+                      <time>
+                        {formatDate(relatedBlog?.datePublished || "")}
+                      </time>
+                    </div>
                   </div>
-                  <h5>{relatedBlog?.blogName}</h5>
-                  <div className="date-container !mb-[48px]">
-                    <time>{formatDate(relatedBlog?.datePublished || "")}</time>
-                  </div>
-                </div>
+                </Link>
               );
             })}
         </aside>

@@ -27,10 +27,10 @@ export default function HomeSection1({
   const [[ctaLink, ctaText]] = Object.entries(generalContentCard.ctas) as any[];
 
   return (
-    <section className="flex flex-col items-center mb-[96px] pt-[180px] max-w-[1152px] mx-auto">
+    <section className="flex flex-col items-start mb-[96px] pt-[180px] w-[90%] mx-auto max-w-[1152px] md:items-center">
       <h1
         {...inspectorPropsGCC({ fieldId: "heading" })}
-        className="text-[48px] font-semibold mb-[12px] w-[500px] leading-[53px] text-center tracking-[-.02em]"
+        className="text-[42px] font-[600] mb-[12px] leading-[47px] tracking-[-.02em] md:max-w-[500px] md:text-center md:text-[48px] md:leading-[53px]"
       >
         {generalContentCard.heading}
       </h1>
@@ -43,7 +43,7 @@ export default function HomeSection1({
       <Link
         {...inspectorPropsGCC({ fieldId: "ctas" })}
         href={ctaLink}
-        className="mb-[96px] py-[12px] px-[24px] bg-cg-text-blue text-white rounded-[4px] hover:bg-cg-hover-btn-bg-blue transition-all duration-[.4s]"
+        className="mb-[40px] py-[12px] px-[24px] bg-cg-text-blue text-white rounded-[4px] hover:bg-cg-hover-btn-bg-blue transition-all duration-[.4s] md:mb-[96px]"
       >
         {ctaText}
       </Link>

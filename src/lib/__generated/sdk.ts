@@ -3262,7 +3262,7 @@ export const GetRelatedBlogsDocument = gql`
 ${ContentfulImgFieldsFragmentDoc}`;
 export const GetTestPageDataDocument = gql`
     query getTestPageData($preview: Boolean!) {
-  generalPage(preview: $preview, id: "hEZAYzEIbQxWAfzlh0ihH") {
+  generalPage(preview: $preview, id: "1BvwiB8PE7WrbubW3zEfAN") {
     __typename
     sys {
       id

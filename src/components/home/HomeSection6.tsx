@@ -23,8 +23,8 @@ export default function HomeSection6({
   const [[ctaLink, ctaText]] = Object.entries(mainContentCard.ctas) as any[];
 
   return (
-    <section className="w-11/1 max-w-[1152px] mx-auto">
-      <div className="section-2-header-text w-1/2">
+    <section className="w-[90%] max-w-[1152px] mx-auto">
+      <div className="section-2-header-text w-full max-w-[564px]">
         <h3
           {...inspectorPropsMainGCC({ fieldId: "heading" })}
           className="text-[24px] font-[600] leading-[32px] mb-[12px]"

@@ -12,9 +12,6 @@ import HomeSection5 from "@/components/home/HomeSection5";
 import HomeSection6 from "@/components/home/HomeSection6";
 import ExitPreviewCard from "@/components/ui/ExitPreviewCard";
 
-const codeSnippet =
-  '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The wolfi builders are off to the races! <a href="https://t.co/5PMB6jmELc">https://t.co/5PMB6jmELc</a></p>&mdash; Dan Lorenc (@lorenc_dan) <a href="https://twitter.com/lorenc_dan/status/1765080312651063692?ref_src=twsrc%5Etfw">March 5, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js"></script>';
-
 export default function HomePage({
   data,
   preview,

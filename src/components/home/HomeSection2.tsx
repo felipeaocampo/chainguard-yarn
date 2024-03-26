@@ -32,8 +32,8 @@ export default function HomeSection2({
   const [[ctaLink, ctaText]] = Object.entries(generalContentCard.ctas) as any[];
 
   return (
-    <section className="max-w-[1152px] mx-auto">
-      <div className="section-2-header-text mb-[48px]">
+    <section className="mb-[96px]">
+      <div className="section-2-header-text mb-[48px] w-[90%] mx-auto max-w-[1152px]">
         <h3
           {...inspectorPropsGCC({ fieldId: "heading" })}
           className="text-[14px] uppercase tracking-[.64px] mb-[24px]"
@@ -42,14 +42,14 @@ export default function HomeSection2({
         </h3>
         <p
           {...inspectorPropsGCC({ fieldId: "subheading" })}
-          className="text-[36px] font-semibold leading-[43.2px]"
+          className="text-[36px] font-semibold leading-[43.2px] tracking-[-.02em]"
         >
           {generalContentCard.subheading}
         </p>
       </div>
       <div
         {...inspectorPropsCust({ fieldId: "selectTestimonials" })}
-        className="testimonial-cards-container flex gap-[22px] w-full mb-[48px]"
+        className="testimonial-cards-container w-[90%] mx-auto max-w-[1152px] flex gap-[22px] mb-[48px] flex-wrap md:flex-nowrap"
       >
         {customersDataHub?.selectTestimonialsCollection?.items.map(
           (testimonialCardData, i) => {
@@ -59,31 +59,35 @@ export default function HomeSection2({
 
             return (
               <div
-                className="group testimonial-card w-[50%] p-[48px] border border-solid rounded-[8px]"
+                className="group testimonial-card w-full p-[24px] border border-solid rounded-[8px] md:w-[50%] md:p-[48px]"
                 key={testimonialCardData.sys.id}
               >
                 <div className="testimonial-img-container mb-[24px]">
                   <Image
                     src={testimonialCardData?.logo?.url || ""}
                     alt={testimonialCardData?.logo?.description || ""}
-                    width={testimonialCardData.logo?.width || 0}
+                    width={96}
                     height={testimonialCardData.logo?.height || 0}
                   />
                 </div>
-                <p className="mb-[24px] line-clamp-3">
+                <p className="mb-[24px] line-clamp-3 md:mb-[36px]">
                   {testimonialCardData.testimonial}
                 </p>
                 {/* <p className="mb-[24px] h-[72px] overflow-y-clip relative after:content-['...'] after:bottom-0 after:right-0 after:translate-x-[-10px] after:absolute">
             {testimonialCardData.testimonial}
           </p> */}
-                <div className="testimonial-card-bottom flex justify-between">
-                  <div className="testimonial-user flex flex-col">
-                    <p>{testimonialCardData.customerName}</p>
-                    <p>{testimonialCardData.titleposition}</p>
+                <div className="testimonial-card-bottom flex justify-between flex-wrap md:flex-nowrap">
+                  <div className="testimonial-user flex flex-col text-[14px]">
+                    <p className="font-[500]">
+                      {testimonialCardData.customerName}
+                    </p>
+                    <p className="font-[500] text-[#545454] mb-[24px] md:mb-0">
+                      {testimonialCardData.titleposition}
+                    </p>
                   </div>
                   <Link
                     href="#"
-                    className="py-[12px] px-[24px] bg-white text-cg-text-blue border border-solid border-cg-btn-border-light-blue rounded-[4px] group-hover:text-white group-hover:bg-cg-hover-btn-bg-blue transition-all duration-[.4s]"
+                    className="py-[12px] px-[24px] bg-white text-cg-text-blue border border-solid border-cg-btn-border-light-blue rounded-[4px] group-hover:text-white group-hover:bg-cg-hover-btn-bg-blue transition-all duration-[.4s] w-full text-center md:w-fit"
                   >
                     Read more
                   </Link>
@@ -95,28 +99,33 @@ export default function HomeSection2({
       </div>
       <div
         {...inspectorPropsCust({ fieldId: "selectCustomerLogos" })}
-        className="customer-logos-container hidden md:flex md:gap-[32px] md:mb-[24px]"
+        className="customer-logos-container max-w-[1152px] flex gap-[32px] mb-[24px] overflow-x-scroll ml-[5%] mx:mx-auto no-scrollbar mx:w-[90%]"
       >
         {customersDataHub?.selectCustomerLogosCollection?.items.map(
-          (customerLogo, i) => (
-            <Image
-              key={customerLogo?.sys?.id || i}
-              src={customerLogo?.url || ""}
-              alt={customerLogo?.description || ""}
-              width={customerLogo?.width || 0}
-              height={customerLogo?.height || 0}
-            />
-          )
+          (customerLogo, i, arr) => {
+            return (
+              <Image
+                className={arr.length - 1 === i ? "mr-[32px]" : ""}
+                key={customerLogo?.sys?.id || i}
+                src={customerLogo?.url || ""}
+                alt={customerLogo?.description || ""}
+                width={customerLogo?.width || 0}
+                height={customerLogo?.height || 0}
+              />
+            );
+          }
         )}
       </div>
       <Link
         {...inspectorPropsGCC({ fieldId: "ctas" })}
         href={ctaLink}
-        className="text-cg-text-blue my-[24px] block"
+        className="w-[90%] mx-auto max-w-[1152px] text-cg-text-blue my-[24px] block"
       >
         {ctaText}
       </Link>
-      <div className="divider-line pt-[96px] mb-[96px] w-[85px] border-b border-solid"></div>
+      <div className="divider-line-container w-[90%] mx-auto max-w-[1152px]">
+        <div className="divider-line pt-[96px] mb-[96px] w-[85px] border-b border-solid"></div>
+      </div>
     </section>
   );
 }

@@ -1,9 +1,0 @@
-query getBlogId($slug: String!, $preview: Boolean!) {
-  blogCollection(preview: $preview, where: { blogSlug: $slug }) {
-    items {
-      sys {
-        id
-      }
-    }
-  }
-}

@@ -2778,20 +2778,10 @@ export type BlogFieldsFragment = { __typename: 'Blog', blogName?: string | null,
 
 export type BlogLinksFieldsFragment = { __typename: 'BlogBlogContentLinks', entries: { __typename: 'BlogBlogContentEntries', inline: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, hyperlink: Array<{ __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', pageName?: string | null, pageSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', language?: string | null, code?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null> }, assets: { __typename: 'BlogBlogContentAssets', hyperlink: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } };
 
-export type ContentfulImgFieldsFragment = { __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } };
-
 export type GetAllBlogPathsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllBlogPathsQuery = { __typename?: 'Query', blogCollection?: { __typename?: 'BlogCollection', items: Array<{ __typename?: 'Blog', blogSlug?: string | null } | null> } | null };
-
-export type GetBlogIdQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
-  preview: Scalars['Boolean']['input'];
-}>;
-
-
-export type GetBlogIdQuery = { __typename?: 'Query', blogCollection?: { __typename?: 'BlogCollection', items: Array<{ __typename?: 'Blog', sys: { __typename?: 'Sys', id: string } } | null> } | null };
 
 export type GetBlogPageDataQueryVariables = Exact<{
   preview: Scalars['Boolean']['input'];
@@ -2803,6 +2793,22 @@ export type GetBlogPageDataQuery = { __typename?: 'Query', blogCollection?: { __
       { __typename?: 'Blog' }
       & BlogFieldsFragment
     ) | null> } | null };
+
+export type GetRelatedBlogsQueryVariables = Exact<{
+  preview: Scalars['Boolean']['input'];
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetRelatedBlogsQuery = { __typename?: 'Query', blogCollection?: { __typename: 'BlogCollection', items: Array<(
+      { __typename?: 'Blog' }
+      & RelatedBlogArticleFragment
+    ) | null> } | null };
+
+export type RelatedBlogArticleFragment = { __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, tags?: Array<string | null> | null, datePublished?: any | null, sys: { __typename?: 'Sys', id: string }, mainImage?: (
+    { __typename?: 'Asset' }
+    & ContentfulImgFieldsFragment
+  ) | null };
 
 export type GetGraphQlErrorResponseQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2832,20 +2838,11 @@ export type GetOpenSourcePageDataQuery = { __typename?: 'Query', generalPage?: {
             & OpenSourcePageGcFragment
           ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null };
 
+export type ContentfulImgFieldsFragment = { __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } };
+
 export type OpenSourcePageGcFragment = { __typename: 'GeneralContentCard', pageSectionName?: string | null, heading?: string | null, subheading?: string | null, descriptionText?: string | null, ctas?: any | null, sys: { __typename?: 'Sys', id: string }, mediaCollection?: { __typename?: 'AssetCollection', items: Array<(
       { __typename?: 'Asset' }
       & ContentfulImgFieldsFragment
-    ) | null> } | null };
-
-export type GetRelatedBlogsQueryVariables = Exact<{
-  preview: Scalars['Boolean']['input'];
-  slug: Scalars['String']['input'];
-}>;
-
-
-export type GetRelatedBlogsQuery = { __typename?: 'Query', blogCollection?: { __typename: 'BlogCollection', items: Array<(
-      { __typename?: 'Blog' }
-      & RelatedBlogArticleFragment
     ) | null> } | null };
 
 export type GetTestPageDataQueryVariables = Exact<{
@@ -2880,11 +2877,6 @@ export type GetUnchainedPageDataQuery = { __typename?: 'Query', generalPage?: { 
           ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null };
 
 export type HomeGeneralContentCardFragment = { __typename: 'GeneralContentCard', heading?: string | null, subheading?: string | null, ctas?: any | null, descriptionText?: string | null, sys: { __typename?: 'Sys', id: string }, mediaCollection?: { __typename: 'AssetCollection', items: Array<{ __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } | null };
-
-export type RelatedBlogArticleFragment = { __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, tags?: Array<string | null> | null, datePublished?: any | null, sys: { __typename?: 'Sys', id: string }, mainImage?: (
-    { __typename?: 'Asset' }
-    & ContentfulImgFieldsFragment
-  ) | null };
 
 export type UnchainedFeaturedBlogsFragment = { __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, metaAbout?: string | null, authors?: Array<string | null> | null, tags?: Array<string | null> | null, datePublished?: any | null, sys: { __typename?: 'Sys', id: string }, mainImage?: (
     { __typename?: 'Asset' }
@@ -3002,6 +2994,21 @@ export const BlogFieldsFragmentDoc = gql`
   }
 }
     `;
+export const RelatedBlogArticleFragmentDoc = gql`
+    fragment RelatedBlogArticle on Blog {
+  __typename
+  sys {
+    id
+  }
+  blogName
+  blogSlug
+  tags
+  datePublished
+  mainImage {
+    ...ContentfulImgFields
+  }
+}
+    `;
 export const OpenSourcePageGcFragmentDoc = gql`
     fragment OpenSourcePageGC on GeneralContentCard {
   __typename
@@ -3061,21 +3068,6 @@ export const HomeGeneralContentCardFragmentDoc = gql`
   }
 }
     `;
-export const RelatedBlogArticleFragmentDoc = gql`
-    fragment RelatedBlogArticle on Blog {
-  __typename
-  sys {
-    id
-  }
-  blogName
-  blogSlug
-  tags
-  datePublished
-  mainImage {
-    ...ContentfulImgFields
-  }
-}
-    `;
 export const UnchainedFeaturedBlogsFragmentDoc = gql`
     fragment UnchainedFeaturedBlogs on Blog {
   __typename
@@ -3102,17 +3094,6 @@ export const GetAllBlogPathsDocument = gql`
   }
 }
     `;
-export const GetBlogIdDocument = gql`
-    query getBlogId($slug: String!, $preview: Boolean!) {
-  blogCollection(preview: $preview, where: {blogSlug: $slug}) {
-    items {
-      sys {
-        id
-      }
-    }
-  }
-}
-    `;
 export const GetBlogPageDataDocument = gql`
     query getBlogPageData($preview: Boolean!, $slug: String!) {
   blogCollection(preview: $preview, where: {blogSlug: $slug}, limit: 1) {
@@ -3125,6 +3106,17 @@ export const GetBlogPageDataDocument = gql`
     ${BlogFieldsFragmentDoc}
 ${ContentfulImgFieldsFragmentDoc}
 ${BlogLinksFieldsFragmentDoc}`;
+export const GetRelatedBlogsDocument = gql`
+    query getRelatedBlogs($preview: Boolean!, $slug: String!) {
+  blogCollection(preview: $preview, limit: 3, where: {blogSlug_not: $slug}) {
+    __typename
+    items {
+      ...RelatedBlogArticle
+    }
+  }
+}
+    ${RelatedBlogArticleFragmentDoc}
+${ContentfulImgFieldsFragmentDoc}`;
 export const GetGraphQlErrorResponseDocument = gql`
     query getGraphQLErrorResponse {
   blogCollection(where: {blogName: "Tony"}) {
@@ -3249,17 +3241,6 @@ export const GetOpenSourcePageDataDocument = gql`
 }
     ${ContentfulImgFieldsFragmentDoc}
 ${OpenSourcePageGcFragmentDoc}`;
-export const GetRelatedBlogsDocument = gql`
-    query getRelatedBlogs($preview: Boolean!, $slug: String!) {
-  blogCollection(preview: $preview, limit: 3, where: {blogSlug_not: $slug}) {
-    __typename
-    items {
-      ...RelatedBlogArticle
-    }
-  }
-}
-    ${RelatedBlogArticleFragmentDoc}
-${ContentfulImgFieldsFragmentDoc}`;
 export const GetTestPageDataDocument = gql`
     query getTestPageData($preview: Boolean!) {
   generalPage(preview: $preview, id: "1BvwiB8PE7WrbubW3zEfAN") {
@@ -3359,11 +3340,11 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getAllBlogPaths(variables?: GetAllBlogPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetAllBlogPathsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetAllBlogPathsQuery>(GetAllBlogPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAllBlogPaths', 'query');
     },
-    getBlogId(variables: GetBlogIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetBlogIdQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetBlogIdQuery>(GetBlogIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getBlogId', 'query');
-    },
     getBlogPageData(variables: GetBlogPageDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetBlogPageDataQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetBlogPageDataQuery>(GetBlogPageDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getBlogPageData', 'query');
+    },
+    getRelatedBlogs(variables: GetRelatedBlogsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetRelatedBlogsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetRelatedBlogsQuery>(GetRelatedBlogsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getRelatedBlogs', 'query');
     },
     getGraphQLErrorResponse(variables?: GetGraphQlErrorResponseQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetGraphQlErrorResponseQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetGraphQlErrorResponseQuery>(GetGraphQlErrorResponseDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getGraphQLErrorResponse', 'query');
@@ -3373,9 +3354,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getOpenSourcePageData(variables: GetOpenSourcePageDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetOpenSourcePageDataQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetOpenSourcePageDataQuery>(GetOpenSourcePageDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getOpenSourcePageData', 'query');
-    },
-    getRelatedBlogs(variables: GetRelatedBlogsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetRelatedBlogsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetRelatedBlogsQuery>(GetRelatedBlogsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getRelatedBlogs', 'query');
     },
     getTestPageData(variables: GetTestPageDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetTestPageDataQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetTestPageDataQuery>(GetTestPageDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTestPageData', 'query');

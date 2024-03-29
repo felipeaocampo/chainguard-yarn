@@ -2,6 +2,7 @@ import { useNavDropdown } from "@/hooks/useNavDropdown";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const regularLogoUrl =
   "https://assets-global.website-files.com/6228fdbc6c97145dad2a9c2b/63d332f5a1dabc1b04f0679d_Brand%20Logo.svg";
@@ -14,46 +15,19 @@ export default function NavBar() {
   const { route } = useRouter();
   // console.log("ROUTER: ", router);
 
+  // TODO: INCREASE THE Z-INDEX OF SIGN-UP AND CONTACT BTNS SO LAST DROPDOWN MENU DOESNT COVER OVER THEM
+
+  const [clicked, setClicked] = useState(false);
+
   const isOpenSourcePage = route.includes("/open-source");
-
-  const {
-    hovered: productsColHover,
-    showing: productsColShowing,
-    handleDropdownHoverEnter: handleProductsColEnter,
-    handleDropdownHoverExit: handleProductsColExit,
-  } = useNavDropdown();
-
-  const {
-    hovered: solutionsColHover,
-    showing: solutionsColShowing,
-    handleDropdownHoverEnter: handleSolutionsColEnter,
-    handleDropdownHoverExit: handleSolutionsColExit,
-  } = useNavDropdown();
-
-  const {
-    hovered: developerColHover,
-    showing: developerColShowing,
-    handleDropdownHoverEnter: handleDeveloperColEnter,
-    handleDropdownHoverExit: handleDeveloperColExit,
-  } = useNavDropdown();
-
-  const {
-    hovered: resourcesColHover,
-    showing: resourcesColShowing,
-    handleDropdownHoverEnter: handleResourcesColEnter,
-    handleDropdownHoverExit: handleResourcesColExit,
-  } = useNavDropdown();
-
-  const {
-    hovered: companyColHover,
-    showing: companyColShowing,
-    handleDropdownHoverEnter: handleCompanyColEnter,
-    handleDropdownHoverExit: handleCompanyColExit,
-  } = useNavDropdown();
 
   const handleLinkClick = () => {
     //TEMPORARY HANDLE CLICK
     console.log("click");
+    setClicked(true);
+    setTimeout(() => {
+      setClicked((prev) => !prev);
+    }, 100);
   };
 
   const handleMobileOpenIconClick = () => {
@@ -76,22 +50,17 @@ export default function NavBar() {
         <nav className="desktop-nav hidden lg:block">
           <ul className="flex gap-[24px] items-center text-[14px]">
             <li>
-              <div
-                className="relative"
-                onMouseEnter={handleProductsColEnter}
-                onMouseLeave={handleProductsColExit}
-              >
+              <div className="relative group">
                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
                   Products
                 </div>
                 <div
-                  className={`absolute transition-all duration-300 opacity-0 ${
-                    productsColHover ? "block" : "hidden"
-                  } ${productsColShowing ? "opacity-100" : ""}`}
+                  className={`pt-[28px] absolute transition-all duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${
+                    clicked ? "hidden" : "block"
+                  }`}
                 >
-                  <div className="w-[270px] h-7"></div>
                   <ul
-                    className={`p-4 bg-white leading-none w-[270px] rounded-lg`}
+                    className={`p-4 bg-white leading-none w-[270px] rounded-lg shadow-card`}
                   >
                     <li className="" onClick={handleLinkClick}>
                       <Link
@@ -114,24 +83,19 @@ export default function NavBar() {
               </div>
             </li>
             <li>
-              <div
-                className="relative"
-                onMouseEnter={handleSolutionsColEnter}
-                onMouseLeave={handleSolutionsColExit}
-              >
+              <div className="relative group">
                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
                   Solutions
                 </div>
                 <div
-                  className={`absolute transition-all duration-300 opacity-0 ${
-                    solutionsColHover ? "block" : "hidden"
-                  } ${solutionsColShowing ? "opacity-100" : ""}`}
+                  className={`pt-[28px] absolute transition-all duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${
+                    clicked ? "hidden" : "block"
+                  }`}
                 >
-                  <div className="w-[270px] h-7"></div>
                   <ul
-                    className={`p-4 bg-white leading-none w-[270px] rounded-lg`}
+                    className={`p-4 bg-white leading-none w-[270px] rounded-lg shadow-card`}
                   >
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/solutions/container-image-security"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -139,7 +103,7 @@ export default function NavBar() {
                         Container Image Security
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/solutions/vulnerability-remediation"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -147,7 +111,7 @@ export default function NavBar() {
                         Vulnerability Remediation
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/solutions/open-source-software-security"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -155,7 +119,7 @@ export default function NavBar() {
                         Open Source Software Security
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/solutions/compliance-risk-mitigation"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -163,7 +127,7 @@ export default function NavBar() {
                         Compliance & Risk Mitigation
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/solutions/software-supplychain-security"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -176,24 +140,19 @@ export default function NavBar() {
               </div>
             </li>
             <li>
-              <div
-                className="relative"
-                onMouseEnter={handleDeveloperColEnter}
-                onMouseLeave={handleDeveloperColExit}
-              >
+              <div className="relative group">
                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
                   Developer
                 </div>
                 <div
-                  className={`absolute transition-all duration-300 opacity-0 ${
-                    developerColHover ? "block" : "hidden"
-                  } ${developerColShowing ? "opacity-100" : ""}`}
+                  className={`pt-[28px] absolute transition-all duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${
+                    clicked ? "hidden" : "block"
+                  }`}
                 >
-                  <div className="w-[270px] h-7"></div>
                   <ul
-                    className={`p-4 bg-white leading-none w-[270px] rounded-lg`}
+                    className={`p-4 bg-white leading-none w-[270px] rounded-lg shadow-card`}
                   >
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="https://edu.chainguard.dev/"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -201,7 +160,7 @@ export default function NavBar() {
                         Docs
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/open-source"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -214,24 +173,19 @@ export default function NavBar() {
               </div>
             </li>
             <li>
-              <div
-                className="relative"
-                onMouseEnter={handleResourcesColEnter}
-                onMouseLeave={handleResourcesColExit}
-              >
+              <div className="relative group">
                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
                   Resources
                 </div>
                 <div
-                  className={`absolute transition-all duration-300 opacity-0 ${
-                    resourcesColHover ? "block" : "hidden"
-                  } ${resourcesColShowing ? "opacity-100" : ""}`}
+                  className={`pt-[28px] absolute transition-all duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${
+                    clicked ? "hidden" : "block"
+                  }`}
                 >
-                  <div className="w-[270px] h-7"></div>
                   <ul
-                    className={`p-4 bg-white leading-none w-[270px] rounded-lg`}
+                    className={`p-4 bg-white leading-none w-[270px] rounded-lg shadow-card`}
                   >
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/unchained"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -239,7 +193,7 @@ export default function NavBar() {
                         Unchained blog
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/labs"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -247,7 +201,7 @@ export default function NavBar() {
                         Chainguard Labs
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/customers"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -255,7 +209,7 @@ export default function NavBar() {
                         Customer stories
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/security"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -263,7 +217,7 @@ export default function NavBar() {
                         Security
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="https://edu.chainguard.dev/"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -276,24 +230,19 @@ export default function NavBar() {
               </div>
             </li>
             <li>
-              <div
-                className="relative"
-                onMouseEnter={handleCompanyColEnter}
-                onMouseLeave={handleCompanyColExit}
-              >
+              <div className="relative group">
                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
                   Company
                 </div>
                 <div
-                  className={`absolute transition-all duration-300 opacity-0 ${
-                    companyColHover ? "block" : "hidden"
-                  } ${companyColShowing ? "opacity-100" : ""}`}
+                  className={`pt-[28px] absolute transition-all duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${
+                    clicked ? "hidden" : "block"
+                  }`}
                 >
-                  <div className="w-[270px] h-7"></div>
                   <ul
-                    className={`p-4 bg-white leading-none w-[270px] rounded-lg`}
+                    className={`p-4 bg-white leading-none w-[270px] rounded-lg shadow-card`}
                   >
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/about"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -301,7 +250,7 @@ export default function NavBar() {
                         About
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/newsroom"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -309,7 +258,7 @@ export default function NavBar() {
                         Newsroom
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/careers"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -317,7 +266,7 @@ export default function NavBar() {
                         Careers
                       </Link>
                     </li>
-                    <li className="" onClick={() => {}}>
+                    <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/chainguard-love"
                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
@@ -363,3 +312,357 @@ export default function NavBar() {
     </header>
   );
 }
+// export default function NavBar() {
+//   //GET URL TO FIND OUT IF NAV NEEDS TO BE OPEN SOURCE NAV OR CAN JUST BE REGULAR NAV!
+//   const { route } = useRouter();
+//   // console.log("ROUTER: ", router);
+
+//   const isOpenSourcePage = route.includes("/open-source");
+
+//   const {
+//     hovered: productsColHover,
+//     showing: productsColShowing,
+//     handleDropdownHoverEnter: handleProductsColEnter,
+//     handleDropdownHoverExit: handleProductsColExit,
+//   } = useNavDropdown();
+
+//   const {
+//     hovered: solutionsColHover,
+//     showing: solutionsColShowing,
+//     handleDropdownHoverEnter: handleSolutionsColEnter,
+//     handleDropdownHoverExit: handleSolutionsColExit,
+//   } = useNavDropdown();
+
+//   const {
+//     hovered: developerColHover,
+//     showing: developerColShowing,
+//     handleDropdownHoverEnter: handleDeveloperColEnter,
+//     handleDropdownHoverExit: handleDeveloperColExit,
+//   } = useNavDropdown();
+
+//   const {
+//     hovered: resourcesColHover,
+//     showing: resourcesColShowing,
+//     handleDropdownHoverEnter: handleResourcesColEnter,
+//     handleDropdownHoverExit: handleResourcesColExit,
+//   } = useNavDropdown();
+
+//   const {
+//     hovered: companyColHover,
+//     showing: companyColShowing,
+//     handleDropdownHoverEnter: handleCompanyColEnter,
+//     handleDropdownHoverExit: handleCompanyColExit,
+//   } = useNavDropdown();
+
+//   const handleLinkClick = () => {
+//     //TEMPORARY HANDLE CLICK
+//     console.log("click");
+//   };
+
+//   const handleMobileOpenIconClick = () => {
+//     console.log("mobile open clicked!");
+//   };
+
+//   return (
+//     <header className="relative md:block">
+//       <div className="flex items-center justify-between max-w-[90%] mx-auto py-[22px] w-[90%] absolute left-[50%] translate-x-[-50%]">
+//         <div className="logo-wrapper flex items-center ">
+//           <Link href="/">
+//             <Image
+//               src={isOpenSourcePage ? OpenSourcePageLogoUrl : regularLogoUrl}
+//               alt="Chainguard Logo"
+//               width={146}
+//               height={28}
+//             />
+//           </Link>
+//         </div>
+//         <nav className="desktop-nav hidden lg:block">
+//           <ul className="flex gap-[24px] items-center text-[14px]">
+//             <li>
+//               <div
+//                 className="relative"
+//                 onMouseEnter={handleProductsColEnter}
+//                 onMouseLeave={handleProductsColExit}
+//               >
+//                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
+//                   Products
+//                 </div>
+//                 <div
+//                   className={`absolute transition-all duration-300 opacity-0 ${
+//                     productsColHover ? "block" : "hidden"
+//                   } ${productsColShowing ? "opacity-100" : ""}`}
+//                 >
+//                   <div className="w-[270px] h-7"></div>
+//                   <ul
+//                     className={`p-4 bg-white leading-none w-[270px] rounded-lg`}
+//                   >
+//                     <li className="" onClick={handleLinkClick}>
+//                       <Link
+//                         href="/chainguard-images"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Chainguard Images
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={handleLinkClick}>
+//                       <Link
+//                         href="/"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Chainguard Services
+//                       </Link>
+//                     </li>
+//                   </ul>
+//                 </div>
+//               </div>
+//             </li>
+//             <li>
+//               <div
+//                 className="relative"
+//                 onMouseEnter={handleSolutionsColEnter}
+//                 onMouseLeave={handleSolutionsColExit}
+//               >
+//                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
+//                   Solutions
+//                 </div>
+//                 <div
+//                   className={`absolute transition-all duration-300 opacity-0 ${
+//                     solutionsColHover ? "block" : "hidden"
+//                   } ${solutionsColShowing ? "opacity-100" : ""}`}
+//                 >
+//                   <div className="w-[270px] h-7"></div>
+//                   <ul
+//                     className={`p-4 bg-white leading-none w-[270px] rounded-lg`}
+//                   >
+//                     <li className="" onClick={handleLinkClick}>
+//                       <Link
+//                         href="/solutions/container-image-security"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Container Image Security
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={handleLinkClick}>
+//                       <Link
+//                         href="/solutions/vulnerability-remediation"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Vulnerability Remediation
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/solutions/open-source-software-security"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Open Source Software Security
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/solutions/compliance-risk-mitigation"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Compliance & Risk Mitigation
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/solutions/software-supplychain-security"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Software Supplychain Security
+//                       </Link>
+//                     </li>
+//                   </ul>
+//                 </div>
+//               </div>
+//             </li>
+//             <li>
+//               <div
+//                 className="relative"
+//                 onMouseEnter={handleDeveloperColEnter}
+//                 onMouseLeave={handleDeveloperColExit}
+//               >
+//                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
+//                   Developer
+//                 </div>
+//                 <div
+//                   className={`absolute transition-all duration-300 opacity-0 ${
+//                     developerColHover ? "block" : "hidden"
+//                   } ${developerColShowing ? "opacity-100" : ""}`}
+//                 >
+//                   <div className="w-[270px] h-7"></div>
+//                   <ul
+//                     className={`p-4 bg-white leading-none w-[270px] rounded-lg`}
+//                   >
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="https://edu.chainguard.dev/"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Docs
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/open-source"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Open source
+//                       </Link>
+//                     </li>
+//                   </ul>
+//                 </div>
+//               </div>
+//             </li>
+//             <li>
+//               <div
+//                 className="relative"
+//                 onMouseEnter={handleResourcesColEnter}
+//                 onMouseLeave={handleResourcesColExit}
+//               >
+//                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
+//                   Resources
+//                 </div>
+//                 <div
+//                   className={`absolute transition-all duration-300 opacity-0 ${
+//                     resourcesColHover ? "block" : "hidden"
+//                   } ${resourcesColShowing ? "opacity-100" : ""}`}
+//                 >
+//                   <div className="w-[270px] h-7"></div>
+//                   <ul
+//                     className={`p-4 bg-white leading-none w-[270px] rounded-lg`}
+//                   >
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/unchained"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Unchained blog
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/labs"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Chainguard Labs
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/customers"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Customer stories
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/security"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Security
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="https://edu.chainguard.dev/"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Education
+//                       </Link>
+//                     </li>
+//                   </ul>
+//                 </div>
+//               </div>
+//             </li>
+//             <li>
+//               <div
+//                 className="relative"
+//                 onMouseEnter={handleCompanyColEnter}
+//                 onMouseLeave={handleCompanyColExit}
+//               >
+//                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
+//                   Company
+//                 </div>
+//                 <div
+//                   className={`absolute transition-all duration-300 opacity-0 ${
+//                     companyColHover ? "block" : "hidden"
+//                   } ${companyColShowing ? "opacity-100" : ""}`}
+//                 >
+//                   <div className="w-[270px] h-7"></div>
+//                   <ul
+//                     className={`p-4 bg-white leading-none w-[270px] rounded-lg`}
+//                   >
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/about"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         About
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/newsroom"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Newsroom
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/careers"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Careers
+//                       </Link>
+//                     </li>
+//                     <li className="" onClick={() => {}}>
+//                       <Link
+//                         href="/chainguard-love"
+//                         className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+//                       >
+//                         Chainguard love
+//                       </Link>
+//                     </li>
+//                   </ul>
+//                 </div>
+//               </div>
+//             </li>
+//             <li>
+//               <Link
+//                 href="https://console.enforce.dev/auth/login"
+//                 target="_blank"
+//                 className="py-[8px] bg-transparent text-cg-text-blue px-[12px] border border-solid border-cg-btn-border-light-blue rounded-[4px] font-[500] leading-[20px] transition-all duration-[.4s] hover:bg-cg-hover-btn-bg-blue hover:text-white"
+//               >
+//                 Sign in
+//               </Link>
+//             </li>
+//             <li>
+//               <Link
+//                 href="/contact-chainguard"
+//                 className="py-[8px] text-white bg-cg-text-blue px-[12px] border border-solid border-cg-text-blue rounded-[4px] font-[500] leading-[20px] transition-all duration-[.4s] hover:bg-cg-hover-btn-bg-blue"
+//               >
+//                 Contact us
+//               </Link>
+//             </li>
+//           </ul>
+//         </nav>
+//         <nav className="mobile-nav lg:hidden">
+//           <div className="hamburger-icon">
+//             <Image
+//               onClick={handleMobileOpenIconClick}
+//               src="/images/mobile-hamburger-icon.svg"
+//               alt="Chainguard website mobile open menu hamburger icon"
+//               width={30}
+//               height={30}
+//             />
+//           </div>
+//         </nav>
+//       </div>
+//     </header>
+//   );
+// }

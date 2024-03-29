@@ -26,6 +26,7 @@ const config: Config = {
       boxShadow: {
         card: "0 8px 16px rgba(52, 67, 244, .12)",
       },
+      
     },
     screens: {
       sm: "640px",

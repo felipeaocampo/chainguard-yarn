@@ -22,8 +22,6 @@ export default function NavBar() {
   const isOpenSourcePage = route.includes("/open-source");
 
   const handleLinkClick = () => {
-    //TEMPORARY HANDLE CLICK
-    console.log("click");
     setClicked(true);
     setTimeout(() => {
       setClicked((prev) => !prev);

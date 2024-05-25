@@ -12,7 +12,7 @@ import { NextSeo } from "next-seo";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { client, previewClient } from "@/lib/client";
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import {
   useContentfulInspectorMode,
   useContentfulLiveUpdates,

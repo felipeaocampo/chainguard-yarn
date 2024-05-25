@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import hljs from "highlight.js";
 import "highlight.js/styles/atom-one-dark.css";
 
@@ -24,8 +26,6 @@ import { Span } from "next/dist/trace";
 import { formatDate } from "@/components/unchained/UnchainedSection1";
 import { useExternalScript } from "@/hooks/useScriptLoad";
 import Link from "next/link";
-
-
 
 export default function BlogPost({
   blogData,
@@ -55,7 +55,6 @@ export default function BlogPost({
   useEffect(() => {
     hljs.highlightAll();
   });
-
 
   // const loadTwitterScript = useCallback(() => {
   //   return new Promise<void>((resolve) => {

@@ -10,7 +10,7 @@ import { NextSeo } from "next-seo";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { client, previewClient } from "@/lib/client";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import {
   useContentfulInspectorMode,
   useContentfulLiveUpdates,
@@ -25,6 +25,8 @@ import { formatDate } from "@/components/unchained/UnchainedSection1";
 import { useExternalScript } from "@/hooks/useScriptLoad";
 import Link from "next/link";
 
+
+
 export default function BlogPost({
   blogData,
   preview,
@@ -35,6 +37,7 @@ export default function BlogPost({
   relatedArticles: GetRelatedBlogsQuery;
 }) {
   const { slug } = useRouter().query;
+  const router = useRouter();
 
   const liveBlog = useContentfulLiveUpdates(blogData);
   const blogInspectorProps = useContentfulInspectorMode({
@@ -45,11 +48,52 @@ export default function BlogPost({
   const { isLoaded } = useExternalScript(
     "https://platform.twitter.com/widgets.js"
   );
-  console.log("ISLOADED: ", isLoaded);
+  if (isLoaded) {
+    window.twttr?.widgets.load();
+  }
 
   useEffect(() => {
     hljs.highlightAll();
   });
+
+
+  // const loadTwitterScript = useCallback(() => {
+  //   return new Promise<void>((resolve) => {
+  //     const existingScript = document.querySelector(
+  //       'script[src="https://platform.twitter.com/widgets.js"]'
+  //     );
+
+  //     if (!existingScript) {
+  //       const script = document.createElement("script");
+  //       script.src = "https://platform.twitter.com/widgets.js";
+  //       script.async = true;
+  //       script.charset = "utf-8";
+  //       script.onload = () => resolve();
+  //       document.body.appendChild(script);
+  //     } else {
+  //       resolve();
+  //     }
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   const initializeTwitterWidgets = async () => {
+  //     try {
+  //       await loadTwitterScript();
+  //       if (window.twttr && window.twttr.widgets) {
+  //         window.twttr.widgets.load();
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to load Twitter widgets:", error);
+  //     }
+  //   };
+
+  //   initializeTwitterWidgets();
+
+  //   // Re-initialize Twitter widgets whenever the route changes
+  // }, [router.asPath, loadTwitterScript]);
+
+  // console.log("asPath", router.asPath);
 
   //   TODO: WHEN ON A BLOG PAGE WE NEED TO TOGGLE THE NAV TO DISPLAY BACK TO NAV! WILL NEED TO ACCESS URL THRU ROUTER
   //   TODO: FIX THE Element previously highlighted. To highlight again, first unset `dataset.highlighted`. ERROR; highlightjs
@@ -92,6 +136,7 @@ export default function BlogPost({
                 <Link
                   key={relatedBlog?.sys?.id || i}
                   href={relatedBlog?.blogSlug || "/"}
+                  // target="_blank"
                 >
                   <div className="space-y-[12px]">
                     <div className="related-img-container h-[114px] w-[172px] rounded-[8px] overflow-hidden">

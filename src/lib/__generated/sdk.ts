@@ -1270,6 +1270,91 @@ export enum EntryOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/event) */
+export type Event = Entry & {
+  __typename?: 'Event';
+  contentfulMetadata: ContentfulMetadata;
+  linkedFrom?: Maybe<EventLinkingCollections>;
+  pageName?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  sys: Sys;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/event) */
+export type EventLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/event) */
+export type EventPageNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/event) */
+export type EventSlugArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type EventCollection = {
+  __typename?: 'EventCollection';
+  items: Array<Maybe<Event>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type EventFilter = {
+  AND?: InputMaybe<Array<InputMaybe<EventFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<EventFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  pageName?: InputMaybe<Scalars['String']['input']>;
+  pageName_contains?: InputMaybe<Scalars['String']['input']>;
+  pageName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  pageName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  pageName_not?: InputMaybe<Scalars['String']['input']>;
+  pageName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  pageName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  slug_contains?: InputMaybe<Scalars['String']['input']>;
+  slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  slug_not?: InputMaybe<Scalars['String']['input']>;
+  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type EventLinkingCollections = {
+  __typename?: 'EventLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type EventLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export enum EventOrder {
+  PageNameAsc = 'pageName_ASC',
+  PageNameDesc = 'pageName_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
 /** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/generalContentCard) */
 export type GeneralContentCard = Entry & {
   __typename?: 'GeneralContentCard';
@@ -1814,6 +1899,8 @@ export type Query = {
   customersSection?: Maybe<CustomersSection>;
   customersSectionCollection?: Maybe<CustomersSectionCollection>;
   entryCollection?: Maybe<EntryCollection>;
+  event?: Maybe<Event>;
+  eventCollection?: Maybe<EventCollection>;
   generalContentCard?: Maybe<GeneralContentCard>;
   generalContentCardCollection?: Maybe<GeneralContentCardCollection>;
   generalPage?: Maybe<GeneralPage>;
@@ -1962,6 +2049,23 @@ export type QueryEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<EntryFilter>;
+};
+
+
+export type QueryEventArgs = {
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryEventCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<EventOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EventFilter>;
 };
 
 
@@ -2776,7 +2880,7 @@ export type BlogFieldsFragment = { __typename: 'Blog', blogName?: string | null,
       & BlogLinksFieldsFragment
     ) } | null };
 
-export type BlogLinksFieldsFragment = { __typename: 'BlogBlogContentLinks', entries: { __typename: 'BlogBlogContentEntries', inline: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, hyperlink: Array<{ __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', pageName?: string | null, pageSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', language?: string | null, code?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null> }, assets: { __typename: 'BlogBlogContentAssets', hyperlink: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } };
+export type BlogLinksFieldsFragment = { __typename: 'BlogBlogContentLinks', entries: { __typename: 'BlogBlogContentEntries', inline: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'Event', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, hyperlink: Array<{ __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'Event', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', pageName?: string | null, pageSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', language?: string | null, code?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'Event', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null> }, assets: { __typename: 'BlogBlogContentAssets', hyperlink: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } };
 
 export type GetAllBlogPathsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2873,7 +2977,7 @@ export type GetUnchainedPageDataQueryVariables = Exact<{
 export type GetUnchainedPageDataQuery = { __typename?: 'Query', generalPage?: { __typename: 'GeneralPage', pageSlug?: string | null, sys: { __typename?: 'Sys', id: string }, pageMetadata?: { __typename: 'SeoMetadata', pageTitle?: string | null, metaDescription?: string | null, sys: { __typename?: 'Sys', id: string } } | null, pageSectionCollection?: { __typename: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs', sys: { __typename?: 'Sys', id: string }, featuredBlogsCollection?: { __typename?: 'BlogsFeaturedBlogsCollection', items: Array<(
                 { __typename?: 'Blog' }
                 & UnchainedFeaturedBlogsFragment
-              ) | { __typename?: 'BlogPage' } | { __typename?: 'Blogs' } | { __typename?: 'CodeBlock' } | { __typename?: 'CustomerTestimonialCard' } | { __typename?: 'CustomersSection' } | { __typename?: 'GeneralContentCard' } | { __typename?: 'GeneralPage' } | { __typename?: 'PageSection' } | { __typename?: 'SearchBar' } | { __typename?: 'SeoMetadata' } | { __typename?: 'TestContent' } | null> } | null } | { __typename: 'CustomersSection' } | (
+              ) | { __typename?: 'BlogPage' } | { __typename?: 'Blogs' } | { __typename?: 'CodeBlock' } | { __typename?: 'CustomerTestimonialCard' } | { __typename?: 'CustomersSection' } | { __typename?: 'Event' } | { __typename?: 'GeneralContentCard' } | { __typename?: 'GeneralPage' } | { __typename?: 'PageSection' } | { __typename?: 'SearchBar' } | { __typename?: 'SeoMetadata' } | { __typename?: 'TestContent' } | null> } | null } | { __typename: 'CustomersSection' } | (
             { __typename: 'GeneralContentCard' }
             & HomeGeneralContentCardFragment
           ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null };

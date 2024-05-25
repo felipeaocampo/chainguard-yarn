@@ -808,6 +808,64 @@ enum EntryOrder {
 }
 
 """
+[See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/event)
+"""
+type Event implements Entry {
+  contentfulMetadata: ContentfulMetadata!
+  linkedFrom(allowedLocales: [String]): EventLinkingCollections
+  pageName(locale: String): String
+  slug(locale: String): String
+  sys: Sys!
+}
+
+type EventCollection {
+  items: [Event]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input EventFilter {
+  AND: [EventFilter]
+  OR: [EventFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  pageName: String
+  pageName_contains: String
+  pageName_exists: Boolean
+  pageName_in: [String]
+  pageName_not: String
+  pageName_not_contains: String
+  pageName_not_in: [String]
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  sys: SysFilter
+}
+
+type EventLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
+enum EventOrder {
+  pageName_ASC
+  pageName_DESC
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+"""
 [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/generalContentCard)
 """
 type GeneralContentCard implements Entry {
@@ -1233,6 +1291,8 @@ type Query {
   customersSection(id: String!, locale: String, preview: Boolean): CustomersSection
   customersSectionCollection(limit: Int = 100, locale: String, order: [CustomersSectionOrder], preview: Boolean, skip: Int = 0, where: CustomersSectionFilter): CustomersSectionCollection
   entryCollection(limit: Int = 100, locale: String, order: [EntryOrder], preview: Boolean, skip: Int = 0, where: EntryFilter): EntryCollection
+  event(id: String!, locale: String, preview: Boolean): Event
+  eventCollection(limit: Int = 100, locale: String, order: [EventOrder], preview: Boolean, skip: Int = 0, where: EventFilter): EventCollection
   generalContentCard(id: String!, locale: String, preview: Boolean): GeneralContentCard
   generalContentCardCollection(limit: Int = 100, locale: String, order: [GeneralContentCardOrder], preview: Boolean, skip: Int = 0, where: GeneralContentCardFilter): GeneralContentCardCollection
   generalPage(id: String!, locale: String, preview: Boolean): GeneralPage

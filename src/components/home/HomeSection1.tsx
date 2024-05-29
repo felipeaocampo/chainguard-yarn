@@ -27,23 +27,23 @@ export default function HomeSection1({
   const [[ctaLink, ctaText]] = Object.entries(generalContentCard.ctas) as any[];
 
   return (
-    <section className="flex flex-col items-start mb-[96px] pt-[180px] w-[90%] mx-auto max-w-[1152px] md:items-center">
+    <section className="mx-auto mb-[96px] flex w-[90%] max-w-[1152px] flex-col items-start pt-[180px] md:items-center">
       <h1
         {...inspectorPropsGCC({ fieldId: "heading" })}
-        className="text-[42px] font-[600] mb-[12px] leading-[47px] tracking-[-.02em] md:max-w-[500px] md:text-center md:text-[48px] md:leading-[53px]"
+        className="mb-[12px] text-[42px] font-[600] leading-[47px] tracking-[-.02em] md:max-w-[500px] md:text-center md:text-[48px] md:leading-[53px]"
       >
         {generalContentCard.heading}
       </h1>
       <h2
         {...inspectorPropsGCC({ fieldId: "subheading" })}
-        className="text-[18px] mb-[36px]"
+        className="mb-[36px] text-[18px]"
       >
         {generalContentCard.subheading}
       </h2>
       <Link
         {...inspectorPropsGCC({ fieldId: "ctas" })}
         href={ctaLink}
-        className="mb-[40px] py-[12px] px-[24px] bg-cg-text-blue text-white rounded-[4px] hover:bg-cg-hover-btn-bg-blue transition-all duration-[.4s] md:mb-[96px]"
+        className="mb-[40px] rounded-[4px] bg-cg-text-blue px-[24px] py-[12px] text-white transition-all duration-[.4s] hover:bg-cg-hover-btn-bg-blue md:mb-[96px]"
       >
         {ctaText}
       </Link>

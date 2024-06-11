@@ -22,7 +22,6 @@ import { blogRenderOptions } from "@/lib/BlogRichTextOptions";
 import { useRouter } from "next/router";
 import ExitPreviewCard from "@/components/ui/ExitPreviewCard";
 import Image from "next/image";
-import { Span } from "next/dist/trace";
 import { formatDate } from "@/components/unchained/UnchainedSection1";
 import { useExternalScript } from "@/hooks/useScriptLoad";
 import Link from "next/link";
@@ -46,13 +45,22 @@ export default function BlogPost({
   //   const blog = liveBlogData.blogCollection?.items[0];
 
   const { isLoaded } = useExternalScript(
-    "https://platform.twitter.com/widgets.js"
+    "https://platform.twitter.com/widgets.js",
   );
   if (isLoaded) {
     window.twttr?.widgets.load();
   }
 
   useEffect(() => {
+    //first select all code with dataset.highlighted
+    const highlightedCodeBlocks = document.querySelectorAll("code");
+    console.log(highlightedCodeBlocks);
+    highlightedCodeBlocks.forEach((codeblock) => {
+      codeblock.removeAttribute("data-highlighted");
+    });
+
+    //then highlight code
+
     hljs.highlightAll();
   });
 
@@ -111,7 +119,7 @@ export default function BlogPost({
         datePublished={liveBlog?.datePublished || ""}
         iProps={blogInspectorProps}
       />
-      <div className="mx-auto max-w-[1152px] flex justify-between items-start shrink-0">
+      <div className="mx-auto flex max-w-[1152px] shrink-0 items-start justify-between">
         {liveBlog.blogContent &&
         liveBlog.blogContent.json &&
         liveBlog.blogContent.links ? (
@@ -121,12 +129,12 @@ export default function BlogPost({
           >
             {documentToReactComponents(
               liveBlog.blogContent.json,
-              blogRenderOptions(liveBlog.blogContent.links)
+              blogRenderOptions(liveBlog.blogContent.links),
             )}
           </section>
         ) : null}
         <aside className=" sticky top-[40px] max-w-[353px]">
-          <h4 className="mb-[24px] font-[600] text-[20px] leading-[120%] tracking-[-.02em]">
+          <h4 className="mb-[24px] text-[20px] font-[600] leading-[120%] tracking-[-.02em]">
             Related Articles
           </h4>
           {relatedArticles?.blogCollection?.items &&
@@ -138,13 +146,13 @@ export default function BlogPost({
                   // target="_blank"
                 >
                   <div className="space-y-[12px]">
-                    <div className="related-img-container h-[114px] w-[172px] rounded-[8px] overflow-hidden">
+                    <div className="related-img-container h-[114px] w-[172px] overflow-hidden rounded-[8px]">
                       <Image
                         src={relatedBlog?.mainImage?.url || ""}
                         alt={relatedBlog?.mainImage?.description || ""}
                         width={relatedBlog?.mainImage?.width || 0}
                         height={relatedBlog?.mainImage?.height || 0}
-                        className="object-cover h-full"
+                        className="h-full object-cover"
                       />
                     </div>
 
@@ -165,7 +173,7 @@ export default function BlogPost({
             })}
         </aside>
       </div>
-      <section className="mx-auto max-w-[1152px] mb-[96px]">
+      <section className="mx-auto mb-[96px] max-w-[1152px]">
         CTA section
       </section>
     </main>
@@ -217,7 +225,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       blogs?.blogCollection?.items.map((blog) =>
         blog && blog.blogSlug
           ? { params: { slug: blog.blogSlug } }
-          : { params: { slug: "" } }
+          : { params: { slug: "" } },
       ) || [];
 
     return {

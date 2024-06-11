@@ -1,7 +1,5 @@
 import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
 import { Options } from "@contentful/rich-text-react-renderer";
-import { ReactNode } from "react";
-import { BlogLinksFieldsFragment } from "./__generated/sdk";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -111,7 +109,7 @@ export const blogRenderOptions = (links: any): Options => {
         return <li>{children}</li>;
       },
       [BLOCKS.QUOTE]: (node, children) => (
-        <blockquote className="text-[24px] font-[600] leading-[31.2px] tracking-[-.02em] my-[24px]">
+        <blockquote className="my-[24px] text-[24px] font-[600] leading-[31.2px] tracking-[-.02em]">
           {children}
         </blockquote>
       ),
@@ -119,7 +117,7 @@ export const blogRenderOptions = (links: any): Options => {
         return (
           <a
             key={Math.random()}
-            className="text-cg-text-blue hover:text-cg-hover-btn-bg-blue transition-all duration-[.2s]"
+            className="text-cg-primary-blue hover:text-cg-tertiary-blue transition-all duration-[.2s]"
             href={node.data.uri}
             target="_blank"
             rel="noopener noreferrer"
@@ -136,7 +134,7 @@ export const blogRenderOptions = (links: any): Options => {
             return (
               <Link
                 key={Math.random()}
-                className="text-cg-text-blue hover:text-cg-hover-btn-bg-blue transition-all duration-[.2s]"
+                className="text-cg-primary-blue hover:text-cg-tertiary-blue transition-all duration-[.2s]"
                 target="_blank"
                 href={`/unchained/${entry.blogSlug}`}
               >
@@ -149,7 +147,7 @@ export const blogRenderOptions = (links: any): Options => {
             return (
               <Link
                 key={Math.random()}
-                className="text-cg-text-blue hover:text-cg-hover-btn-bg-blue transition-all duration-[.2s]"
+                className="text-cg-primary-blue hover:text-cg-tertiary-blue transition-all duration-[.2s]"
                 href={entry.pageSlug}
               >
                 {children}

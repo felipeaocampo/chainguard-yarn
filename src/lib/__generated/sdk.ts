@@ -177,6 +177,7 @@ export type AssetLinkingCollections = {
   customersSectionCollection?: Maybe<CustomersSectionCollection>;
   entryCollection?: Maybe<EntryCollection>;
   generalContentCardCollection?: Maybe<GeneralContentCardCollection>;
+  navBarCollection?: Maybe<NavBarCollection>;
   seoMetadataCollection?: Maybe<SeoMetadataCollection>;
   testContentCollection?: Maybe<TestContentCollection>;
 };
@@ -215,6 +216,14 @@ export type AssetLinkingCollectionsEntryCollectionArgs = {
 
 
 export type AssetLinkingCollectionsGeneralContentCardCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type AssetLinkingCollectionsNavBarCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1757,6 +1766,94 @@ export type ImageTransformOptions = {
   width?: InputMaybe<Scalars['Dimension']['input']>;
 };
 
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/navBar) */
+export type NavBar = Entry & {
+  __typename?: 'NavBar';
+  contentfulMetadata: ContentfulMetadata;
+  internalName?: Maybe<Scalars['String']['output']>;
+  linkedFrom?: Maybe<NavBarLinkingCollections>;
+  links?: Maybe<Scalars['JSON']['output']>;
+  logosCollection?: Maybe<AssetCollection>;
+  sys: Sys;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/navBar) */
+export type NavBarInternalNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/navBar) */
+export type NavBarLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/navBar) */
+export type NavBarLinksArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/navBar) */
+export type NavBarLogosCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type NavBarCollection = {
+  __typename?: 'NavBarCollection';
+  items: Array<Maybe<NavBar>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type NavBarFilter = {
+  AND?: InputMaybe<Array<InputMaybe<NavBarFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<NavBarFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  internalName?: InputMaybe<Scalars['String']['input']>;
+  internalName_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  internalName_not?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  links_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  logosCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type NavBarLinkingCollections = {
+  __typename?: 'NavBarLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type NavBarLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export enum NavBarOrder {
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
 /** [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/pageSection) */
 export type PageSection = Entry & {
   __typename?: 'PageSection';
@@ -1905,6 +2002,8 @@ export type Query = {
   generalContentCardCollection?: Maybe<GeneralContentCardCollection>;
   generalPage?: Maybe<GeneralPage>;
   generalPageCollection?: Maybe<GeneralPageCollection>;
+  navBar?: Maybe<NavBar>;
+  navBarCollection?: Maybe<NavBarCollection>;
   pageSection?: Maybe<PageSection>;
   pageSectionCollection?: Maybe<PageSectionCollection>;
   searchBar?: Maybe<SearchBar>;
@@ -2100,6 +2199,23 @@ export type QueryGeneralPageCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<GeneralPageFilter>;
+};
+
+
+export type QueryNavBarArgs = {
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryNavBarCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<NavBarOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<NavBarFilter>;
 };
 
 
@@ -2882,7 +2998,7 @@ export type BlogFieldsFragment = { __typename: 'Blog', blogName?: string | null,
       & BlogLinksFieldsFragment
     ) } | null };
 
-export type BlogLinksFieldsFragment = { __typename: 'BlogBlogContentLinks', entries: { __typename: 'BlogBlogContentEntries', inline: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'Event', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, hyperlink: Array<{ __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'Event', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', pageName?: string | null, pageSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', language?: string | null, code?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'Event', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null> }, assets: { __typename: 'BlogBlogContentAssets', hyperlink: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } };
+export type BlogLinksFieldsFragment = { __typename: 'BlogBlogContentLinks', entries: { __typename: 'BlogBlogContentEntries', inline: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'Event', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'NavBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, hyperlink: Array<{ __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'Event', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', pageName?: string | null, pageSlug?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'NavBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Blog', sys: { __typename: 'Sys', id: string } } | { __typename: 'BlogPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'Blogs', sys: { __typename: 'Sys', id: string } } | { __typename: 'CodeBlock', language?: string | null, code?: string | null, sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomerTestimonialCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'CustomersSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'Event', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralContentCard', sys: { __typename: 'Sys', id: string } } | { __typename: 'GeneralPage', sys: { __typename: 'Sys', id: string } } | { __typename: 'NavBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'PageSection', sys: { __typename: 'Sys', id: string } } | { __typename: 'SearchBar', sys: { __typename: 'Sys', id: string } } | { __typename: 'SeoMetadata', sys: { __typename: 'Sys', id: string } } | { __typename: 'TestContent', sys: { __typename: 'Sys', id: string } } | null> }, assets: { __typename: 'BlogBlogContentAssets', hyperlink: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null>, block: Array<{ __typename: 'Asset', title?: string | null, url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } };
 
 export type GetAllBlogPathsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2898,7 +3014,10 @@ export type GetBlogPageDataQueryVariables = Exact<{
 export type GetBlogPageDataQuery = { __typename?: 'Query', blogCollection?: { __typename: 'BlogCollection', items: Array<(
       { __typename?: 'Blog' }
       & BlogFieldsFragment
-    ) | null> } | null };
+    ) | null> } | null, navBar?: (
+    { __typename?: 'NavBar' }
+    & NavBarFragment
+  ) | null };
 
 export type GetRelatedBlogsQueryVariables = Exact<{
   preview: Scalars['Boolean']['input'];
@@ -2941,6 +3060,8 @@ export type TestPageHeroSectionFragment = { __typename: 'GeneralContentCard', pa
       & ContentfulImgFieldsFragment
     ) | null> } | null };
 
+export type NavBarFragment = { __typename: 'NavBar', links?: any | null, sys: { __typename?: 'Sys', id: string }, logosCollection?: { __typename: 'AssetCollection', items: Array<{ __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } | null };
+
 export type GetHomePageDataQueryVariables = Exact<{
   preview: Scalars['Boolean']['input'];
 }>;
@@ -2949,7 +3070,10 @@ export type GetHomePageDataQueryVariables = Exact<{
 export type GetHomePageDataQuery = { __typename?: 'Query', generalPage?: { __typename: 'GeneralPage', pageSlug?: string | null, sys: { __typename?: 'Sys', id: string }, pageMetadata?: { __typename: 'SeoMetadata', pageTitle?: string | null, metaDescription?: string | null, sys: { __typename?: 'Sys', id: string } } | null, pageSectionCollection?: { __typename: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs' } | { __typename: 'CustomersSection', sys: { __typename?: 'Sys', id: string }, selectCustomerLogosCollection?: { __typename: 'AssetCollection', items: Array<{ __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, selectTestimonialsCollection?: { __typename: 'CustomersSectionSelectTestimonialsCollection', items: Array<{ __typename: 'CustomerTestimonialCard', testimonial?: string | null, customerName?: string | null, titleposition?: string | null, sys: { __typename?: 'Sys', id: string }, logo?: { __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null } | (
             { __typename: 'GeneralContentCard' }
             & HomeGeneralContentCardFragment
-          ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null };
+          ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null, navBar?: (
+    { __typename?: 'NavBar' }
+    & NavBarFragment
+  ) | null };
 
 export type HomeGeneralContentCardFragment = { __typename: 'GeneralContentCard', heading?: string | null, subheading?: string | null, ctas?: any | null, descriptionText?: string | null, sys: { __typename?: 'Sys', id: string }, mediaCollection?: { __typename: 'AssetCollection', items: Array<{ __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } | null };
 
@@ -2979,10 +3103,13 @@ export type GetUnchainedPageDataQueryVariables = Exact<{
 export type GetUnchainedPageDataQuery = { __typename?: 'Query', generalPage?: { __typename: 'GeneralPage', pageSlug?: string | null, sys: { __typename?: 'Sys', id: string }, pageMetadata?: { __typename: 'SeoMetadata', pageTitle?: string | null, metaDescription?: string | null, sys: { __typename?: 'Sys', id: string } } | null, pageSectionCollection?: { __typename: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs', sys: { __typename?: 'Sys', id: string }, featuredBlogsCollection?: { __typename?: 'BlogsFeaturedBlogsCollection', items: Array<(
                 { __typename?: 'Blog' }
                 & UnchainedFeaturedBlogsFragment
-              ) | { __typename?: 'BlogPage' } | { __typename?: 'Blogs' } | { __typename?: 'CodeBlock' } | { __typename?: 'CustomerTestimonialCard' } | { __typename?: 'CustomersSection' } | { __typename?: 'Event' } | { __typename?: 'GeneralContentCard' } | { __typename?: 'GeneralPage' } | { __typename?: 'PageSection' } | { __typename?: 'SearchBar' } | { __typename?: 'SeoMetadata' } | { __typename?: 'TestContent' } | null> } | null } | { __typename: 'CustomersSection' } | (
+              ) | { __typename?: 'BlogPage' } | { __typename?: 'Blogs' } | { __typename?: 'CodeBlock' } | { __typename?: 'CustomerTestimonialCard' } | { __typename?: 'CustomersSection' } | { __typename?: 'Event' } | { __typename?: 'GeneralContentCard' } | { __typename?: 'GeneralPage' } | { __typename?: 'NavBar' } | { __typename?: 'PageSection' } | { __typename?: 'SearchBar' } | { __typename?: 'SeoMetadata' } | { __typename?: 'TestContent' } | null> } | null } | { __typename: 'CustomersSection' } | (
             { __typename: 'GeneralContentCard' }
             & HomeGeneralContentCardFragment
-          ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null };
+          ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null, navBar?: (
+    { __typename?: 'NavBar' }
+    & NavBarFragment
+  ) | null };
 
 export type UnchainedFeaturedBlogsFragment = { __typename: 'Blog', blogName?: string | null, blogSlug?: string | null, metaAbout?: string | null, authors?: Array<string | null> | null, tags?: Array<string | null> | null, datePublished?: any | null, sys: { __typename?: 'Sys', id: string }, mainImage?: (
     { __typename?: 'Asset' }
@@ -3131,6 +3258,28 @@ export const TestPageHeroSectionFragmentDoc = gql`
   }
 }
     `;
+export const NavBarFragmentDoc = gql`
+    fragment NavBar on NavBar {
+  __typename
+  sys {
+    id
+  }
+  logosCollection(limit: 2) {
+    __typename
+    items {
+      __typename
+      sys {
+        id
+      }
+      url
+      description
+      width
+      height
+    }
+  }
+  links
+}
+    `;
 export const HomeGeneralContentCardFragmentDoc = gql`
     fragment HomeGeneralContentCard on GeneralContentCard {
   __typename
@@ -3208,10 +3357,14 @@ export const GetBlogPageDataDocument = gql`
       ...BlogFields
     }
   }
+  navBar(id: "20VBD8k3Jt5WbXvAsG4gBy", preview: $preview) {
+    ...NavBar
+  }
 }
     ${BlogFieldsFragmentDoc}
 ${ContentfulImgFieldsFragmentDoc}
-${BlogLinksFieldsFragmentDoc}`;
+${BlogLinksFieldsFragmentDoc}
+${NavBarFragmentDoc}`;
 export const GetRelatedBlogsDocument = gql`
     query getRelatedBlogs($preview: Boolean!, $slug: String!) {
   blogCollection(preview: $preview, limit: 3, where: {blogSlug_not: $slug}) {
@@ -3346,8 +3499,12 @@ export const GetHomePageDataDocument = gql`
       }
     }
   }
+  navBar(id: "20VBD8k3Jt5WbXvAsG4gBy", preview: $preview) {
+    ...NavBar
+  }
 }
-    ${HomeGeneralContentCardFragmentDoc}`;
+    ${HomeGeneralContentCardFragmentDoc}
+${NavBarFragmentDoc}`;
 export const GetOpenSourcePageDataDocument = gql`
     query getOpenSourcePageData($preview: Boolean!) {
   generalPage(preview: $preview, id: "6nhKPVtrhOpI6NQ9FGv8ia") {
@@ -3431,10 +3588,14 @@ export const GetUnchainedPageDataDocument = gql`
       }
     }
   }
+  navBar(id: "20VBD8k3Jt5WbXvAsG4gBy", preview: $preview) {
+    ...NavBar
+  }
 }
     ${HomeGeneralContentCardFragmentDoc}
 ${UnchainedFeaturedBlogsFragmentDoc}
-${ContentfulImgFieldsFragmentDoc}`;
+${ContentfulImgFieldsFragmentDoc}
+${NavBarFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 

@@ -6,12 +6,15 @@ import {
   HomeGeneralContentCardFragment,
   PageSection,
 } from "@/lib/__generated/sdk";
+import { useTheme } from "next-themes";
 
 export default function HomeSection2({
   homeSection2Data,
 }: {
   homeSection2Data: PageSection | null;
 }) {
+  const { theme } = useTheme();
+
   const generalContentCard = homeSection2Data?.pageSectionPartsCollection
     ?.items[0] as HomeGeneralContentCardFragment | undefined;
 
@@ -33,10 +36,10 @@ export default function HomeSection2({
 
   return (
     <section className="mb-[96px]">
-      <div className="section-2-header-text mb-[48px] w-[90%] mx-auto max-w-[1152px]">
+      <div className="section-2-header-text mx-auto mb-[48px] w-[90%] max-w-[1152px]">
         <h3
           {...inspectorPropsGCC({ fieldId: "heading" })}
-          className="text-[14px] uppercase tracking-[.64px] mb-[24px]"
+          className="mb-[24px] text-[14px] uppercase tracking-[.64px]"
         >
           {generalContentCard.heading}
         </h3>
@@ -49,7 +52,7 @@ export default function HomeSection2({
       </div>
       <div
         {...inspectorPropsCust({ fieldId: "selectTestimonials" })}
-        className="testimonial-cards-container w-[90%] mx-auto max-w-[1152px] flex gap-[22px] mb-[48px] flex-wrap md:flex-nowrap"
+        className="testimonial-cards-container mx-auto mb-[48px] flex w-[90%] max-w-[1152px] flex-wrap gap-[22px] md:flex-nowrap"
       >
         {customersDataHub?.selectTestimonialsCollection?.items.map(
           (testimonialCardData, i) => {
@@ -59,7 +62,7 @@ export default function HomeSection2({
 
             return (
               <div
-                className="group testimonial-card w-full p-[24px] border border-solid rounded-[8px] md:w-[50%] md:p-[48px]"
+                className="testimonial-card group w-full rounded-[8px] border border-solid p-[24px] md:w-[50%] md:p-[48px]"
                 key={testimonialCardData.sys.id}
               >
                 <div className="testimonial-img-container mb-[24px]">
@@ -76,30 +79,30 @@ export default function HomeSection2({
                 {/* <p className="mb-[24px] h-[72px] overflow-y-clip relative after:content-['...'] after:bottom-0 after:right-0 after:translate-x-[-10px] after:absolute">
             {testimonialCardData.testimonial}
           </p> */}
-                <div className="testimonial-card-bottom flex justify-between flex-wrap md:flex-nowrap">
+                <div className="testimonial-card-bottom flex flex-wrap justify-between md:flex-nowrap">
                   <div className="testimonial-user flex flex-col text-[14px]">
                     <p className="font-[500]">
                       {testimonialCardData.customerName}
                     </p>
-                    <p className="font-[500] text-[#545454] mb-[24px] md:mb-0">
+                    <p className="mb-[24px] font-[500] text-[#545454] md:mb-0">
                       {testimonialCardData.titleposition}
                     </p>
                   </div>
                   <Link
                     href="#"
-                    className="py-[12px] px-[24px] bg-white text-cg-text-blue border border-solid border-cg-btn-border-light-blue rounded-[4px] group-hover:text-white group-hover:bg-cg-hover-btn-bg-blue transition-all duration-[.4s] w-full text-center md:w-fit"
+                    className="w-full rounded-[4px] border border-solid border-cg-btn-border-light-blue bg-white px-[24px] py-[12px] text-center text-cg-text-blue transition-all duration-[.4s] group-hover:bg-cg-hover-btn-bg-blue group-hover:text-white md:w-fit"
                   >
                     Read more
                   </Link>
                 </div>
               </div>
             );
-          }
+          },
         )}
       </div>
       <div
         {...inspectorPropsCust({ fieldId: "selectCustomerLogos" })}
-        className="customer-logos-container max-w-[1152px] flex gap-[32px] mb-[24px] overflow-x-scroll ml-[5%] mx:mx-auto no-scrollbar mx:w-[90%]"
+        className="customer-logos-container no-scrollbar mb-[24px] ml-[5%] flex max-w-[1152px] gap-[32px] overflow-x-scroll mx:mx-auto mx:w-[90%]"
       >
         {customersDataHub?.selectCustomerLogosCollection?.items.map(
           (customerLogo, i, arr) => {
@@ -113,18 +116,18 @@ export default function HomeSection2({
                 height={customerLogo?.height || 0}
               />
             );
-          }
+          },
         )}
       </div>
       <Link
         {...inspectorPropsGCC({ fieldId: "ctas" })}
         href={ctaLink}
-        className="w-[90%] mx-auto max-w-[1152px] text-cg-text-blue my-[24px] block"
+        className="mx-auto my-[24px] block w-[90%] max-w-[1152px] text-cg-text-blue"
       >
         {ctaText}
       </Link>
-      <div className="divider-line-container w-[90%] mx-auto max-w-[1152px]">
-        <div className="divider-line pt-[96px] mb-[96px] w-[85px] border-b border-solid"></div>
+      <div className="divider-line-container mx-auto w-[90%] max-w-[1152px]">
+        <div className="divider-line mb-[96px] w-[85px] border-b border-solid pt-[96px]"></div>
       </div>
     </section>
   );

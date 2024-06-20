@@ -1,0 +1,20 @@
+fragment NavBar on NavBar {
+  __typename
+  sys {
+    id
+  }
+  logosCollection(limit: 2) {
+    __typename
+    items {
+      __typename
+      sys {
+        id
+      }
+      url
+      description
+      width
+      height
+    }
+  }
+  links
+}

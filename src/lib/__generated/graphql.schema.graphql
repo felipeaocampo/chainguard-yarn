@@ -95,6 +95,7 @@ type AssetLinkingCollections {
   customersSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): CustomersSectionCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
   generalContentCardCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): GeneralContentCardCollection
+  navBarCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): NavBarCollection
   seoMetadataCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): SeoMetadataCollection
   testContentCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): TestContentCollection
 }
@@ -1187,6 +1188,58 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 scalar JSON
 
 """
+[See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/navBar)
+"""
+type NavBar implements Entry {
+  contentfulMetadata: ContentfulMetadata!
+  internalName(locale: String): String
+  linkedFrom(allowedLocales: [String]): NavBarLinkingCollections
+  links(locale: String): JSON
+  logosCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): AssetCollection
+  sys: Sys!
+}
+
+type NavBarCollection {
+  items: [NavBar]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input NavBarFilter {
+  AND: [NavBarFilter]
+  OR: [NavBarFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  links_exists: Boolean
+  logosCollection_exists: Boolean
+  sys: SysFilter
+}
+
+type NavBarLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
+enum NavBarOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+"""
 [See type definition](https://app.contentful.com/spaces/5osmwku1bn9f/content_types/pageSection)
 """
 type PageSection implements Entry {
@@ -1297,6 +1350,8 @@ type Query {
   generalContentCardCollection(limit: Int = 100, locale: String, order: [GeneralContentCardOrder], preview: Boolean, skip: Int = 0, where: GeneralContentCardFilter): GeneralContentCardCollection
   generalPage(id: String!, locale: String, preview: Boolean): GeneralPage
   generalPageCollection(limit: Int = 100, locale: String, order: [GeneralPageOrder], preview: Boolean, skip: Int = 0, where: GeneralPageFilter): GeneralPageCollection
+  navBar(id: String!, locale: String, preview: Boolean): NavBar
+  navBarCollection(limit: Int = 100, locale: String, order: [NavBarOrder], preview: Boolean, skip: Int = 0, where: NavBarFilter): NavBarCollection
   pageSection(id: String!, locale: String, preview: Boolean): PageSection
   pageSectionCollection(limit: Int = 100, locale: String, order: [PageSectionOrder], preview: Boolean, skip: Int = 0, where: PageSectionFilter): PageSectionCollection
   searchBar(id: String!, locale: String, preview: Boolean): SearchBar

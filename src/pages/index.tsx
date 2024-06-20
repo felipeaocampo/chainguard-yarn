@@ -11,6 +11,9 @@ import HomeSection4 from "@/components/home/HomeSection4";
 import HomeSection5 from "@/components/home/HomeSection5";
 import HomeSection6 from "@/components/home/HomeSection6";
 import ExitPreviewCard from "@/components/ui/ExitPreviewCard";
+import VideoPlayer from "@/components/ui/video/VideoPlayer";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function HomePage({
   data,
@@ -19,7 +22,18 @@ export default function HomePage({
   data: GetHomePageDataQuery;
   preview: boolean;
 }) {
-  const liveData = useContentfulLiveUpdates(data);
+  const liveData = useContentfulLiveUpdates(data); 
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  // useEffect only runs on the client, so now we can safely show the UI
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   const [
     homeSection1Data,
@@ -35,7 +49,15 @@ export default function HomePage({
 
   // TODO: make it so that the slider slides extend beyond the 1152px screen max width
 
-  // console.log("homeSection6Data: ", homeSection6Data);
+  const videoJsOptions = {
+    poster: "https://i.ytimg.com/vi/Eq2zRLgHCJo/maxresdefault.jpg",
+    sources: [
+      {
+        src: "https://get.chainguard.dev/hubfs/chg_chainguard-demo_v7%20(Original).mp4",
+        type: "video/mp4",
+      },
+    ],
+  };
 
   return (
     <>
@@ -68,6 +90,11 @@ export default function HomePage({
         <HomeSection6
           homeSection6Data={homeSection6Data ? homeSection6Data : null}
         />
+        <section className="mx-auto mb-[48px] w-[90%] max-w-[1152px]">
+          <div className="overflow-hidden rounded-[20px] border border-solid border-[#e5e8ff]">
+            <VideoPlayer options={videoJsOptions} />
+          </div>
+        </section>
       </main>
     </>
   );

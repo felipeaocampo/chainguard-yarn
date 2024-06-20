@@ -1,25 +1,27 @@
-import { useNavDropdown } from "@/hooks/useNavDropdown";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useState } from "react";
+import { NavBarFragment } from "@/lib/__generated/sdk";
+import Logo from "./Logo";
 
-const regularLogoUrl =
-  "https://assets-global.website-files.com/6228fdbc6c97145dad2a9c2b/63d332f5a1dabc1b04f0679d_Brand%20Logo.svg";
+const logoLight =
+  "https://images.ctfassets.net/5osmwku1bn9f/7nHoM2SpY8y2N25VC38DQ6/7a04b0f5ce357c5d2d469f98bfa43f9b/main-logo-light.svg";
 
-const OpenSourcePageLogoUrl =
-  "https://assets-global.website-files.com/6228fdbc6c97145dad2a9c2b/6418e1a7694ef47dbe4b0737_chainguard%20white%20logo.svg";
+const logoDark =
+  "https://images.ctfassets.net/5osmwku1bn9f/2OFa8U68…b108d7c822ad9ad54529b93deb0cda/main-logo-dark.svg";
 
-export default function NavBar() {
-  //GET URL TO FIND OUT IF NAV NEEDS TO BE OPEN SOURCE NAV OR CAN JUST BE REGULAR NAV!
-  const { route } = useRouter();
-  // console.log("ROUTER: ", router);
+let runs = 0;
+
+export default function NavBar({ navBar }: { navBar: NavBarFragment }) {
+  const [clicked, setClicked] = useState(false);
+  const [isServer, setIsServer] = useState(true);
+  const [logo, setLogo] = useState(logoLight);
+
+  // const { theme } = useTheme();
+  // console.log("theme: ", theme);
+  // console.log("navBar: ", navBar);
 
   // TODO: INCREASE THE Z-INDEX OF SIGN-UP AND CONTACT BTNS SO LAST DROPDOWN MENU DOESNT COVER OVER THEM
-
-  const [clicked, setClicked] = useState(false);
-
-  const isOpenSourcePage = route.includes("/open-source");
 
   const handleLinkClick = () => {
     setClicked(true);
@@ -34,36 +36,32 @@ export default function NavBar() {
 
   return (
     <header className="relative md:block">
-      <div className="flex items-center justify-between max-w-[90%] mx-auto py-[22px] w-[90%] absolute left-[50%] translate-x-[-50%]">
+      <div className="absolute left-[50%] mx-auto flex w-[90%] max-w-[90%] translate-x-[-50%] items-center justify-between py-[22px]">
         <div className="logo-wrapper flex items-center ">
+          {/* <Link href="/">{!theme || theme === "light" ? light : dark}</Link> */}
           <Link href="/">
-            <Image
-              src={isOpenSourcePage ? OpenSourcePageLogoUrl : regularLogoUrl}
-              alt="Chainguard Logo"
-              width={146}
-              height={28}
-            />
+            <Logo navBar={navBar} />
           </Link>
         </div>
         <nav className="desktop-nav hidden lg:block">
-          <ul className="flex gap-[24px] items-center text-[14px]">
+          <ul className="flex items-center gap-[24px] text-[14px]">
             <li>
-              <div className="relative group">
+              <div className="group relative">
                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
                   Products
                 </div>
                 <div
-                  className={`pt-[28px] absolute transition-all duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${
+                  className={`pointer-events-none absolute pt-[28px] opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 ${
                     clicked ? "hidden" : "block"
                   }`}
                 >
                   <ul
-                    className={`p-4 bg-white leading-none w-[270px] rounded-lg shadow-card`}
+                    className={`w-[270px] rounded-lg bg-white p-4 leading-none shadow-card`}
                   >
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/chainguard-images"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Chainguard Images
                       </Link>
@@ -71,7 +69,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Chainguard Services
                       </Link>
@@ -81,22 +79,22 @@ export default function NavBar() {
               </div>
             </li>
             <li>
-              <div className="relative group">
+              <div className="group relative">
                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
                   Solutions
                 </div>
                 <div
-                  className={`pt-[28px] absolute transition-all duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${
+                  className={`pointer-events-none absolute pt-[28px] opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 ${
                     clicked ? "hidden" : "block"
                   }`}
                 >
                   <ul
-                    className={`p-4 bg-white leading-none w-[270px] rounded-lg shadow-card`}
+                    className={`w-[270px] rounded-lg bg-white p-4 leading-none shadow-card`}
                   >
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/solutions/container-image-security"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Container Image Security
                       </Link>
@@ -104,7 +102,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/solutions/vulnerability-remediation"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Vulnerability Remediation
                       </Link>
@@ -112,7 +110,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/solutions/open-source-software-security"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Open Source Software Security
                       </Link>
@@ -120,7 +118,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/solutions/compliance-risk-mitigation"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Compliance & Risk Mitigation
                       </Link>
@@ -128,7 +126,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/solutions/software-supplychain-security"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Software Supplychain Security
                       </Link>
@@ -138,22 +136,22 @@ export default function NavBar() {
               </div>
             </li>
             <li>
-              <div className="relative group">
+              <div className="group relative">
                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
                   Developer
                 </div>
                 <div
-                  className={`pt-[28px] absolute transition-all duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${
+                  className={`pointer-events-none absolute pt-[28px] opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 ${
                     clicked ? "hidden" : "block"
                   }`}
                 >
                   <ul
-                    className={`p-4 bg-white leading-none w-[270px] rounded-lg shadow-card`}
+                    className={`w-[270px] rounded-lg bg-white p-4 leading-none shadow-card`}
                   >
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="https://edu.chainguard.dev/"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Docs
                       </Link>
@@ -161,7 +159,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/open-source"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Open source
                       </Link>
@@ -171,22 +169,22 @@ export default function NavBar() {
               </div>
             </li>
             <li>
-              <div className="relative group">
+              <div className="group relative">
                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
                   Resources
                 </div>
                 <div
-                  className={`pt-[28px] absolute transition-all duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${
+                  className={`pointer-events-none absolute pt-[28px] opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 ${
                     clicked ? "hidden" : "block"
                   }`}
                 >
                   <ul
-                    className={`p-4 bg-white leading-none w-[270px] rounded-lg shadow-card`}
+                    className={`w-[270px] rounded-lg bg-white p-4 leading-none shadow-card`}
                   >
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/unchained"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Unchained blog
                       </Link>
@@ -194,7 +192,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/labs"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Chainguard Labs
                       </Link>
@@ -202,7 +200,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/customers"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Customer stories
                       </Link>
@@ -210,7 +208,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/security"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Security
                       </Link>
@@ -218,7 +216,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="https://edu.chainguard.dev/"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Education
                       </Link>
@@ -228,22 +226,22 @@ export default function NavBar() {
               </div>
             </li>
             <li>
-              <div className="relative group">
+              <div className="group relative">
                 <div className="cursor-pointer font-[500] text-cg-text-color-gray">
                   Company
                 </div>
                 <div
-                  className={`pt-[28px] absolute transition-all duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${
+                  className={`pointer-events-none absolute pt-[28px] opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 ${
                     clicked ? "hidden" : "block"
                   }`}
                 >
                   <ul
-                    className={`p-4 bg-white leading-none w-[270px] rounded-lg shadow-card`}
+                    className={`w-[270px] rounded-lg bg-white p-4 leading-none shadow-card`}
                   >
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/about"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         About
                       </Link>
@@ -251,7 +249,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/newsroom"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Newsroom
                       </Link>
@@ -259,7 +257,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/careers"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Careers
                       </Link>
@@ -267,7 +265,7 @@ export default function NavBar() {
                     <li className="" onClick={handleLinkClick}>
                       <Link
                         href="/chainguard-love"
-                        className="block p-[12px] hover:bg-cg-bg-violet rounded-lg text-inherit"
+                        className="block rounded-lg p-[12px] text-inherit hover:bg-cg-bg-violet"
                       >
                         Chainguard love
                       </Link>
@@ -280,7 +278,7 @@ export default function NavBar() {
               <Link
                 href="https://console.enforce.dev/auth/login"
                 target="_blank"
-                className="py-[8px] bg-transparent text-cg-text-blue px-[12px] border border-solid border-cg-btn-border-light-blue rounded-[4px] font-[500] leading-[20px] transition-all duration-[.4s] hover:bg-cg-hover-btn-bg-blue hover:text-white"
+                className="rounded-[4px] border border-solid border-cg-btn-border-light-blue bg-transparent px-[12px] py-[8px] font-[500] leading-[20px] text-cg-text-blue transition-all duration-[.4s] hover:bg-cg-hover-btn-bg-blue hover:text-white"
               >
                 Sign in
               </Link>
@@ -288,7 +286,7 @@ export default function NavBar() {
             <li>
               <Link
                 href="/contact"
-                className="py-[8px] text-white bg-cg-text-blue px-[12px] border border-solid border-cg-text-blue rounded-[4px] font-[500] leading-[20px] transition-all duration-[.4s] hover:bg-cg-hover-btn-bg-blue"
+                className="rounded-[4px] border border-solid border-cg-text-blue bg-cg-text-blue px-[12px] py-[8px] font-[500] leading-[20px] text-white transition-all duration-[.4s] hover:bg-cg-hover-btn-bg-blue"
               >
                 Contact
               </Link>

@@ -53,54 +53,14 @@ export default function BlogPost({
 
   useEffect(() => {
     //first select all code with dataset.highlighted
-    const highlightedCodeBlocks = document.querySelectorAll("code");
-    console.log(highlightedCodeBlocks);
+    const highlightedCodeBlocks = document.querySelectorAll("pre code");
+    //
     highlightedCodeBlocks.forEach((codeblock) => {
-      codeblock.removeAttribute("data-highlighted");
+      if (!codeblock.hasAttribute("data-highlighted")) {
+        hljs.highlightElement(codeblock);
+      }
     });
-
-    //then highlight code
-
-    hljs.highlightAll();
   });
-
-  // const loadTwitterScript = useCallback(() => {
-  //   return new Promise<void>((resolve) => {
-  //     const existingScript = document.querySelector(
-  //       'script[src="https://platform.twitter.com/widgets.js"]'
-  //     );
-
-  //     if (!existingScript) {
-  //       const script = document.createElement("script");
-  //       script.src = "https://platform.twitter.com/widgets.js";
-  //       script.async = true;
-  //       script.charset = "utf-8";
-  //       script.onload = () => resolve();
-  //       document.body.appendChild(script);
-  //     } else {
-  //       resolve();
-  //     }
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   const initializeTwitterWidgets = async () => {
-  //     try {
-  //       await loadTwitterScript();
-  //       if (window.twttr && window.twttr.widgets) {
-  //         window.twttr.widgets.load();
-  //       }
-  //     } catch (error) {
-  //       console.error("Failed to load Twitter widgets:", error);
-  //     }
-  //   };
-
-  //   initializeTwitterWidgets();
-
-  //   // Re-initialize Twitter widgets whenever the route changes
-  // }, [router.asPath, loadTwitterScript]);
-
-  // console.log("asPath", router.asPath);
 
   //   TODO: WHEN ON A BLOG PAGE WE NEED TO TOGGLE THE NAV TO DISPLAY BACK TO NAV! WILL NEED TO ACCESS URL THRU ROUTER
   //   TODO: FIX THE Element previously highlighted. To highlight again, first unset `dataset.highlighted`. ERROR; highlightjs
@@ -204,6 +164,7 @@ export const getStaticProps: GetStaticProps = async ({
     return {
       props: {
         blogData: blogData.blogCollection?.items[0],
+        data: blogData,
         relatedArticles,
         preview,
       },

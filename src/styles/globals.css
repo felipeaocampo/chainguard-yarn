@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -14,7 +14,7 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
 body {
   /* color: rgb(var(--foreground-rgb));
@@ -32,10 +32,22 @@ body {
   } */
 }
 
-@layer base {
-  body {
-    color: #1c1c1c;
+/* @layer base {
+  :root {
+    --primary-bg: 255 255 255;
+    --primary-text: 0 0 0;
   }
+} */
+
+:root {
+  /* Your default theme */
+  --primary-bg: 255 255 255;
+  --primary-text: 28 28 28;
+}
+
+[data-theme="dark"] {
+  --primary-bg: 255 0 0;
+  --primary-text: 255 255 255;
 }
 
 @layer utilities {

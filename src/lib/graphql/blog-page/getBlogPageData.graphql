@@ -2,12 +2,13 @@ query getBlogPageData($preview: Boolean!, $slug: String!) {
   blogCollection(preview: $preview, where: { blogSlug: $slug }, limit: 1) {
     __typename
     items {
-      ... BlogFields
+      ...BlogFields
     }
   }
+  navBar(id: "20VBD8k3Jt5WbXvAsG4gBy", preview: $preview) {
+    ...NavBar
+  }
 }
-
-
 
 # query getBlogPageData($preview: Boolean!, $id: String!) {
 #   blog(preview: $preview, id: $id) {
@@ -33,5 +34,3 @@ query getBlogPageData($preview: Boolean!, $slug: String!) {
 #     }
 #   }
 # }
-
-

@@ -6,6 +6,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "selector",
   theme: {
     extend: {
       backgroundImage: {
@@ -15,6 +16,8 @@ const config: Config = {
         "hero-cg-gradient": "linear-gradient(315deg, #fde1fe, #f5f6fe 72%)",
       },
       colors: {
+        bg: "rgb(var(--primary-bg) / <alpha-value>)",
+        text: "rgb(var(--primary-text) / <alpha-value>)",
         "cg-gradient-purple": "#fde1fe",
         "cg-gradient-white": "#f5f6fe",
         "cg-text-blue": "#3443f4",

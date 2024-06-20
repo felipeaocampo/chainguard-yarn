@@ -66,3 +66,9 @@ body {
 .blog-ol li:not(:last-child) {
   margin-bottom: -12px;
 }
+
+.twitter-tweet.twitter-tweet-rendered {
+  margin: 0 !important;
+  overflow: hidden;
+  border-radius: 13px;
+}

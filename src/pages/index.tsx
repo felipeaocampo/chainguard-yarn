@@ -22,7 +22,7 @@ export default function HomePage({
   data: GetHomePageDataQuery;
   preview: boolean;
 }) {
-  const liveData = useContentfulLiveUpdates(data); 
+  const liveData = useContentfulLiveUpdates(data);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 

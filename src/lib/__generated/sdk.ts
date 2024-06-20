@@ -3040,6 +3040,16 @@ export type GetGraphQlErrorResponseQueryVariables = Exact<{ [key: string]: never
 
 export type GetGraphQlErrorResponseQuery = { __typename?: 'Query', blogCollection?: { __typename?: 'BlogCollection', items: Array<{ __typename?: 'Blog', blogName?: string | null } | null> } | null };
 
+export type GetMainNavDataQueryVariables = Exact<{
+  preview: Scalars['Boolean']['input'];
+}>;
+
+
+export type GetMainNavDataQuery = { __typename?: 'Query', navBar?: (
+    { __typename?: 'NavBar' }
+    & NavBarFragment
+  ) | null };
+
 export type GetTestPageDataQueryVariables = Exact<{
   preview: Scalars['Boolean']['input'];
 }>;
@@ -3051,7 +3061,10 @@ export type GetTestPageDataQuery = { __typename?: 'Query', generalPage?: { __typ
       ) | null } | null, pageSectionCollection?: { __typename?: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', pageSectionName?: string | null, sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename?: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs' } | { __typename: 'CustomersSection' } | (
             { __typename: 'GeneralContentCard' }
             & TestPageHeroSectionFragment
-          ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null };
+          ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null, navBar?: (
+    { __typename?: 'NavBar' }
+    & NavBarFragment
+  ) | null };
 
 export type ContentfulImgFieldsFragment = { __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } };
 
@@ -3088,7 +3101,10 @@ export type GetOpenSourcePageDataQuery = { __typename?: 'Query', generalPage?: {
       ) | null } | null, pageSectionCollection?: { __typename?: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', pageSectionName?: string | null, sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename?: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs' } | { __typename: 'CustomersSection' } | (
             { __typename: 'GeneralContentCard' }
             & OpenSourcePageGcFragment
-          ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null };
+          ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null, navBar?: (
+    { __typename?: 'NavBar' }
+    & NavBarFragment
+  ) | null };
 
 export type OpenSourcePageGcFragment = { __typename: 'GeneralContentCard', pageSectionName?: string | null, heading?: string | null, subheading?: string | null, descriptionText?: string | null, ctas?: any | null, sys: { __typename?: 'Sys', id: string }, mediaCollection?: { __typename?: 'AssetCollection', items: Array<(
       { __typename?: 'Asset' }
@@ -3385,6 +3401,13 @@ export const GetGraphQlErrorResponseDocument = gql`
   }
 }
     `;
+export const GetMainNavDataDocument = gql`
+    query getMainNavData($preview: Boolean!) {
+  navBar(id: "20VBD8k3Jt5WbXvAsG4gBy", preview: $preview) {
+    ...NavBar
+  }
+}
+    ${NavBarFragmentDoc}`;
 export const GetTestPageDataDocument = gql`
     query getTestPageData($preview: Boolean!) {
   generalPage(preview: $preview, id: "1BvwiB8PE7WrbubW3zEfAN") {
@@ -3422,9 +3445,13 @@ export const GetTestPageDataDocument = gql`
       }
     }
   }
+  navBar(id: "20VBD8k3Jt5WbXvAsG4gBy", preview: $preview) {
+    ...NavBar
+  }
 }
     ${ContentfulImgFieldsFragmentDoc}
-${TestPageHeroSectionFragmentDoc}`;
+${TestPageHeroSectionFragmentDoc}
+${NavBarFragmentDoc}`;
 export const GetHomePageDataDocument = gql`
     query getHomePageData($preview: Boolean!) {
   generalPage(id: "4GpCxSdhnotHZfV2tQgKoh", preview: $preview) {
@@ -3541,9 +3568,13 @@ export const GetOpenSourcePageDataDocument = gql`
       }
     }
   }
+  navBar(id: "20VBD8k3Jt5WbXvAsG4gBy", preview: $preview) {
+    ...NavBar
+  }
 }
     ${ContentfulImgFieldsFragmentDoc}
-${OpenSourcePageGcFragmentDoc}`;
+${OpenSourcePageGcFragmentDoc}
+${NavBarFragmentDoc}`;
 export const GetUnchainedPageDataDocument = gql`
     query getUnchainedPageData($preview: Boolean!) {
   generalPage(id: "3LsilfHAYjrs43IFfpCAdN", preview: $preview) {
@@ -3615,6 +3646,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getGraphQLErrorResponse(variables?: GetGraphQlErrorResponseQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetGraphQlErrorResponseQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetGraphQlErrorResponseQuery>(GetGraphQlErrorResponseDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getGraphQLErrorResponse', 'query');
+    },
+    getMainNavData(variables: GetMainNavDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMainNavDataQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetMainNavDataQuery>(GetMainNavDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getMainNavData', 'query');
     },
     getTestPageData(variables: GetTestPageDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetTestPageDataQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetTestPageDataQuery>(GetTestPageDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTestPageData', 'query');

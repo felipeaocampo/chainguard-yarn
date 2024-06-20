@@ -33,6 +33,9 @@ query getOpenSourcePageData($preview: Boolean!) {
       }
     }
   }
+  navBar(id: "20VBD8k3Jt5WbXvAsG4gBy", preview: $preview) {
+    ...NavBar
+  }
 }
 
 fragment ContentfulImgFields on Asset {

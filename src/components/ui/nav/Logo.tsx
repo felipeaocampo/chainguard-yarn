@@ -22,12 +22,12 @@ const Logo = ({ navBar }: { navBar: NavBarFragment }) => {
         <Image
           src={
             theme === "dark" || theme === "system"
-              ? navBar.logosCollection?.items[1]?.url
+              ? navBar.logosCollection?.items[1]?.url || ""
               : navBar.logosCollection?.items[0]?.url || ""
           }
           alt={
             theme === "dark" || theme === "system"
-              ? navBar.logosCollection?.items[1]?.description
+              ? navBar.logosCollection?.items[1]?.description || ""
               : navBar.logosCollection?.items[0]?.description || ""
           }
           width={146}

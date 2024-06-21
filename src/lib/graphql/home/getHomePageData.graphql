@@ -12,6 +12,10 @@ query getHomePageData($preview: Boolean!) {
       }
       pageTitle
       metaDescription
+      openGraphImage {
+        url
+        description
+      }
     }
     pageSectionCollection(limit: 10) {
       __typename

@@ -10,12 +10,8 @@ const logoLight =
 const logoDark =
   "https://images.ctfassets.net/5osmwku1bn9f/2OFa8U68…b108d7c822ad9ad54529b93deb0cda/main-logo-dark.svg";
 
-let runs = 0;
-
 export default function NavBar({ navBar }: { navBar: NavBarFragment }) {
   const [clicked, setClicked] = useState(false);
-  const [isServer, setIsServer] = useState(true);
-  const [logo, setLogo] = useState(logoLight);
 
   // const { theme } = useTheme();
   // console.log("theme: ", theme);

@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
   // }, []);
   // console.log("pageProps: ", pageProps);
   return (
-    <ThemeProvider>
+    <ThemeProvider attribute="class">
       <ContentfulLivePreviewProvider
         locale="en-US"
         enableLiveUpdates={pageProps.preview}

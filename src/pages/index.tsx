@@ -24,16 +24,16 @@ export default function HomePage({
 }) {
   const liveData = useContentfulLiveUpdates(data);
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  // const { theme, setTheme } = useTheme();
 
   // useEffect only runs on the client, so now we can safely show the UI
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setMounted(true);
+  // }, []);
 
-  if (!mounted) {
-    return null;
-  }
+  // if (!mounted) {
+  //   return null;
+  // }
 
   const [
     homeSection1Data,
@@ -64,7 +64,25 @@ export default function HomePage({
       <NextSeo
         title={liveData.generalPage?.pageMetadata?.pageTitle || ""}
         description={liveData.generalPage?.pageMetadata?.metaDescription || ""}
-        canonical="http://localhost:3000/"
+        canonical="https://felipe-project.vercel.app/"
+        openGraph={{
+          type: "website",
+          url: "https://felipe-project.vercel.app/",
+          title: liveData.generalPage?.pageMetadata?.pageTitle || "",
+          description:
+            liveData.generalPage?.pageMetadata?.metaDescription || "",
+          images: [
+            {
+              url:
+                liveData.generalPage?.pageMetadata?.openGraphImage?.url || "",
+              width: 1200,
+              height: 630,
+              alt:
+                liveData.generalPage?.pageMetadata?.openGraphImage
+                  ?.description || "",
+            },
+          ],
+        }}
       />
       <main className="border-b border-solid border-[#dcdcdc]">
         {preview && (

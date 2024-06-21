@@ -14,10 +14,13 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "hero-cg-gradient": "linear-gradient(315deg, #fde1fe, #f5f6fe 72%)",
+        "hero-cg-gradient-dark": "linear-gradient(0deg, #121212, #121212 72%)",
       },
       colors: {
         bg: "rgb(var(--primary-bg) / <alpha-value>)",
         text: "rgb(var(--primary-text) / <alpha-value>)",
+        "gradient-start": "rgb(var(--gradient-start) / <alpha-value>)",
+        "gradient-end": "rgb(var(--gradient-end) / <alpha-value>)",
         "cg-gradient-purple": "#fde1fe",
         "cg-gradient-white": "#f5f6fe",
         "cg-text-blue": "#3443f4",

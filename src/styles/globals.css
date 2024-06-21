@@ -43,11 +43,15 @@ body {
   /* Your default theme */
   --primary-bg: 255 255 255;
   --primary-text: 28 28 28;
+  --gradient-start: 245 246 254;
+  --gradient-end: 253 225 254;
 }
 
-[data-theme="dark"] {
+[class="dark"] {
   --primary-bg: 255 0 0;
   --primary-text: 255 255 255;
+  --gradient-start: 0 0 0;
+  --gradient-end: 0 0 0;
 }
 
 @layer utilities {

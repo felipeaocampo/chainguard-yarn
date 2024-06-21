@@ -3080,7 +3080,7 @@ export type GetHomePageDataQueryVariables = Exact<{
 }>;
 
 
-export type GetHomePageDataQuery = { __typename?: 'Query', generalPage?: { __typename: 'GeneralPage', pageSlug?: string | null, sys: { __typename?: 'Sys', id: string }, pageMetadata?: { __typename: 'SeoMetadata', pageTitle?: string | null, metaDescription?: string | null, sys: { __typename?: 'Sys', id: string } } | null, pageSectionCollection?: { __typename: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs' } | { __typename: 'CustomersSection', sys: { __typename?: 'Sys', id: string }, selectCustomerLogosCollection?: { __typename: 'AssetCollection', items: Array<{ __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, selectTestimonialsCollection?: { __typename: 'CustomersSectionSelectTestimonialsCollection', items: Array<{ __typename: 'CustomerTestimonialCard', testimonial?: string | null, customerName?: string | null, titleposition?: string | null, sys: { __typename?: 'Sys', id: string }, logo?: { __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null } | (
+export type GetHomePageDataQuery = { __typename?: 'Query', generalPage?: { __typename: 'GeneralPage', pageSlug?: string | null, sys: { __typename?: 'Sys', id: string }, pageMetadata?: { __typename: 'SeoMetadata', pageTitle?: string | null, metaDescription?: string | null, sys: { __typename?: 'Sys', id: string }, openGraphImage?: { __typename?: 'Asset', url?: string | null, description?: string | null } | null } | null, pageSectionCollection?: { __typename: 'GeneralPagePageSectionCollection', items: Array<{ __typename: 'PageSection', sys: { __typename?: 'Sys', id: string }, pageSectionPartsCollection?: { __typename: 'PageSectionPageSectionPartsCollection', items: Array<{ __typename: 'Blogs' } | { __typename: 'CustomersSection', sys: { __typename?: 'Sys', id: string }, selectCustomerLogosCollection?: { __typename: 'AssetCollection', items: Array<{ __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, selectTestimonialsCollection?: { __typename: 'CustomersSectionSelectTestimonialsCollection', items: Array<{ __typename: 'CustomerTestimonialCard', testimonial?: string | null, customerName?: string | null, titleposition?: string | null, sys: { __typename?: 'Sys', id: string }, logo?: { __typename: 'Asset', url?: string | null, description?: string | null, width?: number | null, height?: number | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null } | (
             { __typename: 'GeneralContentCard' }
             & HomeGeneralContentCardFragment
           ) | { __typename: 'SearchBar' } | null> } | null } | null> } | null } | null, navBar?: (
@@ -3467,6 +3467,10 @@ export const GetHomePageDataDocument = gql`
       }
       pageTitle
       metaDescription
+      openGraphImage {
+        url
+        description
+      }
     }
     pageSectionCollection(limit: 10) {
       __typename

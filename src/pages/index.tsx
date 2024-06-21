@@ -83,6 +83,9 @@ export default function HomePage({
             },
           ],
         }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
       />
       <main className="border-b border-solid border-[#dcdcdc]">
         {preview && (

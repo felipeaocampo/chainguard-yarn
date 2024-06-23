@@ -9,6 +9,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        <script async src="https://js.sitesearch360.com/plugin/bundle/51226.js"></script>
       </body>
     </Html>
   );

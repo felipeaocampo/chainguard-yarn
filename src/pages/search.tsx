@@ -4,7 +4,10 @@ import { GetStaticProps } from "next";
 export default function SearchPage() {
   return (
     <main className="border-b border-solid border-[#dcdcdc] ">
-      <div id="results" className="mx-auto w-[90%] max-w-[1152px]"></div>
+      <div
+        id="results"
+        className="mx-auto w-[90%] max-w-[1152px] pt-[100px]"
+      ></div>
     </main>
   );
 }

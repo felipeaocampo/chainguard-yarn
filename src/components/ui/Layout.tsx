@@ -15,6 +15,17 @@ export default function Layout({
 }) {
   return (
     <div className={className}>
+      <form action="/search" data-hs-cf-bound="true">
+        <label htmlFor="search">Search Label</label>
+        <input
+          maxLength={256}
+          name="query"
+          placeholder="Searchy…"
+          type="search"
+          id="search"
+        />
+        <button type="submit">Search!</button>
+      </form>
       <ThemeSwitch />
       <NavBar navBar={navBar} />
       {children}

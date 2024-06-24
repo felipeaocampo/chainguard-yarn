@@ -29,7 +29,7 @@ export default function Layout({
       <ThemeSwitch />
       <NavBar navBar={navBar} />
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

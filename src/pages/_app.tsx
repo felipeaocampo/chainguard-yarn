@@ -40,7 +40,6 @@ export default function App({ Component, pageProps }: AppProps) {
         enableInspectorMode={pageProps.preview}
       >
         <Layout className={`${inter.className}`} navBar={pageProps.data.navBar}>
-          <div id="results"></div>
           <Component {...pageProps} />
         </Layout>
       </ContentfulLivePreviewProvider>
